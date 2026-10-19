@@ -85,6 +85,15 @@ public class FreeWebTtsBackendUI
         }
 
         DrawTestControls(currentVoicePreset);
+
+        ImGui.Spacing();
+        ConfigComponents.ToggleUseGenderedVoicePresets(
+            $"{Strings.Get("FreeWebUseGenderedVoices")}##{MemoizedId.Create()}", this.config);
+
+        if (this.config.UseGenderedVoicePresets)
+        {
+            BackendUI.GenderedPresetConfig("FreeWeb", TTSBackend.FreeWeb, this.config, presets);
+        }
     }
 
     private void DrawProviderCombo(FreeWebVoicePreset preset)

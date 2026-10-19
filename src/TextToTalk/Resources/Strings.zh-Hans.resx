@@ -1509,4 +1509,10 @@ f - 女声，m - 男声</value>
   <data name="NewPresetDefaultName">
     <value>新建预设</value>
   </data>
+  <data name="EdgeTtsUseGenderedVoices">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="FreeWebUseGenderedVoices">
+    <value>使用分性别语音预设</value>
+  </data>
 </root>

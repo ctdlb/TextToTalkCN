@@ -88,6 +88,15 @@ public class EdgeTtsBackendUI
         }
 
         DrawTestControls(currentVoicePreset);
+
+        ImGui.Spacing();
+        ConfigComponents.ToggleUseGenderedVoicePresets(
+            $"{Strings.Get("EdgeTtsUseGenderedVoices")}##{MemoizedId.Create()}", this.config);
+
+        if (this.config.UseGenderedVoicePresets)
+        {
+            BackendUI.GenderedPresetConfig("EdgeTts", TTSBackend.EdgeTts, this.config, presets);
+        }
     }
 
     private void DrawVoiceListStatus()
