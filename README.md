@@ -57,13 +57,21 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Configuration Releas
 
 ## 通过插件仓库安装（推荐分享给别人）
 
-把下面这个地址加到卫月（Dalamud）的「自定义插件仓库」里，就能在插件安装器里直接搜到、一键安装和更新：
+把下面地址加到卫月（Dalamud）的「自定义插件仓库」里，就能在插件安装器里直接搜到、一键安装和更新。
+
+**国服网络用这个（安装包走国内加速）：**
+
+```
+https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/pluginmaster-mirror.json
+```
+
+**能直连 GitHub 的话用这个（官方源）：**
 
 ```
 https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/pluginmaster.json
 ```
 
-GitHub 直连地址 `https://raw.githubusercontent.com/ctdlb/TextToTalkCN/main/pluginmaster.json` 在国服网络下经常打不开，优先用上面的 jsDelivr 镜像。
+两个地址只是安装包下载链接不同（一个走 `gh-proxy.com` 加速，一个走 GitHub 官方），插件本身完全一样。
 
 添加方法：`/xlplugins` → 设置 → 自定义插件仓库 → 添加，粘贴地址并保存，回到「全部插件」搜索 `TextToTalkCN`。
 
