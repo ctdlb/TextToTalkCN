@@ -14,7 +14,9 @@ using TextToTalk.Backends.Polly;
 using TextToTalk.Backends.System;
 using TextToTalk.Backends.Uberduck;
 using TextToTalk.Backends.Websocket;
+using TextToTalk.Backends.EdgeTts;
 using TextToTalk.Backends.FishAudio;
+using TextToTalk.Backends.FreeWeb;
 
 // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
 
@@ -155,7 +157,20 @@ public class VoicePresetConfiguration
             return new VoicePresetConfiguration();
         }
 
-        config.VoicePresets = config.VoicePresetsRaw?.Select(RepairPreset).ToList() ?? new List<VoicePreset>();
+        var repairedPresets = new List<VoicePreset>();
+        foreach (var raw in config.VoicePresetsRaw ?? new List<IDictionary<string, object?>>())
+        {
+            try
+            {
+                repairedPresets.Add(RepairPreset(raw));
+            }
+            catch (Exception e)
+            {
+                DetailedLog.Error(e, "Failed to repair a voice preset; skipping it.");
+            }
+        }
+
+        config.VoicePresets = repairedPresets;
         return config;
     }
 
@@ -293,7 +308,25 @@ public class VoicePresetConfiguration
                 Style = GetNullableValue<string?>(corrupted, "Style"),
                 EnabledBackend = TTSBackend.FishAudio,
             },
-            _ => throw new ArgumentOutOfRangeException($"{backendCorrupt}"),
+            TTSBackend.EdgeTts => new EdgeTtsVoicePreset
+            {
+                Id = Convert.ToInt32(GetNullableValue<long?>(corrupted, "Id")),
+                Name = GetNullableValue<string?>(corrupted, "Name"),
+                VoiceName = GetNullableValue<string?>(corrupted, "VoiceName"),
+                Rate = Convert.ToInt32(GetNullableValue<long?>(corrupted, "Rate")),
+                Volume = Convert.ToSingle(GetNullableValue<double?>(corrupted, "Volume")),
+                EnabledBackend = TTSBackend.EdgeTts,
+            },
+            TTSBackend.FreeWeb => new FreeWebVoicePreset
+            {
+                Id = Convert.ToInt32(GetNullableValue<long?>(corrupted, "Id")),
+                Name = GetNullableValue<string?>(corrupted, "Name"),
+                Provider = GetNullableValue<string?>(corrupted, "Provider") ?? "Baidu",
+                Language = GetNullableValue<string?>(corrupted, "Language") ?? "zh",
+                Speed = Convert.ToInt32(GetNullableValue<long?>(corrupted, "Speed")),
+                Volume = Convert.ToSingle(GetNullableValue<double?>(corrupted, "Volume")),
+                EnabledBackend = TTSBackend.FreeWeb,
+            },            _ => throw new ArgumentOutOfRangeException($"{backendCorrupt}"),
         };
     }
 
