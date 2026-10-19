@@ -12,6 +12,7 @@ using TextToTalk.Backends;
 using TextToTalk.Backends.Megaphone;
 using TextToTalk.Backends.System;
 using TextToTalk.Backends.Websocket;
+using TextToTalk.Backends.EdgeTts;
 using TextToTalk.Backends.FishAudio;
 using TextToTalk.Data.Services;
 using TextToTalk.Middleware;
@@ -173,7 +174,7 @@ namespace TextToTalk
         public bool UsePlayerVoicePresets { get; set; } = true;
         public bool UseNpcVoicePresets { get; set; } = true;
 
-        public TTSBackend Backend { get; set; }
+        public TTSBackend Backend { get; set; } = TTSBackend.EdgeTts;
 
         public IList<string> Lexicons { get; set; }
 
@@ -276,16 +277,18 @@ namespace TextToTalk
 
                 try
                 {
-                    var defaultPreset = new SystemVoicePreset
+                    // 新装用户默认使用免费的 Edge TTS，开箱即可朗读
+                    var defaultPreset = new EdgeTtsVoicePreset
                     {
                         Id = 0,
                         Name = DefaultPreset,
-                        EnabledBackend = TTSBackend.System,
+                        EnabledBackend = TTSBackend.EdgeTts,
                     };
 
                     if (defaultPreset.TrySetDefaultValues())
                     {
                         GetVoiceConfig().VoicePresets.Add(defaultPreset);
+                        GetVoiceConfig().CurrentVoicePreset[TTSBackend.EdgeTts] = defaultPreset.Id;
                     }
                     else
                     {
