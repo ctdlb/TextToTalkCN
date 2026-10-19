@@ -914,4 +914,7 @@ f - Female, m - Male</value>
   <data name="AzureTestTextHint">
     <value>Test text (leave empty to use the default sample)</value>
   </data>
+  <data name="AzureStyleNone">
+    <value>None (default)</value>
+  </data>
 </root>

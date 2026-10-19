@@ -237,8 +237,11 @@ public class AzureBackendUI
         {
             voiceStyles.Add("");
             voiceStyles.AddRange(voiceDetails.Styles);
+            var displayStyles = voiceStyles
+                .Select(s => string.IsNullOrEmpty(s) ? Strings.Get("AzureStyleNone") : VoiceDisplayNames.AzureStyle(s))
+                .ToArray();
             var styleIndex = voiceStyles.IndexOf(currentVoicePreset.Style ?? "");
-            if (ImGui.Combo($"{Strings.Get("AzureStyle")}##{MemoizedId.Create()}", ref styleIndex, voiceStyles, voiceStyles.Count))
+            if (ImGui.Combo($"{Strings.Get("AzureStyle")}##{MemoizedId.Create()}", ref styleIndex, displayStyles, displayStyles.Length))
             {
                 currentVoicePreset.Style = voiceStyles[styleIndex];
                 this.config.Save();

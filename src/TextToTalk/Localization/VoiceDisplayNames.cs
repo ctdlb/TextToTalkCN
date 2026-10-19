@@ -171,6 +171,53 @@ public static class VoiceDisplayNames
         ["Ichiro"] = "一郎",
     };
 
+    private static readonly Dictionary<string, string> AzureStyleNames = new()
+    {
+        ["general"] = "通用",
+        ["chat"] = "聊天",
+        ["customerservice"] = "客服",
+        ["assistant"] = "助手",
+        ["newscast"] = "新闻播报",
+        ["narration-professional"] = "旁白（专业）",
+        ["narration-relaxed"] = "旁白（轻松）",
+        ["documentary-narration"] = "纪录片旁白",
+        ["sports-commentary"] = "体育解说",
+        ["live-commercial"] = "直播带货",
+        ["poetry-reading"] = "诗歌朗诵",
+        ["affectionate"] = "亲切",
+        ["angry"] = "生气",
+        ["calm"] = "平静",
+        ["cheerful"] = "愉悦",
+        ["sad"] = "悲伤",
+        ["excited"] = "兴奋",
+        ["friendly"] = "友好",
+        ["hopeful"] = "期盼",
+        ["shouting"] = "喊叫",
+        ["terrified"] = "恐惧",
+        ["unfriendly"] = "冷淡",
+        ["whispering"] = "耳语",
+        ["sorry"] = "歉意",
+        ["empathetic"] = "共情",
+        ["debating"] = "辩论",
+        ["lyrical"] = "抒情",
+        ["serious"] = "严肃",
+        ["gentle"] = "温柔",
+        ["supportive"] = "鼓励",
+        ["disgruntled"] = "不满",
+        ["fearful"] = "害怕",
+        ["embarrassed"] = "尴尬",
+    };
+
+    /// <summary>
+    /// 把 Azure 语音风格（如 cheerful）转成中文显示名；未知风格原样返回。
+    /// 只用于显示，实际传给 Azure 的仍是英文风格 ID。
+    /// </summary>
+    public static string AzureStyle(string? style)
+    {
+        if (string.IsNullOrWhiteSpace(style)) return string.Empty;
+        return AzureStyleNames.TryGetValue(style!, out var localized) ? localized : style!;
+    }
+
     /// <summary>
     /// 把 Azure 语音 ID（如 en-US-JennyNeural、zh-CN-Yunyi:DragonHDFlashLatest、
     /// zh-CN-liaoning-XiaobeiNeural）转成中文显示名。

@@ -4,6 +4,7 @@ using System.Numerics;
 using TextToTalk;
 using TextToTalk.Backends;
 using TextToTalk.Backends.Azure;
+using TextToTalk.Localization;
 using TextToTalk.Resources;
 using TextToTalk.UI.Windows;
 using static TextToTalk.Backends.Azure.AzureClient;
@@ -51,7 +52,7 @@ public class AzureVoiceStyles : IVoiceStylesWindow
         {
             if (config.AdHocStyleTagsEnabled)
             {
-                if (ImGui.Selectable($"{style}##{voiceDetails.Styles.IndexOf(style)}"))
+                if (ImGui.Selectable($"{VoiceDisplayNames.AzureStyle(style)}##{voiceDetails.Styles.IndexOf(style)}"))
                 {
                     VoiceStyles.Instance?.CopyStyleToClipboard(style);
                     lastCopyTime = ImGui.GetTime();
