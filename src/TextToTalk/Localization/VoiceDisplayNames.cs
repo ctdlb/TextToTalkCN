@@ -50,6 +50,8 @@ public static class VoiceDisplayNames
         ["el-GR"] = "希腊语（希腊）",
         ["he-IL"] = "希伯来语（以色列）",
         ["uk-UA"] = "乌克兰语（乌克兰）",
+        ["wuu-CN"] = "中文（吴语）",
+        ["yue-CN"] = "中文（粤语）",
     };
 
     private static readonly Dictionary<string, string> Dialects = new()
@@ -102,6 +104,12 @@ public static class VoiceDisplayNames
         ["Xiaoqi"] = "晓琪",
         ["Xiaorou"] = "晓柔",
         ["Xiaoyu"] = "晓雨",
+        ["Xiaotong"] = "晓彤",
+        ["Xiaoxiao2"] = "晓晓 2",
+        ["XiaoMin"] = "晓敏",
+        ["Yunzhe"] = "云哲",
+        ["YunSong"] = "云松",
+        ["Yunxiao"] = "云霄",
 
         // 英语（美国）
         ["Jenny"] = "珍妮",

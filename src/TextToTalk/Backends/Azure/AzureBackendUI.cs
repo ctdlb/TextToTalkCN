@@ -26,6 +26,7 @@ public class AzureBackendUI
 
     private string region;
     private string subscriptionKey;
+    private bool chineseOnly = true;
 
     public AzureBackendUI(AzureBackendUIModel model, PluginConfiguration config, LexiconManager lexiconManager,
         HttpClient http, AzureBackend backend)
@@ -121,31 +122,27 @@ public class AzureBackendUI
         {
             var voices = this.model.Voices;
 
-            string?[] voiceArray = voices
-                .Where(v => v != null && !string.IsNullOrEmpty(v.ShortName))
-                .Select(v => v.ShortName)
-                .ToArray();
+            ImGui.Checkbox($"{Strings.Get("AzureShowChineseOnly")}##{MemoizedId.Create()}", ref this.chineseOnly);
 
-            string[] displayArray = voices
+            var availableVoices = voices
                 .Where(v => v != null && !string.IsNullOrEmpty(v.ShortName))
-                .Select(v => v.Styles?.Count > 1
-                             ? $"{VoiceDisplayNames.Azure(v.ShortName)} {Strings.Get("AzureStylesAvailable")}"
-                             : VoiceDisplayNames.Azure(v.ShortName))
-                .ToArray();
+                .Where(v => !this.chineseOnly || IsChineseVoice(v!.ShortName!))
+                .OrderBy(v => VoiceDisplayNames.Azure(v.ShortName), StringComparer.CurrentCulture)
+                .ToList();
+
+            string?[] voiceArray = availableVoices.Select(v => v.ShortName).ToArray();
 
             var voiceIndex = Array.IndexOf(voiceArray, currentVoicePreset.VoiceName);
             // 1. Determine if the currently selected voice has styles
-            bool previewHasStyles = voiceIndex >= 0 && voices[voiceIndex].Styles?.Count > 1;
+            bool previewHasStyles = voiceIndex >= 0 && availableVoices[voiceIndex].Styles?.Count > 1;
             string previewName = voiceIndex >= 0 ? VoiceDisplayNames.Azure(voiceArray[voiceIndex]) : Strings.Get("AzureSelectVoice");
 
             // 2. Start combo with an empty preview string so we can draw our own
             if (ImGui.BeginCombo($"{Strings.Get("AzureVoice")}##{MemoizedId.Create()}", "", ImGuiComboFlags.HeightLarge))
             {
-                var filteredVoices = voices.Where(v => v != null && !string.IsNullOrEmpty(v.ShortName)).ToList();
-
-                for (int i = 0; i < filteredVoices.Count; i++)
+                for (int i = 0; i < availableVoices.Count; i++)
                 {
-                    var v = filteredVoices[i];
+                    var v = availableVoices[i];
                     bool isSelected = (voiceIndex == i);
                     bool hasStyles = v.Styles?.Count > 1;
 
@@ -190,16 +187,22 @@ public class AzureBackendUI
                 ImGui.SameLine();
                 ImGui.TextColored(new Vector4(0.55f, 0.75f, 1.0f, 1.0f), Strings.Get("AzureStylesAvailable"));
             }
-            switch (voices.Count)
+            switch (availableVoices.Count)
             {
                 case 0:
                     ImGui.TextColored(ImColor.Red, Strings.Get("AzureNoVoices"));
                     break;
-                case > 0 when !voiceArray.Any(v => v == currentVoicePreset.VoiceName):
+                case > 0 when voiceIndex < 0:
                     BackendUI.ImGuiVoiceNotSelected();
                     break;
             }
         }
+
+        static bool IsChineseVoice(string shortName) =>
+            shortName.StartsWith("zh-", StringComparison.OrdinalIgnoreCase) ||
+            shortName.StartsWith("cmn-", StringComparison.OrdinalIgnoreCase) ||
+            shortName.StartsWith("wuu-", StringComparison.OrdinalIgnoreCase) ||
+            shortName.StartsWith("yue-", StringComparison.OrdinalIgnoreCase);
 
         var playbackRate = 100 + currentVoicePreset.PlaybackRate;
         if (ImGui.SliderInt($"{Strings.Get("AzurePlaybackRate")}##{MemoizedId.Create()}", ref playbackRate, 50, 200, "%d%%",

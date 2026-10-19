@@ -1,4 +1,4 @@
-# TextToTalk 中文版
+﻿# TextToTalk 中文版
 
 《最终幻想 14》聊天与剧情对话朗读插件，基于 [karashiiro/TextToTalk](https://github.com/karashiiro/TextToTalk) 重构并完成简体中文本地化。
 
@@ -38,7 +38,7 @@
 
 ## 安装
 
-> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.3-cn](https://github.com/ctdlb/TextToTalkCN/releases)
+> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.4-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
 ### 方式一：使用已构建好的开发插件
 
