@@ -1,4 +1,4 @@
-﻿using Amazon.Polly;
+using Amazon.Polly;
 using Dalamud.Configuration;
 using Dalamud.Game.Text;
 using Dalamud.Plugin;
@@ -287,31 +287,6 @@ namespace TextToTalk
                     ModifierKey = VirtualKey.Enum.VkShift,
                     MajorKey = VirtualKey.Enum.Vk0,
                 });
-
-                try
-                {
-                    // 新装用户默认使用免费的 Edge TTS，开箱即可朗读
-                    var defaultPreset = new EdgeTtsVoicePreset
-                    {
-                        Id = 0,
-                        Name = Strings.Get("DefaultPresetName"),
-                        EnabledBackend = TTSBackend.EdgeTts,
-                    };
-
-                    if (defaultPreset.TrySetDefaultValues())
-                    {
-                        GetVoiceConfig().VoicePresets.Add(defaultPreset);
-                        GetVoiceConfig().CurrentVoicePreset[TTSBackend.EdgeTts] = defaultPreset.Id;
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("Failed to set values for default preset.");
-                    }
-                }
-                catch (Exception e)
-                {
-                    DetailedLog.Error(e, "Failed to create default voice preset.");
-                }
 
                 InitializedEver = true;
                 MigratedTo1_5 = true;
