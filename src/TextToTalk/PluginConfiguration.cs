@@ -17,6 +17,7 @@ using TextToTalk.Backends.FishAudio;
 using TextToTalk.Data.Services;
 using TextToTalk.Middleware;
 using TextToTalk.Migrations;
+using TextToTalk.Resources;
 using TextToTalk.UI.Core;
 
 // ReSharper disable InconsistentNaming
@@ -372,7 +373,7 @@ namespace TextToTalk
             {
                 Id = highestId + 1,
                 EnabledChatTypes = new List<int>(),
-                Name = "New preset",
+                Name = Strings.Get("NewPresetDefaultName"),
                 UseKeybind = false,
                 ModifierKey = VirtualKey.Enum.VkShift,
                 MajorKey = VirtualKey.Enum.Vk0,
@@ -445,7 +446,7 @@ namespace TextToTalk
             preset = new TPreset
             {
                 Id = highestId + 1,
-                Name = "New preset",
+                Name = Strings.Get("NewPresetDefaultName"),
             };
 
             if (preset.TrySetDefaultValues())

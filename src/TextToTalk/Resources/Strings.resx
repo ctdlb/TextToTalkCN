@@ -1013,4 +1013,7 @@ f - Female, m - Male</value>
   <data name="FreeWebFailed">
     <value>Free web TTS request failed.</value>
   </data>
+  <data name="NewPresetDefaultName">
+    <value>New preset</value>
+  </data>
 </root>

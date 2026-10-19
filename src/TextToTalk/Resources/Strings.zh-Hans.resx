@@ -1506,4 +1506,7 @@ f - 女声，m - 男声</value>
   <data name="FreeWebFailed">
     <value>免费网页语音请求失败。</value>
   </data>
+  <data name="NewPresetDefaultName">
+    <value>新建预设</value>
+  </data>
 </root>

@@ -106,7 +106,15 @@ public static class VoiceDisplayNames
         ["Xiaoyu"] = "晓雨",
         ["Xiaotong"] = "晓彤",
         ["Xiaoxiao2"] = "晓晓 2",
+        ["XiaoxiaoDialects"] = "晓晓（方言）",
+        ["Xiaoqiu"] = "晓秋",
         ["XiaoMin"] = "晓敏",
+        ["Bo"] = "博",
+        ["Grant"] = "格兰特",
+        ["Harper"] = "哈珀",
+        ["Lan"] = "兰",
+        ["Mei"] = "梅",
+        ["Wei"] = "伟",
         ["Yunzhe"] = "云哲",
         ["YunSong"] = "云松",
         ["Yunxiao"] = "云霄",
@@ -218,6 +226,18 @@ public static class VoiceDisplayNames
         return AzureStyleNames.TryGetValue(style!, out var localized) ? localized : style!;
     }
 
+    private static string StyleSuffix(string style)
+    {
+        if (style.Contains("HD")) return "（高清）";
+
+        var localized = style
+            .Replace("MAI-Voice-", "MAI ")
+            .Replace("-Flash", " 快速版")
+            .Replace("MAI-Voice", "MAI");
+
+        return $"（{localized}）";
+    }
+
     /// <summary>
     /// 把 Azure 语音 ID（如 en-US-JennyNeural、zh-CN-Yunyi:DragonHDFlashLatest、
     /// zh-CN-liaoning-XiaobeiNeural）转成中文显示名。
@@ -271,7 +291,7 @@ public static class VoiceDisplayNames
         }
         else if (style != null)
         {
-            suffix = style.Contains("HD") ? "（高清）" : $"（{style}）";
+            suffix = StyleSuffix(style);
         }
         else
         {
