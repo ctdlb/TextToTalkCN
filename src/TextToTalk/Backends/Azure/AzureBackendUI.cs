@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using TextToTalk.Lexicons;
 using TextToTalk.Lexicons.Updater;
+using TextToTalk.Localization;
 using TextToTalk.Resources;
 using TextToTalk.UI;
 using TextToTalk.UI.Lexicons;
@@ -128,14 +129,14 @@ public class AzureBackendUI
             string[] displayArray = voices
                 .Where(v => v != null && !string.IsNullOrEmpty(v.ShortName))
                 .Select(v => v.Styles?.Count > 1
-                             ? $"{v.ShortName} {Strings.Get("AzureStylesAvailable")}"
-                             : v.ShortName!)
+                             ? $"{VoiceDisplayNames.Azure(v.ShortName)} {Strings.Get("AzureStylesAvailable")}"
+                             : VoiceDisplayNames.Azure(v.ShortName))
                 .ToArray();
 
             var voiceIndex = Array.IndexOf(voiceArray, currentVoicePreset.VoiceName);
             // 1. Determine if the currently selected voice has styles
             bool previewHasStyles = voiceIndex >= 0 && voices[voiceIndex].Styles?.Count > 1;
-            string previewName = voiceIndex >= 0 ? voiceArray[voiceIndex] : Strings.Get("AzureSelectVoice");
+            string previewName = voiceIndex >= 0 ? VoiceDisplayNames.Azure(voiceArray[voiceIndex]) : Strings.Get("AzureSelectVoice");
 
             // 2. Start combo with an empty preview string so we can draw our own
             if (ImGui.BeginCombo($"{Strings.Get("AzureVoice")}##{MemoizedId.Create()}", "", ImGuiComboFlags.HeightLarge))
@@ -157,7 +158,7 @@ public class AzureBackendUI
 
                     ImGui.SameLine();
                     ImGui.SetCursorPosX(ImGui.GetCursorPosX() + ImGui.GetStyle().ItemSpacing.X);
-                    ImGui.Text(v.ShortName);
+                    ImGui.Text(VoiceDisplayNames.Azure(v.ShortName));
 
                     if (hasStyles)
                     {

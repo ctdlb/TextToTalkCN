@@ -38,7 +38,7 @@
 
 ## 安装
 
-> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.1-cn](https://github.com/ctdlb/TextToTalkCN/releases)
+> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.2-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
 ### 方式一：使用已构建好的开发插件
 
