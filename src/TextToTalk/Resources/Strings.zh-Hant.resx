@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -215,7 +215,7 @@
     <value>無</value>
   </data>
   <data name="ChatTypeSay">
-    <value>èªªè©±</value>
+    <value>說話</value>
   </data>
   <data name="ChatTypeShout">
     <value>喊話</value>
