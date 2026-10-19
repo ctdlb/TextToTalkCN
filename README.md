@@ -12,7 +12,7 @@
 - 朗读聊天、情感动作、系统消息、NPC 与战斗对话（可逐频道开关）
 - 触发器 / 排除项（支持正则），可按内容筛选要念什么
 - 玩家语音预设、NPC 语音预设、频道预设（可绑定快捷键）
-- 多条语音后端的统一界面：**Edge TTS（免密钥，推荐）**、系统语音、Megaphone、WebSocket、AWS Polly、Azure、Google Cloud、ElevenLabs、OpenAI、Fish Audio、Kokoro、Uberduck
+- 多条语音后端的统一界面：**Edge TTS（免密钥，推荐）**、**免费网页语音（百度/谷歌，免密钥）**、系统语音、Megaphone、WebSocket、AWS Polly、Azure、Google Cloud、ElevenLabs、OpenAI、Fish Audio、Kokoro、Uberduck
 - 发音词典（Lexicon），可修正游戏专有名词的读音
 - WebSocket 接口，可把朗读请求转给外部程序
 
@@ -46,7 +46,7 @@
 
 ## 安装
 
-> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.42.1-cn](https://github.com/ctdlb/TextToTalkCN/releases)
+> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.43.0-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
 ### 方式一：使用已构建好的开发插件
 

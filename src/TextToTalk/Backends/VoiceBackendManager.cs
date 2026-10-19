@@ -8,6 +8,7 @@ using TextToTalk.Backends.Azure;
 using TextToTalk.Backends.EdgeTts;
 using TextToTalk.Backends.ElevenLabs;
 using TextToTalk.Backends.FishAudio;
+using TextToTalk.Backends.FreeWeb;
 using TextToTalk.Backends.GoogleCloud;
 using TextToTalk.Backends.Kokoro;
 using TextToTalk.Backends.Megaphone;
@@ -149,6 +150,7 @@ namespace TextToTalk.Backends
                 TTSBackend.Megaphone => new MegaphoneBackend(this.config, this.notificationService),
                 TTSBackend.FishAudio => new FishAudioBackend(this.config, this.http, this.notificationService),
                 TTSBackend.EdgeTts => new EdgeTtsBackend(this.config, this.http, this.notificationService),
+                TTSBackend.FreeWeb => new FreeWebTtsBackend(this.config, this.http, this.notificationService),
                 _ => throw new ArgumentOutOfRangeException(nameof(backendKind)),
             };
         }

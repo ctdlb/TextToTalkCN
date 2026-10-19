@@ -965,4 +965,52 @@ f - Female, m - Male</value>
   <data name="EdgeTtsFailed">
     <value>Edge TTS request failed.</value>
   </data>
+  <data name="BackendNameFreeWeb">
+    <value>Free web TTS (Baidu/Google)</value>
+  </data>
+  <data name="FreeWebHint">
+    <value>Unofficial free endpoints, no key required. Baidu works in mainland China; Google needs access to Google.</value>
+  </data>
+  <data name="FreeWebProvider">
+    <value>Provider</value>
+  </data>
+  <data name="FreeWebProviderBaidu">
+    <value>Baidu Translate</value>
+  </data>
+  <data name="FreeWebProviderGoogle">
+    <value>Google Translate</value>
+  </data>
+  <data name="FreeWebLanguage">
+    <value>Language</value>
+  </data>
+  <data name="FreeWebSpeed">
+    <value>Speed (1-9, Baidu only)</value>
+  </data>
+  <data name="FreeWebTest">
+    <value>Test</value>
+  </data>
+  <data name="FreeWebTestMessage">
+    <value>Hello, this is a test message from free web TTS.</value>
+  </data>
+  <data name="FreeWebTestTextHint">
+    <value>Test text (leave empty to use the default sample)</value>
+  </data>
+  <data name="FreeWebNoPresetsFormat">
+    <value>You have no presets. Please create one using the "{0}" button.</value>
+  </data>
+  <data name="FreeWebDeletePreset">
+    <value>Delete preset</value>
+  </data>
+  <data name="FreeWebPresetName">
+    <value>Preset name</value>
+  </data>
+  <data name="FreeWebEmptyAudio">
+    <value>The free TTS service returned no audio.</value>
+  </data>
+  <data name="FreeWebEmptyAudioHint">
+    <value>Try another provider/language, or check your network.</value>
+  </data>
+  <data name="FreeWebFailed">
+    <value>Free web TTS request failed.</value>
+  </data>
 </root>

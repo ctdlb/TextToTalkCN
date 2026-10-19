@@ -1458,4 +1458,52 @@ f - 女声，m - 男声</value>
   <data name="EdgeTtsFailed">
     <value>Edge TTS 请求失败。</value>
   </data>
+  <data name="BackendNameFreeWeb">
+    <value>免费网页语音（百度/谷歌）</value>
+  </data>
+  <data name="FreeWebHint">
+    <value>非官方的免费接口，无需密钥。百度国内可直接用；谷歌需要能访问 Google。</value>
+  </data>
+  <data name="FreeWebProvider">
+    <value>服务</value>
+  </data>
+  <data name="FreeWebProviderBaidu">
+    <value>百度翻译</value>
+  </data>
+  <data name="FreeWebProviderGoogle">
+    <value>谷歌翻译</value>
+  </data>
+  <data name="FreeWebLanguage">
+    <value>语言</value>
+  </data>
+  <data name="FreeWebSpeed">
+    <value>语速（1-9，仅百度）</value>
+  </data>
+  <data name="FreeWebTest">
+    <value>试听</value>
+  </data>
+  <data name="FreeWebTestMessage">
+    <value>你好，这是免费网页语音的测试文本。</value>
+  </data>
+  <data name="FreeWebTestTextHint">
+    <value>试听文本，留空使用默认示例</value>
+  </data>
+  <data name="FreeWebNoPresetsFormat">
+    <value>尚未创建预设，请点击“{0}”按钮新建。</value>
+  </data>
+  <data name="FreeWebDeletePreset">
+    <value>删除预设</value>
+  </data>
+  <data name="FreeWebPresetName">
+    <value>预设名称</value>
+  </data>
+  <data name="FreeWebEmptyAudio">
+    <value>免费语音服务没有返回音频。</value>
+  </data>
+  <data name="FreeWebEmptyAudioHint">
+    <value>换个服务或语言试试，或检查网络。</value>
+  </data>
+  <data name="FreeWebFailed">
+    <value>免费网页语音请求失败。</value>
+  </data>
 </root>
