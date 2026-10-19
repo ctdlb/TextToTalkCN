@@ -38,22 +38,34 @@
 
 ## 安装
 
-> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.40.9-cn](https://github.com/ctdlb/TextToTalkCN/releases)
+> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.0-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
 ### 方式一：使用已构建好的开发插件
 
-仓库里已附带一份构建产物：`dist\TextToTalk\`。
+仓库里已附带一份构建产物：`dist\TextToTalkCN\`。
 
 1. 关闭游戏。
-2. 把 `dist\TextToTalk\` 整个文件夹复制到 `%APPDATA%\XIVLauncherCN\devPlugins\`。
-3. 启动游戏，在 `/xlplugins` →「开发插件」中启用 **TextToTalk**。
-4. 如果之前装过官方版 TextToTalk，请先禁用它，避免同名插件冲突。
+2. 把 `dist\TextToTalkCN\` 整个文件夹复制到 `%APPDATA%\XIVLauncherCN\devPlugins\`。
+3. 启动游戏，在 `/xlplugins` →「开发插件」中启用 **TextToTalkCN**。
+4. 本插件内部名称为 `TextToTalkCN`，可与官方版 TextToTalk 并存；若不想保留官方版，在插件列表里停用即可。
 
 也可以直接用脚本一步完成（构建 + 复制）：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Configuration Release -Install
 ```
+
+## 通过插件仓库安装（推荐分享给别人）
+
+把下面这个地址加到卫月（Dalamud）的「自定义插件仓库」里，就能在插件安装器里直接搜到、一键安装和更新：
+
+```
+https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/pluginmaster.json
+```
+
+GitHub 直连地址 `https://raw.githubusercontent.com/ctdlb/TextToTalkCN/main/pluginmaster.json` 在国服网络下经常打不开，优先用上面的 jsDelivr 镜像。
+
+添加方法：`/xlplugins` → 设置 → 自定义插件仓库 → 添加，粘贴地址并保存，回到「全部插件」搜索 `TextToTalkCN`。
 
 ## 从源码构建
 
@@ -122,7 +134,7 @@ scripts/                   build.ps1 / merge-loc.ps1
 先启动一次 XIVLauncherCN 让 Dalamud 完成安装，或手动设置 `DALAMUD_HOME` 指向 `...\addon\Hooks\dev`。
 
 **插件列表里有两个 TextToTalk？**
-官方版与开发版同名。保留其一即可，建议停用官方版。
+本插件内部名为 `TextToTalkCN`，与官方 `TextToTalk` 不相冲突，两者可以同时安装。
 
 ## 许可
 

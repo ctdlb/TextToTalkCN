@@ -1,4 +1,4 @@
-﻿<#
+<#
     一键构建 TextToTalkCN（国服 Dalamud 版）。
 
     用法：
@@ -64,9 +64,10 @@ $project = Join-Path $root 'src\TextToTalk\TextToTalk.csproj'
 & $dotnet build $project -c $Configuration "-p:DalamudLibPath=$dalamudHome\"
 if ($LASTEXITCODE -ne 0) { throw "构建失败（exit $LASTEXITCODE）" }
 
-$outDir = Join-Path $root "src\TextToTalk\bin\$Configuration\TextToTalk"
-if (-not (Test-Path (Join-Path $outDir 'TextToTalk.dll'))) {
-    throw "没有找到构建产物：$outDir"
+$outDir = Join-Path $root "src\TextToTalk\bin\$Configuration"
+$dll = Join-Path $outDir 'TextToTalkCN.dll'
+if (-not (Test-Path $dll)) {
+    throw "没有找到构建产物：$dll"
 }
 
 Write-Host ''
@@ -75,9 +76,10 @@ Write-Host "构建产物：$outDir"
 if ($Install) {
     $devPlugins = Join-Path $env:APPDATA 'XIVLauncherCN\devPlugins'
     New-Item -ItemType Directory -Force -Path $devPlugins | Out-Null
-    $target = Join-Path $devPlugins 'TextToTalk'
+    $target = Join-Path $devPlugins 'TextToTalkCN'
     if (Test-Path $target) { Remove-Item $target -Recurse -Force }
-    Copy-Item $outDir $target -Recurse -Force
+    # 排除打包脚本自己生成的 TextToTalkCN\ 子目录（里面是 latest.zip）
+    robocopy $outDir $target /E /XD TextToTalkCN /NFL /NDL /NJH /NJS /NP | Out-Null
     Write-Host "已安装到：$target"
     Write-Host '重启游戏，或执行 /xlplugins 打开插件列表，启用开发插件即可。'
 }

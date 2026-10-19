@@ -1,8 +1,0 @@
-name: TextToTalk
-author: karashiiro
-description: 聊天与剧情对话朗读（TTS）。用 /tttconfig 配置要朗读的频道、触发器和排除项。
-punchline: 聊天与剧情对话朗读插件 · 简体中文汉化版
-repo_url: https://github.com/karashiiro/TextToTalk
-tags: [ "tts", "trigger", "triggers", "voice", "voices", "speech", "karashiiro", "中文", "汉化" ]
-icon_url: https://raw.githubusercontent.com/karashiiro/TextToTalk/main/images/icon.png
-image_urls: []

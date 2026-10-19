@@ -1,0 +1,8 @@
+name: TextToTalkCN
+author: ctdlb（汉化重构）· 原作者 karashiiro
+description: 聊天与剧情对话朗读（TTS）简体中文版。用 /tttconfig 配置要朗读的频道、触发器和排除项。
+punchline: 聊天与剧情对话朗读插件 · 简体中文汉化版
+repo_url: https://github.com/ctdlb/TextToTalkCN
+tags: [ "tts", "trigger", "triggers", "voice", "voices", "speech", "karashiiro", "中文", "汉化" ]
+icon_url: https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/images/icon.png
+image_urls: []
