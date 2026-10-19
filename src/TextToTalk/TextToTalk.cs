@@ -1,4 +1,4 @@
-using Dalamud.Game.ClientState.Objects.SubKinds;
+﻿using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using TextToTalk.Backends;
 using TextToTalk.Backends.Azure;
+using TextToTalk.Backends.EdgeTts;
 using TextToTalk.Backends.ElevenLabs;
 using TextToTalk.Backends.GoogleCloud;
 using TextToTalk.Backends.Kokoro;
@@ -30,6 +31,7 @@ using TextToTalk.Backends.System;
 using TextToTalk.Backends.Uberduck;
 using TextToTalk.Backends.Websocket;
 using TextToTalk.Backends.FishAudio;
+using TextToTalk.Backends.FreeWeb;
 using TextToTalk.CommandModules;
 using TextToTalk.Data.Services;
 using TextToTalk.Events;
@@ -432,7 +434,7 @@ private readonly IDalamudPluginInterface pluginInterface;
             var preset = GetVoicePreset(speaker, cleanSpeakerName);
             if (preset is null)
             {
-                DetailedLog.Error("Attempted to speak with null voice preset");
+                DetailedLog.Warn("No voice preset configured for the current backend; skipping speech.");
                 return;
             }
 
@@ -578,6 +580,8 @@ private readonly IDalamudPluginInterface pluginInterface;
                     Name = gender.ToString(),
                 },
                 KokoroBackend => GetVoiceForSpeaker<KokoroVoicePreset>(name, gender),
+                EdgeTtsBackend => GetVoiceForSpeaker<EdgeTtsVoicePreset>(name, gender),
+                FreeWebTtsBackend => GetVoiceForSpeaker<FreeWebVoicePreset>(name, gender),
                 _ => throw new InvalidOperationException("Failed to get voice preset for backend."),
             };
         }
