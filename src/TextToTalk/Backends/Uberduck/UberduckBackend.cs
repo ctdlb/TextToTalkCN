@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using Dalamud.Bindings.ImGui;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -22,7 +23,18 @@ public class UberduckBackend : VoiceBackend
         this.soundQueue = new StreamSoundQueue(config);
         this.uberduck = new UberduckClient(this.soundQueue, http);
 
-        var voices = this.uberduck.GetVoices().GetAwaiter().GetResult();
+        // 未配置凭据时接口会返回 401；这里吞掉异常，避免整个后端切换失败
+        IDictionary<string, IList<UberduckVoice>> voices;
+        try
+        {
+            voices = this.uberduck.GetVoices().GetAwaiter().GetResult();
+        }
+        catch (Exception e)
+        {
+            DetailedLog.Warn("Failed to fetch Uberduck voices: {Error}", e.Message);
+            voices = new Dictionary<string, IList<UberduckVoice>>();
+        }
+
         this.ui = new UberduckBackendUI(config, this.uberduck, () => voices, this);
     }
 

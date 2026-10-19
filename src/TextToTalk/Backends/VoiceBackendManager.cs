@@ -31,6 +31,8 @@ namespace TextToTalk.Backends
         private readonly INotificationService notificationService;
 
         private Task backendTask = Task.CompletedTask;
+        private TTSBackend currentKind;
+        private bool fallbackAttempted;
 
         public VoiceBackend? Backend { get; private set; }
         public bool BackendLoading { get; private set; }
@@ -43,6 +45,7 @@ namespace TextToTalk.Backends
             this.uiBuilder = uiBuilder;
             this.notificationService = notificationService;
 
+            this.currentKind = config.Backend;
             SetBackend(this.config.Backend);           
         }
 
@@ -86,20 +89,19 @@ namespace TextToTalk.Backends
             backendTask = backendTask.ContinueWith(_ =>
             {
                 BackendLoading = true;
+                var oldBackend = Backend;
                 try
                 {
-                    var oldBackend = Backend;
-                    if (oldBackend != null)
-                    {
-                        oldBackend.Stop();
-                        oldBackend.Dispose();
-                        Backend = null;
-                    }
-
+                    // 先创建新后端，成功后再释放旧的，避免切换失败后完全没有后端
                     var newBackend = CreateBackendFor(kind);
                     newBackend.Start();
 
+                    oldBackend?.Stop();
+                    oldBackend?.Dispose();
+
                     Backend = newBackend;
+                    this.currentKind = kind;
+                    this.fallbackAttempted = false;
                     WarnIfNoPresetsConfiguredForBackend();
                 }
                 catch (Exception e)
@@ -107,6 +109,22 @@ namespace TextToTalk.Backends
                     this.notificationService.NotifyError(
                         string.Format(Strings.Get("BackendSwitchFailed"), kind.GetFormattedName()),
                         e.Message);
+
+                    // 写回配置，避免下次启动继续卡在失败的后端上
+                    if (this.config.Backend == kind)
+                    {
+                        this.config.Backend = this.currentKind;
+                        this.config.Save();
+                    }
+
+                    // 首次切换就失败时，尝试退回 Edge TTS，保证至少能出声
+                    if (Backend == null && !this.fallbackAttempted && kind != TTSBackend.EdgeTts)
+                    {
+                        this.fallbackAttempted = true;
+                        this.config.Backend = TTSBackend.EdgeTts;
+                        this.config.Save();
+                        SetBackend(TTSBackend.EdgeTts);
+                    }
                 }
                 finally
                 {
