@@ -3,7 +3,7 @@
     "Author": "ctdlb（汉化重构）· 原作者 karashiiro",
     "Name": "TextToTalkCN",
     "InternalName": "TextToTalkCN",
-    "AssemblyVersion": "1.43.10.0",
+    "AssemblyVersion": "1.43.11.0",
     "Description": "聊天与剧情对话朗读（TTS）简体中文版。用 /tttconfig 配置要朗读的频道、触发器和排除项。",
     "ApplicableVersion": "any",
     "RepoUrl": "https://github.com/ctdlb/TextToTalkCN",
@@ -26,11 +26,11 @@
     "IconUrl": "https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/images/icon.png",
     "Punchline": "聊天与剧情对话朗读插件 · 简体中文汉化版",
     "AcceptsFeedback": true,
-    "DownloadLinkInstall": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.10-cn/TextToTalkCN-v1.43.10-cn.zip",
-    "DownloadLinkUpdate": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.10-cn/TextToTalkCN-v1.43.10-cn.zip",
-    "DownloadLinkTesting": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.10-cn/TextToTalkCN-v1.43.10-cn.zip",
+    "DownloadLinkInstall": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.11-cn/TextToTalkCN-v1.43.11-cn.zip",
+    "DownloadLinkUpdate": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.11-cn/TextToTalkCN-v1.43.11-cn.zip",
+    "DownloadLinkTesting": "https://github.com/ctdlb/TextToTalkCN/releases/download/v1.43.11-cn/TextToTalkCN-v1.43.11-cn.zip",
     "IsHide": false,
     "IsTestingExclusive": false,
-    "LastUpdate": 1760928000
+    "LastUpdate": 1760930000
   }
 ]
