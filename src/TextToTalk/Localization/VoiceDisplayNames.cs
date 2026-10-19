@@ -97,6 +97,11 @@ public static class VoiceDisplayNames
         ["WanLung"] = "云龙",
         ["Yundeng"] = "云登",
         ["Yunxiang"] = "云翔",
+        ["Yunyi"] = "云逸",
+        ["Xiaoke"] = "晓可",
+        ["Xiaoqi"] = "晓琪",
+        ["Xiaorou"] = "晓柔",
+        ["Xiaoyu"] = "晓雨",
 
         // 英语（美国）
         ["Jenny"] = "珍妮",
@@ -159,7 +164,8 @@ public static class VoiceDisplayNames
     };
 
     /// <summary>
-    /// 把 Azure 语音 ID（如 en-US-JennyNeural、zh-CN-liaoning-XiaobeiNeural）转成中文显示名。
+    /// 把 Azure 语音 ID（如 en-US-JennyNeural、zh-CN-Yunyi:DragonHDFlashLatest、
+    /// zh-CN-liaoning-XiaobeiNeural）转成中文显示名。
     /// 未知语音回退为「原始名称 · 语言」。
     /// </summary>
     public static string Azure(string? shortName)
@@ -170,15 +176,24 @@ public static class VoiceDisplayNames
         if (parts.Length < 3) return shortName;
 
         var locale = $"{parts[0]}-{parts[1]}";
-        var voice = parts[2]
-            .Replace("MultilingualNeural", string.Empty)
+        var raw = parts[2];
+
+        // 新版 HD 语音用冒号带风格，如 Yunyi:DragonHDFlashLatest
+        string? style = null;
+        var colon = raw.IndexOf(':');
+        if (colon >= 0)
+        {
+            style = raw[(colon + 1)..];
+            raw = raw[..colon];
+        }
+
+        var multilingual = raw.Contains("Multilingual");
+        raw = raw.Replace("MultilingualNeural", string.Empty)
             .Replace("Multilingual", string.Empty)
             .Replace("Neural", string.Empty);
 
-        var multilingual = parts[2].Contains("Multilingual");
-
         // 方言语音形如 liaoning-Xiaobei，最后一段才是名字
-        var segments = voice.Split('-');
+        var segments = raw.Split('-');
         var dialect = segments.Length > 1 ? segments[0] : null;
         var name = segments[^1];
 
@@ -194,7 +209,19 @@ public static class VoiceDisplayNames
             localeName = Locales.TryGetValue(locale, out var localizedLocale) ? localizedLocale : locale;
         }
 
-        var suffix = multilingual ? "（多语言）" : string.Empty;
+        string suffix;
+        if (multilingual)
+        {
+            suffix = "（多语言）";
+        }
+        else if (style != null)
+        {
+            suffix = style.Contains("HD") ? "（高清）" : $"（{style}）";
+        }
+        else
+        {
+            suffix = string.Empty;
+        }
 
         return string.IsNullOrEmpty(localeName)
             ? $"{displayName}{suffix}"
