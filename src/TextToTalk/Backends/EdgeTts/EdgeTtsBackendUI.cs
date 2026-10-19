@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Dalamud.Bindings.ImGui;
 using Dalamud.Game;
@@ -133,7 +133,6 @@ public class EdgeTtsBackendUI
 
         var voices = this.client.Voices
             .Where(v => !this.chineseOnly || IsChineseVoice(v.ShortName))
-            .OrderBy(v => VoiceDisplayNames.Azure(v.ShortName), StringComparer.CurrentCulture)
             .ToList();
 
         if (voices.Count == 0)

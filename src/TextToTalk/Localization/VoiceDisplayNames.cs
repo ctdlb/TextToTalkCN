@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace TextToTalk.Localization;
 
@@ -118,6 +118,10 @@ public static class VoiceDisplayNames
         ["Yunzhe"] = "云哲",
         ["YunSong"] = "云松",
         ["Yunxiao"] = "云霄",
+        ["Yunbiao"] = "云彪",
+        ["Yunfan"] = "云帆",
+        ["Yunqi"] = "云起",
+        ["Yunhan"] = "云涵",
 
         // 英语（美国）
         ["Jenny"] = "珍妮",
@@ -228,7 +232,7 @@ public static class VoiceDisplayNames
 
     private static string StyleSuffix(string style)
     {
-        if (style.Contains("HD")) return "（高清）";
+        if (style.Contains("HD") || style.Contains("Dragon")) return "（高清）";
 
         var localized = style
             .Replace("MAI-Voice-", "MAI ")

@@ -1,4 +1,4 @@
-using Dalamud.Bindings.ImGui;
+﻿using Dalamud.Bindings.ImGui;
 using Dalamud.Game;
 using Dalamud.Game.Text;
 using System;
@@ -128,7 +128,6 @@ public class AzureBackendUI
             var availableVoices = voices
                 .Where(v => v != null && !string.IsNullOrEmpty(v.ShortName))
                 .Where(v => !this.chineseOnly || IsChineseVoice(v!.ShortName!))
-                .OrderBy(v => VoiceDisplayNames.Azure(v.ShortName), StringComparer.CurrentCulture)
                 .ToList();
 
             string?[] voiceArray = availableVoices.Select(v => v.ShortName).ToArray();
