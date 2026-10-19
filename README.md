@@ -12,7 +12,7 @@
 - 朗读聊天、情感动作、系统消息、NPC 与战斗对话（可逐频道开关）
 - 触发器 / 排除项（支持正则），可按内容筛选要念什么
 - 玩家语音预设、NPC 语音预设、频道预设（可绑定快捷键）
-- 多条语音后端的统一界面：系统语音、Megaphone、WebSocket、AWS Polly、Azure、Google Cloud、ElevenLabs、OpenAI、Fish Audio、Kokoro、Uberduck
+- 多条语音后端的统一界面：**Edge TTS（免密钥，推荐）**、系统语音、Megaphone、WebSocket、AWS Polly、Azure、Google Cloud、ElevenLabs、OpenAI、Fish Audio、Kokoro、Uberduck
 - 发音词典（Lexicon），可修正游戏专有名词的读音
 - WebSocket 接口，可把朗读请求转给外部程序
 
@@ -24,6 +24,14 @@
 4. **汉化工具链**：`docs/LOCALIZATION_GUIDE.md` + `scripts/merge-loc.ps1`，新增中文条目可以按片段合并进 `.resx` 与强类型访问器。
 5. 源码、资源与构建脚本统一按 UTF-8（带 BOM）处理，避免 Windows 默认代码页在中文系统下造成乱码。
 
+## 免密钥朗读（Edge TTS）
+
+不想折腾 API Key 的话，在「语音合成设置 → 语音后端」里选 **Edge TTS（免密钥）**：
+
+- 直接使用微软 Edge「大声朗读」的在线语音，**不需要任何账号或密钥**
+- 覆盖 300+ 个语音，默认只显示中文（大陆/台湾/香港/吴语/粤语），可取消勾选看全部
+- 支持语速调节、试听（可输入自定义文本）
+- 需要联网；接口由微软提供，不保证长期可用
 ## 命令
 
 | 命令 | 说明 |
@@ -38,7 +46,7 @@
 
 ## 安装
 
-> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.41.6-cn](https://github.com/ctdlb/TextToTalkCN/releases)
+> 不想自己编译？直接下载打好包的压缩包：[Releases · v1.42.0-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
 ### 方式一：使用已构建好的开发插件
 

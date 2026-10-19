@@ -1,10 +1,11 @@
-﻿using Dalamud.Interface;
+using Dalamud.Interface;
 using System;
 using System.Linq;
 using System.Net.Http;
 using System.Numerics;
 using System.Threading.Tasks;
 using TextToTalk.Backends.Azure;
+using TextToTalk.Backends.EdgeTts;
 using TextToTalk.Backends.ElevenLabs;
 using TextToTalk.Backends.FishAudio;
 using TextToTalk.Backends.GoogleCloud;
@@ -147,6 +148,7 @@ namespace TextToTalk.Backends
                 TTSBackend.Kokoro => new KokoroBackend(this.config),
                 TTSBackend.Megaphone => new MegaphoneBackend(this.config, this.notificationService),
                 TTSBackend.FishAudio => new FishAudioBackend(this.config, this.http, this.notificationService),
+                TTSBackend.EdgeTts => new EdgeTtsBackend(this.config, this.http, this.notificationService),
                 _ => throw new ArgumentOutOfRangeException(nameof(backendKind)),
             };
         }

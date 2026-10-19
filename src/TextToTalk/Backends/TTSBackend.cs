@@ -17,6 +17,7 @@ namespace TextToTalk.Backends
         Kokoro,
         Megaphone,
         FishAudio,
+        EdgeTts,
     }
 
     public static class TTSBackendExtensions
@@ -37,6 +38,7 @@ namespace TextToTalk.Backends
                 TTSBackend.Kokoro => Strings.BackendNameKokoroDownloadRequired,
                 TTSBackend.Megaphone => Strings.BackendNameMegaphone,
                 TTSBackend.FishAudio => Strings.BackendNameFishAudio,
+                TTSBackend.EdgeTts => Strings.Get("BackendNameEdgeTts"),
                 _ => throw new ArgumentOutOfRangeException(nameof(backend)),
             };
         }
@@ -54,6 +56,7 @@ namespace TextToTalk.Backends
             TTSBackend.FishAudio => 8,
             TTSBackend.Kokoro => 9,
             TTSBackend.Uberduck => 10,
+            TTSBackend.EdgeTts => 11,
             _ => int.MaxValue,
         };
 
@@ -75,6 +78,7 @@ namespace TextToTalk.Backends
                 TTSBackend.Kokoro => false,
                 TTSBackend.Megaphone => false,
                 TTSBackend.FishAudio => false,
+                TTSBackend.EdgeTts => false,
                 _ => throw new ArgumentOutOfRangeException(nameof(backend)),
             };
         }

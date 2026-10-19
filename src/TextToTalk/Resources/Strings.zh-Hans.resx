@@ -1410,4 +1410,52 @@ f - 女声，m - 男声</value>
   <data name="AzureStyleNone">
     <value>无（默认）</value>
   </data>
+  <data name="BackendNameEdgeTts">
+    <value>Edge TTS（免密钥）</value>
+  </data>
+  <data name="EdgeTtsVoicesLoading">
+    <value>正在获取语音列表…</value>
+  </data>
+  <data name="EdgeTtsLoadFailedFormat">
+    <value>获取语音列表失败：{0}</value>
+  </data>
+  <data name="EdgeTtsRefreshVoices">
+    <value>刷新语音列表</value>
+  </data>
+  <data name="EdgeTtsShowChineseOnly">
+    <value>仅显示中文语音</value>
+  </data>
+  <data name="EdgeTtsNoVoices">
+    <value>没有可用语音，试试刷新列表。</value>
+  </data>
+  <data name="EdgeTtsNoPresetsFormat">
+    <value>尚未创建预设，请点击“{0}”按钮新建。</value>
+  </data>
+  <data name="EdgeTtsDeletePreset">
+    <value>删除预设</value>
+  </data>
+  <data name="EdgeTtsPresetName">
+    <value>预设名称</value>
+  </data>
+  <data name="EdgeTtsRate">
+    <value>语速</value>
+  </data>
+  <data name="EdgeTtsTest">
+    <value>试听</value>
+  </data>
+  <data name="EdgeTtsTestMessage">
+    <value>这是 Edge TTS 的试听语音。</value>
+  </data>
+  <data name="EdgeTtsTestTextHint">
+    <value>试听文本，留空使用默认示例</value>
+  </data>
+  <data name="EdgeTtsEmptyAudio">
+    <value>Edge TTS 没有返回音频。</value>
+  </data>
+  <data name="EdgeTtsEmptyAudioHint">
+    <value>可以换个语音，或检查网络连接。</value>
+  </data>
+  <data name="EdgeTtsFailed">
+    <value>Edge TTS 请求失败。</value>
+  </data>
 </root>
