@@ -218,6 +218,16 @@ public static class VoiceDisplayNames
         ["disgruntled"] = "不满",
         ["fearful"] = "害怕",
         ["embarrassed"] = "尴尬",
+        ["anxious"] = "焦虑",
+        ["curious"] = "好奇",
+        ["disappointed"] = "失望",
+        ["encouraging"] = "鼓励",
+        ["guilty"] = "内疚",
+        ["lonely"] = "孤独",
+        ["surprised"] = "惊讶",
+        ["sentimental"] = "感伤",
+        ["story-telling"] = "讲故事",
+        ["tired"] = "疲惫",
     };
 
     /// <summary>
