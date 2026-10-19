@@ -67,8 +67,16 @@ public static class BackendUI
         {
             var voiceConfig = config.GetVoiceConfig();
 
-            var otherPreset = voiceConfig.VoicePresets.First(p => p.Id != preset.Id);
-            config.SetCurrentVoicePreset(otherPreset.Id);
+            var others = voiceConfig.VoicePresets.Where(p => p.Id != preset.Id).ToList();
+            if (others.Count == 0)
+            {
+                // 至少保留一个预设，否则后续朗读没有可用配置
+                DetailedLog.Warn("Cannot delete the last remaining voice preset.");
+                return;
+            }
+
+            var nextPreset = others.FirstOrDefault(p => p.EnabledBackend == backend) ?? others[0];
+            config.SetCurrentVoicePreset(nextPreset.Id);
 
             // Use TryGetValue to safely access the inner dictionary for the specific backend
             if (voiceConfig.UngenderedVoicePresets.TryGetValue(backend, out var ungendered))

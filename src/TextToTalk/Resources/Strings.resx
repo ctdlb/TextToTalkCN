@@ -1022,4 +1022,7 @@ f - Female, m - Male</value>
   <data name="FreeWebUseGenderedVoices">
     <value>Use gendered voice presets</value>
   </data>
+  <data name="DefaultPresetName">
+    <value>Default</value>
+  </data>
 </root>

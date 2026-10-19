@@ -1515,4 +1515,7 @@ f - 女声，m - 男声</value>
   <data name="FreeWebUseGenderedVoices">
     <value>使用分性别语音预设</value>
   </data>
+  <data name="DefaultPresetName">
+    <value>默认</value>
+  </data>
 </root>

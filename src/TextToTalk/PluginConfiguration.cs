@@ -33,7 +33,7 @@ namespace TextToTalk
     public class PluginConfiguration : IPluginConfiguration, ISaveable, IWebsocketConfigProvider,
         IRateLimiterConfigProvider
     {
-        private const string DefaultPreset = "Default";
+        private const string DefaultPreset = "Default"; // 仅作键名，实际显示名见 Strings.Get("DefaultPresetName")
 
         //public string PersistentStyleTag { get; set; } = "";
         public string StyleTag { get; set; } = "|";
@@ -245,6 +245,18 @@ namespace TextToTalk
             this.cfgLock = true;
 
             this.voicePresetConfig = VoicePresetConfiguration.LoadFromFile(GetVoicePresetsConfigPath());
+            // 老配置里默认预设名是 "Default"，中文环境下改成「默认」
+            var localizedDefaultName = Strings.Get("DefaultPresetName");
+            if (localizedDefaultName != "Default" && this.voicePresetConfig?.VoicePresets != null)
+            {
+                foreach (var preset in this.voicePresetConfig.VoicePresets)
+                {
+                    if (preset.Name == "Default")
+                    {
+                        preset.Name = localizedDefaultName;
+                    }
+                }
+            }
 
             EnabledChatTypesPresets ??= new List<EnabledChatTypesPreset>();
            
@@ -270,7 +282,7 @@ namespace TextToTalk
                     {
                         (int)XivChatType.NPCDialogue,
                     },
-                    Name = DefaultPreset,
+                    Name = Strings.Get("DefaultPresetName"),
                     UseKeybind = false,
                     ModifierKey = VirtualKey.Enum.VkShift,
                     MajorKey = VirtualKey.Enum.Vk0,
@@ -282,7 +294,7 @@ namespace TextToTalk
                     var defaultPreset = new EdgeTtsVoicePreset
                     {
                         Id = 0,
-                        Name = DefaultPreset,
+                        Name = Strings.Get("DefaultPresetName"),
                         EnabledBackend = TTSBackend.EdgeTts,
                     };
 
