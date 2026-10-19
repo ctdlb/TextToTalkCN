@@ -1,0 +1,207 @@
+using Dalamud.Bindings.ImGui;
+using Dalamud.Game;
+using Dalamud.Game.Text;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+using TextToTalk.Resources;
+using TextToTalk.UI;
+
+namespace TextToTalk.Backends.Uberduck;
+
+public class UberduckBackendUI
+{
+    private readonly PluginConfiguration config;
+    private readonly UberduckClient uberduck;
+    private readonly Func<IDictionary<string, IList<UberduckVoice>>> getVoices;
+    private readonly UberduckBackend backend;
+
+    private string apiKey = string.Empty;
+    private string apiSecret = string.Empty;
+
+    public UberduckBackendUI(PluginConfiguration config, UberduckClient uberduck,
+        Func<IDictionary<string, IList<UberduckVoice>>> getVoices, UberduckBackend backend)
+    {
+        this.config = config;
+        this.uberduck = uberduck;
+        this.getVoices = getVoices;
+
+        var credentials = UberduckCredentialManager.LoadCredentials();
+        if (credentials != null)
+        {
+            this.apiKey = credentials.UserName;
+            this.apiSecret = credentials.Password;
+        }
+
+        this.uberduck.ApiKey = this.apiKey;
+        this.uberduck.ApiSecret = this.apiSecret;
+        this.backend = backend;
+    }
+
+    private static readonly Regex Whitespace = new(@"\s+", RegexOptions.Compiled);
+
+    public void DrawSettings(IConfigUIDelegates helpers)
+    {
+        ImGui.TextColored(ImColor.HintColor, Strings.Get("UberduckRateLimitHint"));
+        ImGui.Spacing();
+
+        ImGui.InputTextWithHint($"##{MemoizedId.Create()}", Strings.Get("UberduckApiKeyHint"), ref this.apiKey, 100,
+            ImGuiInputTextFlags.Password);
+        ImGui.InputTextWithHint($"##{MemoizedId.Create()}", Strings.Get("UberduckApiSecretHint"), ref this.apiSecret, 100,
+            ImGuiInputTextFlags.Password);
+
+        if (ImGui.Button($"{Strings.Get("UberduckSaveAndLogin")}##{MemoizedId.Create()}"))
+        {
+            var username = Whitespace.Replace(this.apiKey, "");
+            var password = Whitespace.Replace(this.apiSecret, "");
+            UberduckCredentialManager.SaveCredentials(username, password);
+            this.uberduck.ApiKey = username;
+            this.uberduck.ApiSecret = password;
+        }
+
+        ImGui.SameLine();
+        if (ImGui.Button($"{Strings.Get("UberduckRegister")}##{MemoizedId.Create()}"))
+        {
+            WebBrowser.Open("https://uberduck.ai/");
+        }
+
+        ImGui.TextColored(ImColor.HintColor, Strings.Get("UberduckCredentialsSecured"));
+
+        ImGui.Spacing();
+
+        var currentVoicePreset = this.config.GetCurrentVoicePreset<UberduckVoicePreset>();
+
+        var presets = this.config.GetVoicePresetsForBackend(TTSBackend.Uberduck).ToList();
+        presets.Sort((a, b) => a.Id - b.Id);
+
+        if (presets.Any() && currentVoicePreset != null)
+        {
+            var presetIndex = currentVoicePreset is not null ? presets.IndexOf(currentVoicePreset) : -1;
+            if (ImGui.Combo($"{Strings.ChannelPreset}##{MemoizedId.Create()}", ref presetIndex, presets.Select(p => p.Name).ToArray(),
+                    presets.Count))
+            {
+                this.config.SetCurrentVoicePreset(presets[presetIndex].Id);
+                this.config.Save();
+            }
+        }
+        else if (currentVoicePreset != null)
+        {
+            ImGui.TextColored(ImColor.Red, Strings.Get("UberduckNoPresets"));
+        }
+        else if (currentVoicePreset == null && presets.Count > 0)
+        {
+            config.SetCurrentVoicePreset(presets.First().Id);
+        }
+
+        BackendUI.NewPresetButton<UberduckVoicePreset>($"{Strings.ActionNewPreset}##{MemoizedId.Create()}", this.config);
+
+        if (!presets.Any() || currentVoicePreset is null)
+        {
+            return;
+        }
+
+        ImGui.SameLine();
+        BackendUI.DeletePresetButton(
+            $"{Strings.Get("UberduckDeletePreset")}##{MemoizedId.Create()}",
+            currentVoicePreset,
+            TTSBackend.Uberduck,
+            this.config);
+
+        var presetName = currentVoicePreset.Name;
+        if (ImGui.InputText($"{Strings.Get("UberduckPresetName")}##{MemoizedId.Create()}", ref presetName, 64))
+        {
+            currentVoicePreset.Name = presetName;
+            this.config.Save();
+        }
+
+        {
+            var voiceCategories = this.getVoices.Invoke();
+            var voiceCategoriesFlat = voiceCategories.SelectMany(vc => vc.Value).ToList();
+            var voiceDisplayNames = voiceCategoriesFlat.Select(v => v.DisplayName).ToArray();
+            var voiceIds = voiceCategoriesFlat.Select(v => v.Name).ToArray();
+            var voiceIndex = Array.IndexOf(voiceIds, currentVoicePreset.VoiceName);
+            if (ImGui.BeginCombo($"{Strings.Get("UberduckVoice")}##{MemoizedId.Create()}", voiceDisplayNames[voiceIndex]))
+            {
+                foreach (var (category, voices) in voiceCategories)
+                {
+                    ImGui.Selectable(category, false, ImGuiSelectableFlags.Disabled);
+                    foreach (var voice in voices)
+                    {
+                        if (ImGui.Selectable($"  {voice.DisplayName}"))
+                        {
+                            currentVoicePreset.VoiceName = voice.Name;
+                            this.config.Save();
+                        }
+
+                        if (voice.Name == currentVoicePreset.VoiceName)
+                        {
+                            ImGui.SetItemDefaultFocus();
+                        }
+                    }
+                }
+
+                ImGui.EndCombo();
+            }
+
+            if (voiceCategoriesFlat.Count == 0)
+            {
+                ImGui.TextColored(ImColor.Red, Strings.Get("UberduckNoVoices"));
+            }
+        }
+
+        var playbackRate = currentVoicePreset.PlaybackRate;
+        if (ImGui.SliderInt($"{Strings.Get("UberduckPlaybackRate")}##{MemoizedId.Create()}", ref playbackRate, 20, 200, "%d%%",
+                ImGuiSliderFlags.AlwaysClamp))
+        {
+            currentVoicePreset.PlaybackRate = playbackRate;
+            this.config.Save();
+        }
+
+        var volume = (int)(currentVoicePreset.Volume * 100);
+        if (ImGui.SliderInt($"{Strings.Volume}##{MemoizedId.Create()}", ref volume, 0, 100))
+        {
+            currentVoicePreset.Volume = (float)Math.Round((double)volume / 100, 2);
+            this.config.Save();
+        }
+        if (ImGui.Button($"{Strings.Get("UberduckTest")}##{MemoizedId.Create()}"))
+        {
+            var voice = currentVoicePreset;
+            if (voice is not null)
+            {
+                var request = new SayRequest
+                {
+                    Source = TextSource.Chat,
+                    Voice = currentVoicePreset,
+                    Speaker = "Speaker",
+                    Text = Strings.Get("UberduckTestMessage"),
+                    TextTemplate = Strings.Get("UberduckTestMessage"),
+                    Race = "Hyur",
+                    BodyType = GameEnums.BodyType.Adult,
+                    Gender = GameEnums.Gender.None,
+                    ChatType = XivChatType.Say,
+                    Language = ClientLanguage.English,
+                };
+                backend.CancelSay(TextSource.Chat);
+                backend.Say(request);
+            }
+        }
+
+        ImGui.Text(Strings.Get("LexiconsTitle"));
+        ImGui.TextColored(ImColor.HintColor, Strings.Get("UberduckLexiconsUnsupported"));
+
+        ImGui.Spacing();
+
+        {
+            ConfigComponents.ToggleUseGenderedVoicePresets(
+                    $"{Strings.Get("UberduckUseGenderedVoices")}##{MemoizedId.Create()}",
+                    this.config);
+
+            ImGui.Spacing();
+            if (this.config.UseGenderedVoicePresets)
+            {
+                BackendUI.GenderedPresetConfig("Uberduck", TTSBackend.Uberduck, this.config, presets);
+            }
+        }
+    }
+}

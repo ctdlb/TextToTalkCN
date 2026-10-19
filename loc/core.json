@@ -1,0 +1,37 @@
+{
+  "BackendNameSystem": { "en": "System", "zh": "系统语音" },
+  "BackendNameWebsocket": { "en": "Websocket", "zh": "WebSocket" },
+  "BackendNameAmazonPolly": { "en": "Amazon Polly", "zh": "亚马逊 Polly" },
+  "BackendNameUberduck": { "en": "Uberduck", "zh": "Uberduck" },
+  "BackendNameAzure": { "en": "Azure Cognitive Services", "zh": "Azure 认知服务" },
+  "BackendNameElevenLabs": { "en": "ElevenLabs", "zh": "ElevenLabs" },
+  "BackendNameOpenAi": { "en": "OpenAI", "zh": "OpenAI" },
+  "BackendNameGoogleCloud": { "en": "Google Cloud", "zh": "谷歌云" },
+  "BackendNameKokoro": { "en": "Kokoro", "zh": "Kokoro" },
+  "BackendNameKokoroDownloadRequired": { "en": "Kokoro (169MB download required)", "zh": "Kokoro（需下载 169MB 模型）" },
+  "BackendNameMegaphone": { "en": "Megaphone", "zh": "Megaphone" },
+  "BackendNameFishAudio": { "en": "Fish Audio", "zh": "Fish Audio" },
+
+  "CommandCancelTts": { "en": "Cancel all queued TTS messages.", "zh": "取消所有已排队的朗读。" },
+  "CommandToggleTts": { "en": "Toggle TextToTalk's text-to-speech.", "zh": "开关 TextToTalk 朗读。" },
+  "CommandDisableTts": { "en": "Disable TextToTalk's text-to-speech.", "zh": "关闭 TextToTalk 朗读。" },
+  "CommandEnableTts": { "en": "Enable TextToTalk's text-to-speech.", "zh": "开启 TextToTalk 朗读。" },
+  "CommandToggleConfig": { "en": "Toggle TextToTalk's configuration window.", "zh": "打开或关闭 TextToTalk 设置窗口。" },
+  "CommandToggleStyles": { "en": "Toggle TextToTalk's styles window.", "zh": "打开或关闭 TextToTalk 语音风格窗口。" },
+  "CommandSwitchPreset": { "en": "Switch the active channel settings preset by name. Run with no arguments to show the current preset and list available presets.", "zh": "按名称切换当前频道设置预设。不带参数时显示当前预设并列出可用预设。" },
+  "CommandAdjustVolume": { "en": "Adjust the global TTS volume. Pass a percentage (0-200) to set, or +N/-N to adjust relatively. Run with no arguments to show the current volume.", "zh": "调整全局朗读音量。传入百分比（0-200）直接设置，或用 +N/-N 相对调整。不带参数时显示当前音量。" },
+
+  "TtsDisabledMessage": { "en": "TTS disabled.", "zh": "已关闭朗读。" },  "TtsEnabledMessage": { "en": "TTS enabled.", "zh": "已开启朗读。" },
+  "CurrentPresetFormat": { "en": "Current preset: {0}", "zh": "当前预设：{0}" },
+  "UnnamedPreset": { "en": "(unnamed)", "zh": "（未命名）" },
+  "AvailablePresetsFormat": { "en": "Available presets: {0}", "zh": "可用预设：{0}" },
+  "NoSuchPresetFormat": { "en": "No preset named \"{0}\" exists.", "zh": "不存在名为“{0}”的预设。" },
+  "PresetSwitchedFormat": { "en": "TextToTalk preset -> {0}", "zh": "已切换预设 → {0}" },
+  "CurrentVolumeFormat": { "en": "Current volume: {0:0}%", "zh": "当前音量：{0:0}%" },
+  "InvalidVolumeAdjustFormat": { "en": "Invalid volume adjustment: \"{0}\". Use +N or -N.", "zh": "无效的音量调整：“{0}”。请使用 +N 或 -N。" },
+  "InvalidVolumeFormat": { "en": "Invalid volume: \"{0}\". Use a percentage (0-200), +N, or -N.", "zh": "无效的音量：“{0}”。请使用百分比（0-200）、+N 或 -N。" },
+  "VolumeSetFormat": { "en": "Volume -> {0:0}%", "zh": "音量 → {0:0}%" },
+
+  "RateLimitWarningTitle": { "en": "TTS is being rate-limited.", "zh": "朗读请求触发了限流。" },
+  "RateLimitWarningBody": { "en": "Please slow down or adjust your enabled chat channels to reduce load.", "zh": "请降低语速，或减少启用的聊天频道以减轻负载。" }
+}

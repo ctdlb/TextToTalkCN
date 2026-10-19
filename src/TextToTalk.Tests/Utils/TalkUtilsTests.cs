@@ -1,0 +1,169 @@
+﻿using System;
+using System.Collections.Generic;
+using Dalamud.Game.Text.SeStringHandling;
+using Dalamud.Game.Text.SeStringHandling.Payloads;
+using TextToTalk.Utils;
+using Xunit;
+
+namespace TextToTalk.Tests.Utils;
+
+public class TalkUtilsTests
+{
+    [Theory]
+    [InlineData("...")]
+    public void IsSpeakable_WithUnspeakableText_ReturnsFalse(string input)
+    {
+        var actual = TalkUtils.IsSpeakable(input);
+        Assert.False(actual);
+    }
+
+    [Theory]
+    [InlineData("Well...")]
+    [InlineData("this is some speakable text")]
+    public void IsSpeakable_WithSpeakableText_ReturnsTrue(string input)
+    {
+        var actual = TalkUtils.IsSpeakable(input);
+        Assert.True(actual);
+    }
+
+    [Theory]
+    [InlineData("Something & something else", "Something and something else")]
+    public void ReplaceSsmlTokens_ReplacesKnownTokens(string input, string expected)
+    {
+        var actual = TalkUtils.ReplaceSsmlTokens(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("A simple sentence.", "A simple sentence.")]
+    [InlineData("The stronghold contains immense manufacturing and storage facilities, and it \nis the primary supplier of materiel for imperial forces stationed throughout \nEorzea.", "The stronghold contains immense manufacturing and storage facilities, and it is the primary supplier of materiel for imperial forces stationed throughout Eorzea.")]
+    public void NormalizeAddonTextWhitespace_CollapsesWrappedSentence(string input, string expected)
+    {
+        var actual = TalkUtils.NormalizeAddonTextWhitespace(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("\r\nFirst\r\n\r\nSecond\r\n", "First Second")]
+    [InlineData("\rFirst\r\rSecond\r", "First Second")]
+    [InlineData("\nFirst\n\nSecond\n", "First Second")]
+    [InlineData("\t  First\t\tSecond  \t", "First Second")]
+    [InlineData(" \r\n\tFirst \t\r\n Second\n ", "First Second")]
+    public void NormalizeAddonTextWhitespace_CollapsesNewlineAndRepeatedWhitespace(string input, string expected)
+    {
+        var actual = TalkUtils.NormalizeAddonTextWhitespace(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("—", " - ")]
+    public void NormalizePunctuation_ReplacesHyphens(string input, string expected)
+    {
+        var actual = TalkUtils.NormalizePunctuation(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("<sigh> Forgive me my outburst.", "Forgive me my outburst.")]
+    public void StripAngleBracketedText_RemovesAngleBracketedText(string input, string expected)
+    {
+        var actual = TalkUtils.StripAngleBracketedText(input);
+        Assert.Equal(expected, actual);
+    }
+
+    [Theory]
+    [InlineData("あ-あ", "あ")]
+    [InlineData("b-but", "but")]
+    [InlineData("H-H-Hello!", "Hello!")]
+    [InlineData("So th-there w-was", "So there was")]
+    public void RemoveStutters_RemovesRepeatedHyphenatedLetters(string input, string expected) =>
+        TestRemoveStutters(input, expected);
+
+    [Theory]
+    [InlineData("Th-this has different c-capitalization", "This has different capitalization")]
+    [InlineData("É-é-é", "É")]
+    public void RemoveStutters_MaintainsCapitalization(string input, string expected) =>
+        TestRemoveStutters(input, expected);
+
+    [Theory]
+    [InlineData("A-Ruhn?", "A-Ruhn?")]
+    public void RemoveStutters_DoesNotRemoveDifferentHyphenatedLetters(string input, string expected) =>
+        TestRemoveStutters(input, expected);
+
+    [Theory]
+    [InlineData("", "")]
+    [InlineData(" ", " ")]
+    [InlineData("a-a-", "a-")]
+    [InlineData("お礼がてら、あなたもいかがかしら？", "お礼がてら、あなたもいかがかしら？")] // quest/006/TstPln905_00659
+    public void RemoveStutters_EdgeCasesWork(string input, string expected) => TestRemoveStutters(input, expected);
+
+    [Theory]
+    [InlineData(null, FirstOrLastName.First, null)]
+    [InlineData("", FirstOrLastName.First, null)]
+    [InlineData(" ", FirstOrLastName.First, null)]
+    [InlineData("Two Names", FirstOrLastName.First, "Two")]
+    [InlineData("Two Names", FirstOrLastName.Last, "Names")]
+    [InlineData("Maybe Three Names", FirstOrLastName.Last, "Names")]
+    [InlineData("Onename", FirstOrLastName.First, "Onename")]
+    [InlineData("Onename", FirstOrLastName.Last, "Onename")]
+    public void GetPartialName_CanExtractNamePart(string? input, FirstOrLastName part, string? expected)
+    {
+        var actual = TalkUtils.GetPartialName(input, part);
+        Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void GetPartialName_WithInvalidEnumValue_ThrowsArgumentOutOfRangeException()
+    {
+        Assert.Throws<ArgumentOutOfRangeException>(() => TalkUtils.GetPartialName("Someone", (FirstOrLastName)(-1)));
+    }
+
+    [Fact]
+    public void ExtractTokens_CanExtractTokens()
+    {
+        var actual = TalkUtils.ExtractTokens("This is a sentence.", new Dictionary<string, string?>
+        {
+            { "TOKEN", "sentence" },
+        });
+
+        Assert.Equal("This is a TOKEN.", actual);
+    }
+
+    [Fact]
+    public void ExtractTokens_SkipsNullTokenValues()
+    {
+        var actual = TalkUtils.ExtractTokens("This is a sentence.", new Dictionary<string, string?>
+        {
+            { "TOKEN", null },
+        });
+
+        Assert.Equal("This is a sentence.", actual);
+    }
+
+    [Fact]
+    public void ExtractTokens_ExtractsLargestTokensFirst()
+    {
+        var actual = TalkUtils.ExtractTokens("This is a sentence.", new Dictionary<string, string?>
+        {
+            { "TOKEN1", "a sentence" },
+            { "TOKEN2", "sentence" },
+            { "TOKEN3", "is a sentence" },
+        });
+
+        Assert.Equal("This TOKEN3.", actual);
+    }
+
+    [Fact]
+    public void GetPlayerWorldName_WithoutPlayerPayload_ReturnsNull()
+    {
+        var actual = TalkUtils.GetPlayerWorldName(new SeStringBuilder().AddText("Speaker").Build());
+
+        Assert.Null(actual);
+    }
+
+    private static void TestRemoveStutters(string input, string expected)
+    {
+        var actual = TalkUtils.RemoveStutters(input);
+        Assert.Equal(expected, actual);
+    }
+}

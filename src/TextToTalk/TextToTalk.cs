@@ -1,0 +1,682 @@
+using Dalamud.Game.ClientState.Objects.SubKinds;
+using Dalamud.Game.Text;
+using Dalamud.Game.Text.SeStringHandling;
+using Dalamud.Interface.Windowing;
+using Dalamud.Plugin;
+using Dalamud.Plugin.Services;
+using LiteDB;
+using Lumina.Excel.Sheets;
+using NAudio.Wave;
+using R3;
+using Standart.Hash.xxHash;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Http;
+using System.Text.RegularExpressions;
+using TextToTalk.Backends;
+using TextToTalk.Backends.Azure;
+using TextToTalk.Backends.ElevenLabs;
+using TextToTalk.Backends.GoogleCloud;
+using TextToTalk.Backends.Kokoro;
+using TextToTalk.Backends.Megaphone;
+using TextToTalk.Backends.OpenAI;
+using TextToTalk.Backends.Polly;
+using TextToTalk.Backends.System;
+using TextToTalk.Backends.Uberduck;
+using TextToTalk.Backends.Websocket;
+using TextToTalk.Backends.FishAudio;
+using TextToTalk.CommandModules;
+using TextToTalk.Data.Services;
+using TextToTalk.Events;
+using TextToTalk.Extensions;
+using TextToTalk.GameEnums;
+using TextToTalk.Localization;
+using TextToTalk.Middleware;
+using TextToTalk.Resources;
+using TextToTalk.Services;
+using TextToTalk.Talk;
+using TextToTalk.TextProviders;
+using TextToTalk.UI;
+using TextToTalk.UI.Windows;
+using TextToTalk.UngenderedOverrides;
+using TextToTalk.Utils;
+using static System.Net.Mime.MediaTypeNames;
+using GameObject = Dalamud.Game.ClientState.Objects.Types.IGameObject;
+
+namespace TextToTalk
+{
+    public partial class TextToTalk : IDalamudPlugin
+    {
+#if DEBUG
+        private const bool InitiallyVisible = true;
+#else
+        private const bool InitiallyVisible = false;
+#endif
+
+private readonly IDalamudPluginInterface pluginInterface;
+        private readonly MainCommandModule commandModule;
+        private readonly DebugCommandModule debugCommandModule;
+        private readonly IKeyState keys;
+        private readonly IChatGui chat;
+        private readonly IFramework framework;
+        private readonly IClientState clientState;
+        private readonly Localizer localizer;
+        private readonly IObjectTable objects;
+        private readonly IGameConfig gameConfig;
+
+        private readonly PluginConfiguration config;
+        private readonly AddonTalkManager addonTalkManager;
+        private readonly AddonBattleTalkManager addonBattleTalkManager;
+        private readonly VoiceBackendManager backendManager;
+        private readonly IAddonTalkHandler addonTalkHandler;
+        private readonly IAddonBattleTalkHandler addonBattleTalkHandler;
+        private readonly IChatMessageHandler chatMessageHandler;
+        private readonly SoundHandler soundHandler;
+        private readonly ConfiguredRateLimiter rateLimiter;
+        private readonly UngenderedOverrideManager ungenderedOverrides;
+        private readonly ILiteDatabase database;
+        private readonly PlayerService playerService;
+        private readonly NpcService npcService;
+        private readonly DialogueSessionService dialogueSessionService;
+        private readonly WindowSystem windows;
+        private readonly IDataManager data;
+        private readonly NotificationService notificationService;
+        private readonly ConfigurationWindow configurationWindow;
+        private readonly VoiceUnlockerWindow voiceUnlockerWindow;
+
+        private readonly HttpClient http;
+
+        private readonly IDisposable unsubscribeAll;
+
+        private ILiteDatabase? textEventLogDatabase;
+        private TextEventLogCollection? textEventLog;
+        private readonly IConfigUIDelegates configUIDelegates;
+        private readonly VoiceStyles StylesWindow;
+
+        public string Name => "TextToTalk";
+
+
+        public TextToTalk(
+            IDalamudPluginInterface pi,
+            IKeyState keyState,
+            IChatGui chat,
+            IFramework framework,
+            IClientState clientState,
+            IGameGui gui,
+            IDataManager data,
+            IObjectTable objects,
+            ICondition condition,
+            ICommandManager commandManager,
+            ISigScanner sigScanner,
+            IGameInteropProvider gameInterop,
+            INotificationManager notificationManager,
+            IPluginLog pluginLog,
+            IGameConfig gameConfig)
+        {
+            DetailedLog.SetLogger(pluginLog);
+
+            this.pluginInterface = pi;
+            this.clientState = clientState;
+            this.localizer = new Localizer(pi.UiLanguage);
+            this.pluginInterface.LanguageChanged += OnDalamudLanguageChanged;
+            this.objects = objects;
+            this.keys = keyState;
+            this.chat = chat;
+            this.framework = framework;
+            this.data = data;
+            this.gameConfig = gameConfig;
+
+            CreateDatabasePath();
+            CreateEventLogDatabase();
+            this.database = new LiteDatabase(GetDatabasePath("TextToTalk.db"));
+            var playerCollection = new PlayerCollection(this.database);
+            var npcCollection = new NpcCollection(this.database);
+
+            this.notificationService = new NotificationService(notificationManager, chat, clientState);
+
+            this.windows = new WindowSystem("TextToTalk");
+
+            this.config = (PluginConfiguration?)this.pluginInterface.GetPluginConfig() ?? new PluginConfiguration();
+            this.config.Initialize(this.pluginInterface, playerCollection, npcCollection);
+
+            this.addonTalkManager = new AddonTalkManager(framework, clientState, condition, gui);
+            this.addonBattleTalkManager = new AddonBattleTalkManager(framework, clientState, condition, gui);
+            var addonSelectStringManager = new AddonSelectStringManager(framework, clientState, condition, gui);
+            var addonSelectIconStringManager = new AddonSelectIconStringManager(framework, clientState, condition, gui);
+            this.configUIDelegates = new ConfigUIDelegates();
+            
+
+            var sharedState = new SharedState();
+
+            this.http = new HttpClient();
+            this.backendManager = new VoiceBackendManager(this.config, this.http, pi.UiBuilder, this.notificationService);
+            this.StylesWindow = new VoiceStyles(this.backendManager, this.configUIDelegates, this.config);
+            this.playerService = new PlayerService(playerCollection, this.config.GetVoiceConfig().VoicePresets);
+            this.npcService = new NpcService(npcCollection, this.config.GetVoiceConfig().VoicePresets);
+
+            var unlockerResultWindow = new UnlockerResultWindow();
+            var channelPresetModificationWindow = new ChannelPresetModificationWindow(this.config);
+            var voiceUnlockerRunner = new VoiceUnlockerRunner(pi.AssemblyLocation.FullName);
+            this.voiceUnlockerWindow = new VoiceUnlockerWindow(voiceUnlockerRunner);
+            var handleUnlockerResult = this.voiceUnlockerWindow.OnResult()
+                .Subscribe(unlockerResultWindow, static (result, window) =>
+                {
+                    window.Text = result;
+                    window.IsOpen = true;
+                });
+            this.configurationWindow = new ConfigurationWindow(this.config, data, this.localizer, this.backendManager,
+                this.playerService, this.npcService, this.voiceUnlockerWindow)
+            {
+                IsOpen = InitiallyVisible,
+            };
+            var handlePresetOpenRequested = this.configurationWindow.OnPresetOpenRequested()
+                .Subscribe(channelPresetModificationWindow, static (_, window) => window.IsOpen = true);
+
+            this.windows.AddWindow(unlockerResultWindow);
+            this.windows.AddWindow(this.voiceUnlockerWindow);
+            this.windows.AddWindow(this.configurationWindow);
+            this.windows.AddWindow(channelPresetModificationWindow);
+            this.windows.AddWindow(this.StylesWindow);
+
+            var filters = new MessageHandlerFilters(sharedState, this.config, this.objects);
+            this.addonTalkHandler =
+                new AddonTalkHandler(this.addonTalkManager, framework, filters, objects, this.config);
+            this.addonBattleTalkHandler =
+                new AddonBattleTalkHandler(this.addonBattleTalkManager, framework, filters, objects, this.config);
+            this.chatMessageHandler =
+                new ChatMessageHandler(this.addonTalkManager, this.addonBattleTalkManager, chat, filters, objects,
+                    this.config);
+            this.soundHandler =
+                new SoundHandler(this.addonTalkHandler, this.addonBattleTalkHandler, sigScanner, gameInterop);
+
+            this.dialogueSessionService = new DialogueSessionService(framework, clientState, condition,
+                addonSelectStringManager, addonSelectIconStringManager,
+                this.addonTalkManager, this.addonBattleTalkManager);
+
+            this.rateLimiter = new ConfiguredRateLimiter(this.config);
+
+            this.ungenderedOverrides = new UngenderedOverrideManager();
+
+            
+            this.commandModule = new MainCommandModule(commandManager, chat, this.config, this.backendManager,
+                this.configurationWindow, this.configUIDelegates, this.StylesWindow);
+            this.debugCommandModule = new DebugCommandModule(commandManager, chat, gui, framework);
+
+
+            RegisterCallbacks();
+
+            var handleTextCancel = HandleTextCancel();
+            var handleTextEmit = HandleTextEmit();
+            var handleDialogueSessions = this.dialogueSessionService.OnEvent
+                .Subscribe(ev => FunctionalUtils.RunSafely(
+                    () => this.backendManager.OnNpcDialogueSessionEvent(ev),
+                    ex => DetailedLog.Error(ex, "Failed to handle dialogue session event")));
+
+            this.unsubscribeAll = Disposable.Combine(handleTextCancel, handleTextEmit, handleUnlockerResult,
+                handlePresetOpenRequested, handleDialogueSessions);
+        }
+
+
+        private void CreateDatabasePath()
+        {
+            Directory.CreateDirectory(this.pluginInterface.GetPluginConfigDirectory());
+        }
+
+        private string GetDatabasePath(string fileName)
+        {
+            return Path.Combine(this.pluginInterface.GetPluginConfigDirectory(), fileName);
+        }
+
+        [Conditional("DEBUG")]
+        private void CreateEventLogDatabase()
+        {
+            this.textEventLogDatabase = new LiteDatabase(GetDatabasePath("log.db"));
+            this.textEventLog = new TextEventLogCollection(this.textEventLogDatabase);
+        }
+
+        private IDisposable HandleTextCancel()
+        {
+            return OnTextSourceCancel()
+                .Where(this, static (_, p) => p.config is { Enabled: true, CancelSpeechOnTextAdvance: true })
+                .Do(LogTextEvent)
+                .SubscribeOnThreadPool()
+                .Subscribe(
+                    ev => FunctionalUtils.RunSafely(
+                        () => this.backendManager.CancelSay(ev.Source),
+                        ex => DetailedLog.Error(ex, "Failed to handle text cancel event")),
+                    ex => DetailedLog.Error(ex, "Text cancel event sequence has faulted"),
+                    _ => { });
+        }
+
+        private IDisposable HandleTextEmit()
+        {
+            return OnTextEmit()
+                .Where(this, static (_, p) => p.config.Enabled)
+                .Do(LogTextEvent)
+                .SubscribeOnThreadPool()
+                .Subscribe(
+                    ev => FunctionalUtils.RunSafely(
+                        () =>
+                        {
+                            try
+                            {
+                                Say(ev.Speaker, ev.SpeakerName, ev.GetChatType(), ev.Text.TextValue, ev.RawText,
+                                    ev.Source, ev is ChatTextEmitEvent chatEvent ? chatEvent.SpeakerWorld : null);
+                            }
+                            catch (Exception ex)
+                            {
+                                DetailedLog.Error(ex, "Failed to say dialogue");
+                            }
+
+                            try
+                            {
+                                this.dialogueSessionService.NotifyDialogue(ev.Source);
+                            }
+                            catch (Exception ex)
+                            {
+                                DetailedLog.Error(ex, "Failed to notify dialogue session");
+                            }
+                        },
+                        ex => DetailedLog.Error(ex, "Failed to handle text emit event")),
+                    ex => DetailedLog.Error(ex, "Text emit event sequence has faulted"),
+                    _ => { });
+        }
+
+        private void LogTextEvent(TextEvent ev)
+        {
+            FunctionalUtils.RunSafely(
+                () => this.textEventLog?.StoreEvent(ev.ToLogEntry()),
+                ex => DetailedLog.Error(ex, "Failed to log text emit event"));
+        }
+
+        private bool keysDown;
+
+        private void CheckKeybindPressed(IFramework f)
+        {
+            if (this.CheckTTSToggleKeybind()) return;
+            if (this.CheckPresetKeybind()) return;
+            this.keysDown = false;
+        }
+
+        private bool CheckPresetKeybind()
+        {
+            foreach (var preset in this.config.EnabledChatTypesPresets.Where(p => p.UseKeybind))
+            {
+                if (this.keys[(byte)preset.ModifierKey] &&
+                    this.keys[(byte)preset.MajorKey])
+                {
+                    if (this.keysDown) return true;
+
+                    this.keysDown = true;
+                    this.config.SetCurrentEnabledChatTypesPreset(preset.Id);
+                    this.chat.Print(string.Format(Strings.PresetSwitchedFormat, preset.Name));
+                    DetailedLog.Info($"TextToTalk preset -> {preset.Name}");
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private bool CheckTTSToggleKeybind()
+        {
+            if (!this.config.UseKeybind)
+            {
+                return false;
+            }
+
+            if (this.keys[(byte)this.config.ModifierKey] &&
+                this.keys[(byte)this.config.MajorKey])
+            {
+                if (this.keysDown) return true;
+
+                this.keysDown = true;
+                this.commandModule.ToggleTts();
+                return true;
+            }
+
+            return false;
+        }
+
+        private unsafe void Say(GameObject? speaker, SeString speakerName, XivChatType? chatType, string textValue,
+            string rawText, TextSource source, string? speakerWorld)
+        {
+            // Check if this speaker should be skipped
+            if (speaker != null && this.rateLimiter.TryRateLimit(speaker))
+            {
+                return;
+            }
+            
+            string textContent = textValue; // Default to original text
+            string textStyle = "";
+
+            if (config.AdHocStyleTagsEnabled == true)
+            {
+                var match = Regex.Match(textValue, config.StyleRegex);
+
+                if (match.Success)
+                {
+                    textStyle = match.Groups[1].Value.Trim();
+                    // Replace the tagged portion with just the inner content for the final output
+                    textContent = Regex.Replace(textValue, config.StyleRegex, m => m.Groups[2].Value);
+                }
+                else
+                {
+                    textContent = textValue;
+                }
+            }
+            else 
+            { 
+                textContent = textValue; 
+            }
+
+                // Run a preprocessing pipeline to clean the text for the speech synthesizer
+                var cleanText = FunctionalUtils.Pipe(
+                        textContent,
+                        TalkUtils.StripAngleBracketedText,
+                        TalkUtils.ReplaceSsmlTokens,
+                        TalkUtils.NormalizePunctuation,
+                        t => this.config.RemoveStutterEnabled ? TalkUtils.RemoveStutters(t) : t,
+                        x => x.Trim());
+
+            // Ensure that the result is clean; ignore it otherwise
+            if (!cleanText.Any() || !TalkUtils.IsSpeakable(cleanText))
+            {
+                return;
+            }
+
+            // Build a template for the text payload
+            var textTemplate = TalkUtils.ExtractTokens(cleanText, new Dictionary<string, string?>
+            {
+                { "{{FULL_NAME}}", this.objects.LocalPlayer?.GetFullName() },
+                { "{{FIRST_NAME}}", this.objects.LocalPlayer?.GetFirstName() },
+                { "{{LAST_NAME}}", this.objects.LocalPlayer?.GetLastName() },
+            });
+
+            // Some characters have emdashes in their names, which should be treated
+            // as hyphens for the sake of the plugin.
+            var cleanSpeakerName = TalkUtils.NormalizePunctuation(speakerName.TextValue);
+
+            if (speakerWorld is null && speaker is IPlayerCharacter player)
+            {
+                speakerWorld = player.HomeWorld.Value.Name.ToString();
+            }
+
+            // Attempt to get the speaker's ID, if they're an NPC
+            var npcId = speaker?.GetNpcId();
+
+            // Get the speaker's race if it exists.
+            var race = GetSpeakerRace(speaker);
+
+            // Get the speaker's age if it exists.
+            var bodyType = GetSpeakerBodyType(speaker);
+
+            // Get the speaker's gender if it exists.
+            var gender = Gender.None;
+            int? modelCharaId = null;
+            if(TryGetCharacter(speaker, out var charaStruct))
+            {
+                gender = (Gender)charaStruct->Sex;
+                if (npcId is not null)
+                {
+                    modelCharaId = charaStruct->ModelContainer.ModelCharaId;
+                }
+            }
+
+            // Get the speaker's voice preset
+            var preset = GetVoicePreset(speaker, cleanSpeakerName);
+            if (preset is null)
+            {
+                DetailedLog.Error("Attempted to speak with null voice preset");
+                return;
+            }
+
+// Say the thing
+            BackendSay(new SayRequest
+            {
+                Source = source,
+                Speaker = cleanSpeakerName,
+                SpeakerWorld = speakerWorld,
+                RawText = rawText,
+                Text = cleanText,
+                Style = textStyle,
+                TextTemplate = textTemplate,
+                Voice = preset,
+                ChatType = chatType,
+                Language = this.clientState.ClientLanguage,
+                NpcId = npcId,
+                ModelCharaId = modelCharaId,
+                Race = race,
+                BodyType = bodyType,
+                Gender = gender,
+                StuttersRemoved = this.config.RemoveStutterEnabled,
+                Volume = SoundSettingsUtils.GetEffectiveVoiceVolume(this.gameConfig),
+            });
+        }
+
+        private void BackendSay(SayRequest request)
+        {
+            if (request.Voice.EnabledBackend != this.config.Backend)
+            {
+                DetailedLog.Error(
+                    $"Voice preset {request.Voice.Name} is not compatible with the {this.config.Backend} backend");
+                return;
+            }
+
+            this.backendManager.Say(request);
+        }
+
+        private unsafe string GetSpeakerRace(GameObject? speaker)
+        {
+            if (!TryGetCharacter(speaker, out var charaStruct))
+            {
+                return "Unknown";
+            }
+
+            var speakerRace = charaStruct->DrawData.CustomizeData.Race;
+
+            var race = this.data.GetExcelSheet<Race>();
+            if (!race.TryGetRow(speakerRace, out var row))
+            {
+                return "Unknown";
+            }
+
+            return row.Masculine.ToString();
+        }
+
+        private static unsafe BodyType GetSpeakerBodyType(GameObject? speaker)
+        {
+            if (!TryGetCharacter(speaker, out var charaStruct))
+            {
+                return BodyType.Unknown;
+            }
+
+            var speakerBodyType = charaStruct->DrawData.CustomizeData.BodyType;
+            return (BodyType)speakerBodyType;
+        }
+
+        private static unsafe bool TryGetCharacter(GameObject? speaker,
+            [NotNullWhen(true)] out FFXIVClientStructs.FFXIV.Client.Game.Character.Character* character)
+        {
+            character = null;
+            if (speaker is null || speaker.Address == nint.Zero)
+            {
+                return false;
+            }
+
+            var objectStruct = (FFXIVClientStructs.FFXIV.Client.Game.Object.GameObject*)speaker.Address;
+            if (!objectStruct->IsCharacter())
+            {
+                return false;
+            }
+
+            character = (FFXIVClientStructs.FFXIV.Client.Game.Character.Character*)speaker.Address;
+            return true;
+        }
+
+        private VoicePreset? GetVoicePreset(GameObject? speaker, string speakerName)
+        {
+            // speaker will be null if the player is in another zone.  i.e. chatting across link-shells or FC chat.
+            if (speaker is null &&
+                this.config.UsePlayerVoicePresets &&
+                this.playerService.TryGetPlayerOtherZone(speakerName, out var otherPlayerInfo) &&
+                this.playerService.TryGetPlayerVoice(otherPlayerInfo, out var otherPlayerVoice, config.Backend.ToString()))
+            {
+                return otherPlayerVoice;
+            }
+            // Check if the speaker is a player and we have a custom voice for this speaker
+            if (speaker is IPlayerCharacter pc &&
+                this.config.UsePlayerVoicePresets &&
+                this.playerService.TryGetPlayer(speakerName, pc.HomeWorld.RowId, out var playerInfo) &&
+                this.playerService.TryGetPlayerVoice(playerInfo, out var playerVoice, config.Backend.ToString()))
+            {
+                return playerVoice;
+            }
+
+            if (speaker is not null &&
+                this.config.UseNpcVoicePresets &&
+                this.npcService.TryGetNpc(speakerName, out var npcInfo) &&
+                this.npcService.TryGetNpcVoice(npcInfo, this.config.Backend.ToString(), out var npcVoice))
+            {
+                return npcVoice;
+            }
+
+            // Get the speaker's gender, if possible
+            var gender = this.config.Backend.IsRelayBackend() || this.config.UseGenderedVoicePresets
+                ? CharacterGenderUtils.GetCharacterGender(speaker, this.ungenderedOverrides)
+                : Gender.None;
+
+            return GetVoiceForSpeaker(speakerName, gender);
+        }
+
+        private VoicePreset? GetVoiceForSpeaker(string? name, Gender gender)
+        {
+            return this.backendManager.Backend switch
+            {
+                SystemBackend => GetVoiceForSpeaker<SystemVoicePreset>(name, gender),
+                PollyBackend => GetVoiceForSpeaker<PollyVoicePreset>(name, gender),
+                UberduckBackend => GetVoiceForSpeaker<UberduckVoicePreset>(name, gender),
+                WebsocketBackend => new WebsocketVoicePreset
+                {
+                    EnabledBackend = TTSBackend.Websocket,
+                    Id = -1,
+                    Name = gender.ToString(),
+                },
+                AzureBackend => GetVoiceForSpeaker<AzureVoicePreset>(name, gender),
+                ElevenLabsBackend => GetVoiceForSpeaker<ElevenLabsVoicePreset>(name, gender),
+                OpenAiBackend => GetVoiceForSpeaker<OpenAiVoicePreset>(name, gender),
+                GoogleCloudBackend => GetVoiceForSpeaker<GoogleCloudVoicePreset>(name, gender),
+                MegaphoneBackend => new MegaphoneVoicePreset
+                {
+                    EnabledBackend = TTSBackend.Megaphone,
+                    Id = -1,
+                    Name = gender.ToString(),
+                },
+                KokoroBackend => GetVoiceForSpeaker<KokoroVoicePreset>(name, gender),
+                _ => throw new InvalidOperationException("Failed to get voice preset for backend."),
+            };
+        }
+
+        private TPreset? GetVoiceForSpeaker<TPreset>(string? name, Gender gender) where TPreset : VoicePreset
+        {
+            if (!this.config.UseGenderedVoicePresets)
+            {
+                return this.config.GetCurrentVoicePreset<TPreset>();
+            }
+
+            var voicePresets = gender switch
+            {
+                Gender.Male => this.config.GetCurrentMaleVoicePresets<TPreset>(),
+                Gender.Female => this.config.GetCurrentFemaleVoicePresets<TPreset>(),
+                _ => this.config.GetCurrentUngenderedVoicePresets<TPreset>(),
+            };
+
+            if (voicePresets.Length < 1)
+            {
+                return null;
+            }
+
+            // Use xxHash instead of the built-in GetHashCode because GetHashCode is randomized on program launch.
+            var nameHash = string.IsNullOrEmpty(name) ? 0 : xxHash32.ComputeHash(name);
+            var voicePresetIndex = (int)(nameHash % (uint)voicePresets.Length);
+            return voicePresets[voicePresetIndex];
+        }
+
+        private void RegisterCallbacks()
+        {
+            this.pluginInterface.UiBuilder.Draw += this.windows.Draw;
+
+            this.pluginInterface.UiBuilder.OpenMainUi += this.configurationWindow.Open;
+            this.pluginInterface.UiBuilder.OpenConfigUi += this.configurationWindow.Open;
+
+            this.framework.Update += this.notificationService.ProcessNotifications;
+            this.framework.Update += CheckKeybindPressed;
+        }
+
+        private void UnregisterCallbacks()
+        {
+            this.pluginInterface.LanguageChanged -= OnDalamudLanguageChanged;
+            this.framework.Update -= CheckKeybindPressed;
+            this.framework.Update -= this.notificationService.ProcessNotifications;
+
+            this.pluginInterface.UiBuilder.OpenConfigUi -= this.configurationWindow.Open;
+            this.pluginInterface.UiBuilder.OpenMainUi -= this.configurationWindow.Open;
+
+            this.pluginInterface.UiBuilder.Draw -= this.windows.Draw;
+        }
+
+        private void OnDalamudLanguageChanged(string languageCode)
+        {
+            this.localizer.SetUiLanguage(languageCode);
+        }
+
+        #region IDisposable Support
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing) return;
+
+            this.unsubscribeAll.Dispose();
+
+            this.chatMessageHandler.Dispose();
+            this.addonTalkHandler.Dispose();
+
+            UnregisterCallbacks();
+
+            this.debugCommandModule.Dispose();
+            this.commandModule.Dispose();
+
+            this.soundHandler.Dispose();
+
+            this.dialogueSessionService.Dispose();
+
+            this.configurationWindow.Dispose();
+
+            this.voiceUnlockerWindow.Dispose();
+
+            this.pluginInterface.SavePluginConfig(this.config);
+
+            this.backendManager.Dispose();
+            this.http.Dispose();
+
+            this.textEventLogDatabase?.Dispose();
+            this.database.Dispose();
+
+            this.addonBattleTalkManager.Dispose();
+            this.addonTalkManager.Dispose();
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+    }
+}

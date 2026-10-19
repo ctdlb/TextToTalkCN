@@ -1,0 +1,25 @@
+<Project>
+
+  <!--
+    Dalamud 库路径解析。
+
+    国服 XIVLauncher 的配置目录名是 XIVLauncherCN，而不是国际服的 XIVLauncher，
+    上游项目把路径写死成 $(appdata)\XIVLauncher\...，在国服环境下会找不到 Dalamud.dll。
+    这里统一做一次解析，供所有项目引用：
+
+      1. 优先使用显式设置的 DALAMUD_HOME（CI / 自定义安装位置）；
+      2. 其次自动探测国服 XIVLauncherCN 的 dev 目录；
+      3. 最后回退到国际服 XIVLauncher 的 dev 目录。
+  -->
+  <PropertyGroup>
+    <DalamudDevSubPath>addon\Hooks\dev</DalamudDevSubPath>
+
+    <DALAMUD_HOME Condition="'$(DALAMUD_HOME)' == '' and Exists('$(appdata)\XIVLauncherCN\$(DalamudDevSubPath)\Dalamud.dll')">$(appdata)\XIVLauncherCN\$(DalamudDevSubPath)</DALAMUD_HOME>
+    <DALAMUD_HOME Condition="'$(DALAMUD_HOME)' == '' and Exists('$(appdata)\XIVLauncher\$(DalamudDevSubPath)\Dalamud.dll')">$(appdata)\XIVLauncher\$(DalamudDevSubPath)</DALAMUD_HOME>
+
+    <DalamudLibPath Condition="'$(DALAMUD_HOME)' != ''">$(DALAMUD_HOME)\</DalamudLibPath>
+    <DalamudLibPath Condition="'$(DalamudLibPath)' == '' and Exists('$(appdata)\XIVLauncherCN\$(DalamudDevSubPath)')">$(appdata)\XIVLauncherCN\$(DalamudDevSubPath)\</DalamudLibPath>
+    <DalamudLibPath Condition="'$(DalamudLibPath)' == ''">$(appdata)\XIVLauncher\$(DalamudDevSubPath)\</DalamudLibPath>
+  </PropertyGroup>
+
+</Project>

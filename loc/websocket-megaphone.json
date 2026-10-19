@@ -1,0 +1,15 @@
+{
+  "WebsocketBindFailedFormat": { "en": "TextToTalk failed to bind the WebSocket server to port {0}.", "zh": "TextToTalk 无法将 WebSocket 服务器绑定到端口 {0}。" },
+  "WebsocketPortInUseHint": { "en": "Please close the owner of that port and reload the Websocket server, or select a different port.", "zh": "请关闭占用该端口的程序并重新加载 WebSocket 服务器，或选择其他端口。" },
+  "WebsocketAddress": { "en": "Address", "zh": "地址" },
+  "WebsocketAddressInvalid": { "en": "Failed to parse address!", "zh": "无法解析地址！" },
+  "WebsocketIpv6Unsupported": { "en": "IPv6 address formats are not currently supported.", "zh": "当前不支持 IPv6 地址格式。" },
+  "WebsocketPortAlreadyInUse": { "en": "Port is already in use by another server.", "zh": "端口已被其他服务器占用。" },
+  "WebsocketUnknownErrorFormat": { "en": "Unknown error: {0}", "zh": "未知错误：{0}" },
+  "MegaphoneBindFailedFormat": { "en": "TextToTalk failed to bind the Megaphone server to port {0}.", "zh": "TextToTalk 无法将 Megaphone 服务器绑定到端口 {0}。" },
+  "MegaphonePortInUseHint": { "en": "Please close the owner of that port and reload the Megaphone server, or select a different port.", "zh": "请关闭占用该端口的程序并重新加载 Megaphone 服务器，或选择其他端口。" },
+  "MegaphonePortAlreadyInUse": { "en": "Port is already in use by another server.", "zh": "端口已被其他服务器占用。" },
+  "MegaphoneUnknownErrorFormat": { "en": "Unknown error: {0}", "zh": "未知错误：{0}" },
+  "GoogleCloudCredentialsOpen": { "en": "Open Google Credentials", "zh": "打开 Google 凭据" },
+  "GoogleCloudCredentialsJsonFilter": { "en": "JSON files{.json},.*", "zh": "JSON 文件{.json},.*" }
+}

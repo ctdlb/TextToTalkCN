@@ -1,0 +1,908 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <!-- Main Window -->
+  <data name="ConfigurationTitle"><value>TextToTalk Configuration</value></data>
+  <data name="EnabledSuffix"><value>Enabled</value></data>
+  <data name="DisabledSuffix"><value>Disabled</value></data>
+
+  <!-- Main Tabs -->
+  <data name="TabSynthesizerSettings"><value>Synthesizer Settings</value></data>
+  <data name="TabPlayerVoices"><value>Player Voices</value></data>
+  <data name="TabNpcVoices"><value>NPC Voices</value></data>
+  <data name="TabChannelSettings"><value>Channel Settings</value></data>
+  <data name="TabTriggersExclusions"><value>Triggers/Exclusions</value></data>
+
+  <!-- Synthesizer Settings -->
+  <data name="SectionKeybinds"><value>Keybinds</value></data>
+  <data name="EnableKeybind"><value>Enable Keybind</value></data>
+  <data name="TtsToggleKeybind"><value>TTS Toggle Keybind</value></data>
+  <data name="KeyControl"><value>Ctrl</value></data>
+  <data name="KeyShift"><value>Shift</value></data>
+  <data name="KeyAlt"><value>Alt</value></data>
+  <data name="SectionGeneral"><value>General</value></data>
+  <data name="AudioOutputDevice"><value>Audio Output Device</value></data>
+  <data name="Volume"><value>Volume</value></data>
+  <data name="VolumeHelp"><value>Adjusts the volume of all TTS playback. This is multiplied with the voice preset volume.</value></data>
+  <data name="ReadNpcDialogueFromDialogueWindow"><value>Read NPC dialogue from the dialogue window</value></data>
+  <data name="CancelSpeechOnTextAdvance"><value>Cancel the current NPC speech when new text is available or text is advanced</value></data>
+  <data name="SkipVoicedNpcDialogue"><value>Skip reading voice-acted NPC dialogue</value></data>
+  <data name="ReadNpcDialogueFromBattleWindow"><value>Read NPC dialogue from the battle dialogue window</value></data>
+  <data name="SkipMessagesFromYou"><value>Skip messages from you</value></data>
+  <data name="OnlyMessagesFromYou"><value>Only read messages from you</value></data>
+  <data name="EnableNameWithSay"><value>Enable &quot;X says:&quot; when people speak</value></data>
+  <data name="NameNpcWithSay"><value>Also say &quot;NPC Name says:&quot; in NPC dialogue</value></data>
+  <data name="SayPlayerWorldName"><value>Say player world name</value></data>
+  <data name="DisallowMultipleSay"><value>Only say &quot;Character Name says:&quot; the first time a character speaks</value></data>
+  <data name="SayPartialName"><value>Only say forename or surname</value></data>
+  <data name="OnlySayForename"><value>Only say forename</value></data>
+  <data name="OnlySaySurname"><value>Only say surname</value></data>
+  <data name="LimitPlayerTtsFrequency"><value>Limit player TTS frequency</value></data>
+  <data name="MessagesPerSecondFormat"><value>%.3f message(s)/s</value></data>
+  <data name="SectionVoices"><value>Voices</value></data>
+  <data name="VoiceBackend"><value>Voice backend</value></data>
+  <data name="SectionExperimental"><value>Experimental</value></data>
+  <data name="RemoveStutter"><value>Attempt to remove stutter from NPC dialogue (default: On)</value></data>
+  <data name="RemoveStutterHelp"><value>Removes &quot;stuttering&quot; from NPC dialogue such as &quot;H-hello, nice to m-meet you...&quot;</value></data>
+
+  <!-- Player Voices -->
+  <data name="PlayerVoicesHint"><value>Set specific voice presets for players using the options below.</value></data>
+  <data name="UsePlayerVoicePresets"><value>Use player voice presets</value></data>
+  <data name="TableName"><value>Name</value></data>
+  <data name="TableWorld"><value>World</value></data>
+  <data name="TablePreset"><value>Preset</value></data>
+  <data name="ActionDelete"><value>Delete</value></data>
+  <data name="PlayerName"><value>Player name</value></data>
+  <data name="PlayerWorld"><value>Player world</value></data>
+  <data name="ActionAddPlayer"><value>Add player</value></data>
+  <data name="PlayerAddFailedDuplicate"><value>Failed to add player - is this a duplicate?</value></data>
+
+  <!-- NPC Voices -->
+  <data name="NpcVoicesHint"><value>Set specific voice presets for NPCs using the options below.</value></data>
+  <data name="UseNpcVoicePresets"><value>Use NPC voice presets</value></data>
+  <data name="NpcName"><value>NPC name</value></data>
+  <data name="ActionAddNpc"><value>Add NPC</value></data>
+  <data name="NpcAddFailedDuplicate"><value>Failed to add NPC - is this a duplicate?</value></data>
+
+  <!-- Channel Settings -->
+  <data name="ChannelPreset"><value>Preset</value></data>
+  <data name="ActionNewPreset"><value>New preset</value></data>
+  <data name="ActionEdit"><value>Edit</value></data>
+  <data name="RecommendedForTriggerUse"><value>Recommended for trigger use</value></data>
+  <data name="EnableAllIncludingUndocumented"><value>Enable all (including undocumented)</value></data>
+  <data name="ChatTypeDebug"><value>Debug</value></data>
+  <data name="ChatTypeCrossParty"><value>Cross Party</value></data>
+  <data name="ChatTypeEnemyDefeatedByYou"><value>Enemy Defeated by You</value></data>
+  <data name="ChatTypeOrchestrion"><value>Orchestrion</value></data>
+  <data name="ChatTypeTellIncoming"><value>Tell Incoming</value></data>
+  <data name="ChatTypeTellOutgoing"><value>Tell Outgoing</value></data>
+
+  <!-- Triggers and Exclusions -->
+  <data name="EnableAllChatTypesIncludingUndocumented"><value>Enable all chat types (including undocumented)</value></data>
+  <data name="TriggersHeading"><value>Triggers</value></data>
+  <data name="ExclusionsHeading"><value>Exclusions</value></data>
+  <data name="TriggerInputHintFormat"><value>Enter {0} here...</value></data>
+  <data name="TriggersRegex"><value>Regex</value></data>
+  <data name="ActionRemove"><value>Remove</value></data>
+  <data name="ActionAddFormat"><value>Add {0}</value></data>
+
+  <!-- Channel Preset Window -->
+  <data name="ChannelPresetWindowTitle"><value>Preset</value></data>
+  <data name="ChannelPresetName"><value>Name</value></data>
+  <data name="ChannelPresetEnableKeybind"><value>Preset Enable Keybind</value></data>
+  <data name="ActionClose"><value>Close</value></data>
+
+  <!-- Voice Unlocker -->
+  <data name="VoiceUnlockerTitle"><value>VoiceUnlocker</value></data>
+  <data name="VoiceUnlockerManualTutorial"><value>Manual tutorial</value></data>
+  <data name="VoiceUnlockerEnableAll"><value>Enable all system voices</value></data>
+  <data name="VoiceUnlockerWindows10Warning"><value>This modification has only been tested on Windows 10.</value></data>
+  <data name="VoiceUnlockerManualWarningFormat"><value>This function will enable all system TTS voices by copying keys between sections of your system registry. This modification may not be automatically undone. If you would like to perform this modification manually, please click the &quot;{0}&quot; button.</value></data>
+  <data name="VoiceUnlockerAutomaticWarningFormat"><value>If you would like to proceed with the automatic configuration, please click the &quot;{0}&quot; button. System instability related to registry modifications you have performed previously are not taken into account, and support will not be provided for those use cases.</value></data>
+  <data name="VoiceUnlockerSuccess"><value>Registry modification succeeded. Changes will be applied upon restarting the game.</value></data>
+  <data name="VoiceUnlockerStartFailed"><value>VoiceUnlocker failed to start. No registry modifications were made.</value></data>
+  <data name="VoiceUnlockerAdminRequired"><value>Administrative privileges will be requested</value></data>
+  <data name="VoiceUnlockerResultTitle"><value>VoiceUnlocker Result</value></data>
+
+  <!-- Voice Styles -->
+  <data name="VoiceStylesTitle"><value>Voice Styles</value></data>
+  <data name="VoiceStylesConfigureAdHocTags"><value>Configure ad-hoc style tags</value></data>
+  <data name="VoiceStylesEnableAdHocTags"><value>Enable Ad-hoc Style Tags</value></data>
+  <data name="VoiceStylesAdHocTagsHelp"><value>If checked, chat messages containing a style tag will be synthesized in that style. This overrides any styles configured in the voice preset.</value></data>
+  <data name="VoiceStylesDelimiter"><value>Style Tag Delimiter</value></data>
+  <data name="VoiceStylesDelimiterHint"><value>Style Tag</value></data>
+  <data name="VoiceStylesExampleFormat"><value>Example: {0}Whispering{0} Hello World</value></data>
+  <data name="VoiceStylesUnsupportedBackend"><value>This backend does not yet support dynamic styles.</value></data>
+
+  <!-- Lexicons -->
+  <data name="LexiconsTitle"><value>Lexicons</value></data>
+  <data name="LexiconsCommunityHint"><value>Looking for more lexicons? Have a look at our community lexicons list!</value></data>
+  <data name="ActionWiki"><value>Wiki</value></data>
+  <data name="LexiconsOpenRepository"><value>Open Lexicon Repository</value></data>
+  <data name="LexiconsOpenFile"><value>Open Lexicon</value></data>
+  <data name="FileDialogOpenFile"><value>Open a file...</value></data>
+
+  <!-- Lexicon Repository -->
+  <data name="LexiconRepositoryTitle"><value>Lexicon Repository</value></data>
+  <data name="LexiconRepositoryColumnLexicon"><value>Lexicon</value></data>
+  <data name="LexiconRepositoryColumnStatus"><value>Status</value></data>
+  <data name="LexiconRepositoryColumnAuthors"><value>Authors</value></data>
+  <data name="LexiconRepositoryStatusHasUpdate"><value>Has update</value></data>
+  <data name="LexiconRepositoryStatusInstalled"><value>Installed</value></data>
+  <data name="LexiconRepositoryPackageByFormat"><value>{0} by {1}</value></data>
+  <data name="LexiconRepositoryFiles"><value>Lexicon package files:</value></data>
+  <data name="LexiconRepositoryFileFormat"><value> - {0}</value></data>
+  <data name="ActionInstall"><value>Install</value></data>
+  <data name="ActionUninstall"><value>Uninstall</value></data>
+  <data name="ActionUpdating"><value>Updating</value></data>
+  <data name="ActionUpdate"><value>Update</value></data>
+  <data name="LexiconRepositoryEnabledBackends"><value>Enabled for backends:</value></data>
+
+  <!-- Shared Backend Settings -->
+  <data name="BackendUngenderedPresets"><value>Ungendered preset(s)</value></data>
+  <data name="BackendUngenderedHelp"><value>By default, NPCs in the game only have genders of 0 and 1, regardless of their canonical gender (or lack thereof). As such, any ungendered characters need to be specified by us in order to be properly reflected in-game. See https://github.com/karashiiro/TextToTalk/wiki/Adding-NPCs-to-the-Ungendered-Overrides-List for more information.</value></data>
+  <data name="BackendNoUngenderedPresets"><value>No ungendered voice preset(s) are selected.</value></data>
+  <data name="BackendMalePresets"><value>Male preset(s)</value></data>
+  <data name="BackendNoMalePresets"><value>No male voice preset(s) are selected.</value></data>
+  <data name="BackendFemalePresets"><value>Female preset(s)</value></data>
+  <data name="BackendNoFemalePresets"><value>No female voice preset(s) are selected.</value></data>
+  <data name="BackendVoiceUnsupported"><value>Voice not supported on this engine</value></data>
+  <data name="BackendNoVoiceSelected"><value>No voice selected</value></data>
+  <data name="BackendMultiplePresetsHint"><value>If multiple presets are selected per gender, they will be randomly assigned to characters.</value></data>
+  <data name="BackendSwitchFailed"><value>Failed to switch to {0} backend.</value></data>
+  <data name="BackendNoPresetsConfigured"><value>You have no voice presets configured.</value></data>
+  <data name="BackendCreatePresetHint"><value>Please create a voice preset in the TextToTalk configuration.</value></data>
+
+  <!-- Megaphone -->
+  <data name="MegaphonePort"><value>Port</value></data>
+  <data name="MegaphonePortOutOfRange"><value>Port is out of range [0, 65535]</value></data>
+  <data name="MegaphonePortInvalid"><value>Unable to parse port.</value></data>
+  <data name="MegaphoneInstallPrompt"><value>Install the Megaphone Dalamud plugin:</value></data>
+  <data name="MegaphoneOpenInstallGuide"><value>Open Install Guide</value></data>
+  <data name="MegaphoneServerStatusFormat"><value>{0} on {1}</value></data>
+  <data name="MegaphoneServerStarted"><value>Started</value></data>
+  <data name="MegaphoneServerWillStart"><value>Will start</value></data>
+  <data name="MegaphoneRestartServer"><value>Restart server</value></data>
+  <data name="BackendNameSystem" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="BackendNameWebsocket" xml:space="preserve">
+    <value>Websocket</value>
+  </data>
+  <data name="BackendNameAmazonPolly" xml:space="preserve">
+    <value>Amazon Polly</value>
+  </data>
+  <data name="BackendNameUberduck" xml:space="preserve">
+    <value>Uberduck</value>
+  </data>
+  <data name="BackendNameAzure" xml:space="preserve">
+    <value>Azure Cognitive Services</value>
+  </data>
+  <data name="BackendNameElevenLabs" xml:space="preserve">
+    <value>ElevenLabs</value>
+  </data>
+  <data name="BackendNameOpenAi" xml:space="preserve">
+    <value>OpenAI</value>
+  </data>
+  <data name="BackendNameGoogleCloud" xml:space="preserve">
+    <value>Google Cloud</value>
+  </data>
+  <data name="BackendNameKokoro" xml:space="preserve">
+    <value>Kokoro</value>
+  </data>
+  <data name="BackendNameKokoroDownloadRequired" xml:space="preserve">
+    <value>Kokoro (169MB download required)</value>
+  </data>
+  <data name="BackendNameMegaphone" xml:space="preserve">
+    <value>Megaphone</value>
+  </data>
+  <data name="BackendNameFishAudio" xml:space="preserve">
+    <value>Fish Audio</value>
+  </data>
+  <data name="CommandCancelTts" xml:space="preserve">
+    <value>Cancel all queued TTS messages.</value>
+  </data>
+  <data name="CommandToggleTts" xml:space="preserve">
+    <value>Toggle TextToTalk's text-to-speech.</value>
+  </data>
+  <data name="CommandDisableTts" xml:space="preserve">
+    <value>Disable TextToTalk's text-to-speech.</value>
+  </data>
+  <data name="CommandEnableTts" xml:space="preserve">
+    <value>Enable TextToTalk's text-to-speech.</value>
+  </data>
+  <data name="CommandToggleConfig" xml:space="preserve">
+    <value>Toggle TextToTalk's configuration window.</value>
+  </data>
+  <data name="CommandToggleStyles" xml:space="preserve">
+    <value>Toggle TextToTalk's styles window.</value>
+  </data>
+  <data name="CommandSwitchPreset" xml:space="preserve">
+    <value>Switch the active channel settings preset by name. Run with no arguments to show the current preset and list available presets.</value>
+  </data>
+  <data name="CommandAdjustVolume" xml:space="preserve">
+    <value>Adjust the global TTS volume. Pass a percentage (0-200) to set, or +N/-N to adjust relatively. Run with no arguments to show the current volume.</value>
+  </data>
+  <data name="TtsDisabledMessage" xml:space="preserve">
+    <value>TTS disabled.</value>
+  </data>
+  <data name="TtsEnabledMessage" xml:space="preserve">
+    <value>TTS enabled.</value>
+  </data>
+  <data name="CurrentPresetFormat" xml:space="preserve">
+    <value>Current preset: {0}</value>
+  </data>
+  <data name="UnnamedPreset" xml:space="preserve">
+    <value>(unnamed)</value>
+  </data>
+  <data name="AvailablePresetsFormat" xml:space="preserve">
+    <value>Available presets: {0}</value>
+  </data>
+  <data name="NoSuchPresetFormat" xml:space="preserve">
+    <value>No preset named "{0}" exists.</value>
+  </data>
+  <data name="PresetSwitchedFormat" xml:space="preserve">
+    <value>TextToTalk preset -&gt; {0}</value>
+  </data>
+  <data name="CurrentVolumeFormat" xml:space="preserve">
+    <value>Current volume: {0:0}%</value>
+  </data>
+  <data name="InvalidVolumeAdjustFormat" xml:space="preserve">
+    <value>Invalid volume adjustment: "{0}". Use +N or -N.</value>
+  </data>
+  <data name="InvalidVolumeFormat" xml:space="preserve">
+    <value>Invalid volume: "{0}". Use a percentage (0-200), +N, or -N.</value>
+  </data>
+  <data name="VolumeSetFormat" xml:space="preserve">
+    <value>Volume -&gt; {0:0}%</value>
+  </data>
+  <data name="RateLimitWarningTitle" xml:space="preserve">
+    <value>TTS is being rate-limited.</value>
+  </data>
+  <data name="RateLimitWarningBody" xml:space="preserve">
+    <value>Please slow down or adjust your enabled chat channels to reduce load.</value>
+  </data>
+  <data name="ElevenLabsApiKey" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="ElevenLabsSaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="ElevenLabsRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="ElevenLabsCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="ElevenLabsLoginFailedFormat" xml:space="preserve">
+    <value>Failed to login: {0}</value>
+  </data>
+  <data name="ElevenLabsCharactersUsed" xml:space="preserve">
+    <value>Characters used</value>
+  </data>
+  <data name="ElevenLabsNextQuotaResetFormat" xml:space="preserve">
+    <value>Next quota reset: {0}</value>
+  </data>
+  <data name="ElevenLabsNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="ElevenLabsDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="ElevenLabsPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="ElevenLabsVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="ElevenLabsLogInToLoadModels" xml:space="preserve">
+    <value>Log in to load available models</value>
+  </data>
+  <data name="ElevenLabsSelectModel" xml:space="preserve">
+    <value>Select a model...</value>
+  </data>
+  <data name="ElevenLabsSelectModelCurrentFormat" xml:space="preserve">
+    <value>Select a model... (current: {0})</value>
+  </data>
+  <data name="ElevenLabsModelCostFormat" xml:space="preserve">
+    <value>{0} || Cost Multiplier: {1}</value>
+  </data>
+  <data name="ElevenLabsStylesAvailable" xml:space="preserve">
+    <value> [Styles Available]</value>
+  </data>
+  <data name="ElevenLabsModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="ElevenLabsClaritySimilarityBoost" xml:space="preserve">
+    <value>Clarity/Similarity boost</value>
+  </data>
+  <data name="ElevenLabsStability" xml:space="preserve">
+    <value>Stability</value>
+  </data>
+  <data name="ElevenLabsPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="ElevenLabsStyle" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="ElevenLabsNoStylesConfigured" xml:space="preserve">
+    <value>No styles have been configured</value>
+  </data>
+  <data name="ElevenLabsVoiceStyle" xml:space="preserve">
+    <value>Voice Style</value>
+  </data>
+  <data name="ElevenLabsStylesOnlyOnModelFormat" xml:space="preserve">
+    <value>Voice Styles only available on model: {0}</value>
+  </data>
+  <data name="ElevenLabsTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="ElevenLabsTestMessage" xml:space="preserve">
+    <value>Hello from ElevenLabs, this is a test message</value>
+  </data>
+  <data name="ElevenLabsConfigureVoiceStyles" xml:space="preserve">
+    <value>Configure Voice Styles</value>
+  </data>
+  <data name="ElevenLabsTagsTooltip" xml:space="preserve">
+    <value>Use Tags like "Shout" or "Whisper" to direct your voices</value>
+  </data>
+  <data name="ElevenLabsUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="ElevenLabsStylesNote" xml:space="preserve">
+    <value>Note: ElevenLabs ad-hoc styles require "eleven_v3" and will force the V3 model for messages containing the ad-hoc tags.</value>
+  </data>
+  <data name="ElevenLabsStylesHaveFun" xml:space="preserve">
+    <value>Experiment and have fun!</value>
+  </data>
+  <data name="ElevenLabsStylesAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ElevenLabsStylesCopyHint" xml:space="preserve">
+    <value>Click a style to copy its tag to clipboard:</value>
+  </data>
+  <data name="ElevenLabsStylesCopied" xml:space="preserve">
+    <value>Copied!</value>
+  </data>
+  <data name="ElevenLabsStylesClickToCopy" xml:space="preserve">
+    <value>Click to copy</value>
+  </data>
+  <data name="ElevenLabsStylesRemoveStyle" xml:space="preserve">
+    <value>Remove Style</value>
+  </data>
+  <data name="ElevenLabsStylesNoStylesYet" xml:space="preserve">
+    <value>No voice styles have been added yet.</value>
+  </data>
+  <data name="FishAudioApiKey" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="FishAudioSaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="FishAudioRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="FishAudioCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="FishAudioLoginFailedFormat" xml:space="preserve">
+    <value>Failed to login: {0}</value>
+  </data>
+  <data name="FishAudioApiCreditFormat" xml:space="preserve">
+    <value>API credit: {0}</value>
+  </data>
+  <data name="FishAudioNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="FishAudioDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="FishAudioPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="FishAudioDefaultVoiceModel" xml:space="preserve">
+    <value>Default (no voice model)</value>
+  </data>
+  <data name="FishAudioVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="FishAudioVoiceModelsHint" xml:space="preserve">
+    <value>Only your own voice models are listed; create them at fish.audio.</value>
+  </data>
+  <data name="FishAudioSelectModel" xml:space="preserve">
+    <value>Select a model...</value>
+  </data>
+  <data name="FishAudioModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="FishAudioLatency" xml:space="preserve">
+    <value>Latency</value>
+  </data>
+  <data name="FishAudioTemperature" xml:space="preserve">
+    <value>Temperature</value>
+  </data>
+  <data name="FishAudioTopP" xml:space="preserve">
+    <value>Top P</value>
+  </data>
+  <data name="FishAudioPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="FishAudioStyle" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="FishAudioNoStylesConfigured" xml:space="preserve">
+    <value>No styles have been configured</value>
+  </data>
+  <data name="FishAudioVoiceStyle" xml:space="preserve">
+    <value>Voice Style</value>
+  </data>
+  <data name="FishAudioTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="FishAudioTestMessage" xml:space="preserve">
+    <value>Hello from Fish Audio, this is a test message</value>
+  </data>
+  <data name="FishAudioConfigureVoiceStyles" xml:space="preserve">
+    <value>Configure Voice Styles</value>
+  </data>
+  <data name="FishAudioEmotionTagsTooltip" xml:space="preserve">
+    <value>Use emotion tags like "happy" or "whispering" to direct your voices</value>
+  </data>
+  <data name="FishAudioUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="FishAudioStylesHaveFun" xml:space="preserve">
+    <value>Experiment and have fun!</value>
+  </data>
+  <data name="FishAudioStylesAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="FishAudioStylesCopyHint" xml:space="preserve">
+    <value>Click a style to copy its tag to clipboard:</value>
+  </data>
+  <data name="FishAudioStylesCopied" xml:space="preserve">
+    <value>Copied!</value>
+  </data>
+  <data name="FishAudioStylesClickToCopy" xml:space="preserve">
+    <value>Click to copy</value>
+  </data>
+  <data name="FishAudioStylesRemoveStyle" xml:space="preserve">
+    <value>Remove Style</value>
+  </data>
+  <data name="FishAudioStylesNoStylesYet" xml:space="preserve">
+    <value>No voice styles have been added yet.</value>
+  </data>
+  <data name="OpenAiApiKeyHint" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="OpenAiSaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="OpenAiCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="OpenAiLoginFailedFormat" xml:space="preserve">
+    <value>Failed to login: {0}</value>
+  </data>
+  <data name="OpenAiVoicePreset" xml:space="preserve">
+    <value>Voice preset</value>
+  </data>
+  <data name="OpenAiNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="OpenAiDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="OpenAiPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="OpenAiModel" xml:space="preserve">
+    <value>Model</value>
+  </data>
+  <data name="OpenAiVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="OpenAiPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="OpenAiStyle" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="OpenAiNoStylesConfigured" xml:space="preserve">
+    <value>No styles have been configured</value>
+  </data>
+  <data name="OpenAiVoiceStyle" xml:space="preserve">
+    <value>Voice Style</value>
+  </data>
+  <data name="OpenAiStylesHelp" xml:space="preserve">
+    <value>Styles are additional information that can be provided to the model to help it generate more accurate speech.
+This can include things like emphasis, pronunciation, pauses, tone, pacing, voice affect, inflections, word choice etc.
+Examples can be found at https://openai.fm</value>
+  </data>
+  <data name="OpenAiTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="OpenAiTestMessage" xml:space="preserve">
+    <value>Hello from Open AI, this is a test message</value>
+  </data>
+  <data name="OpenAiConfigureVoiceStyles" xml:space="preserve">
+    <value>Configure Voice Styles</value>
+  </data>
+  <data name="OpenAiVoiceStylesTooltip" xml:space="preserve">
+    <value>Use Tags like "Shout" or "Whisper" to direct your voices</value>
+  </data>
+  <data name="OpenAiUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="OpenAiStylesExperimentHint" xml:space="preserve">
+    <value>Experiment and have fun!</value>
+  </data>
+  <data name="OpenAiStylesAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="OpenAiStylesCopyHint" xml:space="preserve">
+    <value>Click a style to copy its tag to clipboard:</value>
+  </data>
+  <data name="OpenAiStylesCopied" xml:space="preserve">
+    <value>Copied!</value>
+  </data>
+  <data name="OpenAiStylesClickToCopy" xml:space="preserve">
+    <value>Click to copy</value>
+  </data>
+  <data name="OpenAiStylesRemoveStyle" xml:space="preserve">
+    <value>Remove Style</value>
+  </data>
+  <data name="OpenAiStylesNoStyles" xml:space="preserve">
+    <value>No voice styles have been added yet.</value>
+  </data>
+  <data name="UberduckRateLimitHint" xml:space="preserve">
+    <value>TTS may be delayed due to rate-limiting.</value>
+  </data>
+  <data name="UberduckApiKeyHint" xml:space="preserve">
+    <value>API key</value>
+  </data>
+  <data name="UberduckApiSecretHint" xml:space="preserve">
+    <value>API secret</value>
+  </data>
+  <data name="UberduckSaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="UberduckRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="UberduckCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="UberduckNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="UberduckDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="UberduckPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="UberduckVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="UberduckNoVoices" xml:space="preserve">
+    <value>No voices were found. This might indicate a temporary service outage.</value>
+  </data>
+  <data name="UberduckPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="UberduckTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="UberduckTestMessage" xml:space="preserve">
+    <value>Hello from Uberduck, this is a test message</value>
+  </data>
+  <data name="UberduckLexiconsUnsupported" xml:space="preserve">
+    <value>Lexicons are not supported on the Uberduck backend.</value>
+  </data>
+  <data name="UberduckUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="PollyRegion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="PollyAccessKey" xml:space="preserve">
+    <value>Access key</value>
+  </data>
+  <data name="PollySecretKey" xml:space="preserve">
+    <value>Secret key</value>
+  </data>
+  <data name="PollySaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="PollyRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="PollyCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="PollyLoginFailedFormat" xml:space="preserve">
+    <value>Failed to login: {0}</value>
+  </data>
+  <data name="PollyNoPresetsFormat" xml:space="preserve">
+    <value>You have no presets. Please create one using the "{0}" button.</value>
+  </data>
+  <data name="PollyDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="PollyPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="PollyEngine" xml:space="preserve">
+    <value>Engine</value>
+  </data>
+  <data name="PollyVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="PollyNoVoices" xml:space="preserve">
+    <value>No voices are available on this voice engine for the current region.
+Please log in using a different region.</value>
+  </data>
+  <data name="PollySampleRate" xml:space="preserve">
+    <value>Sample rate</value>
+  </data>
+  <data name="PollyPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="PollyNewscasterStyle" xml:space="preserve">
+    <value>Newscaster style (select voices only)</value>
+  </data>
+  <data name="PollyTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="PollyUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="AzureRegion" xml:space="preserve">
+    <value>Region</value>
+  </data>
+  <data name="AzureSubscriptionKey" xml:space="preserve">
+    <value>Subscription key</value>
+  </data>
+  <data name="AzureSaveAndLogin" xml:space="preserve">
+    <value>Save and Login</value>
+  </data>
+  <data name="AzureRegister" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="AzureCredentialsSecured" xml:space="preserve">
+    <value>Credentials secured with Windows Credential Manager</value>
+  </data>
+  <data name="AzureLoginFailedFormat" xml:space="preserve">
+    <value>Failed to login: {0}</value>
+  </data>
+  <data name="AzureNoPresetsFormat" xml:space="preserve">
+    <value>You have no presets. Please create one using the "{0}" button.</value>
+  </data>
+  <data name="AzureDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="AzurePresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="AzureVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="AzureStylesAvailable" xml:space="preserve">
+    <value>[Styles Available]</value>
+  </data>
+  <data name="AzureSelectVoice" xml:space="preserve">
+    <value>Select a voice...</value>
+  </data>
+  <data name="AzureNoVoices" xml:space="preserve">
+    <value>No voices are available on this voice engine for the current region.
+Please log in using a different region.</value>
+  </data>
+  <data name="AzurePlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="AzureStyle" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="AzureNoStylesAvailable" xml:space="preserve">
+    <value>No styles available for this voice</value>
+  </data>
+  <data name="AzureTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="AzureConfigureVoiceStyles" xml:space="preserve">
+    <value>Configure Voice Styles</value>
+  </data>
+  <data name="AzureUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="AzureStylesNoStyles" xml:space="preserve">
+    <value>No styles available for this voice.</value>
+  </data>
+  <data name="AzureStylesNote" xml:space="preserve">
+    <value>Note: Azure voice styles are pre-determined and specific to the voice selected</value>
+  </data>
+  <data name="AzureStylesClickToCopy" xml:space="preserve">
+    <value>Click a style to copy its tag to clipboard:</value>
+  </data>
+  <data name="AzureStylesCopied" xml:space="preserve">
+    <value>Copied!</value>
+  </data>
+  <data name="AzureStylesClickToCopyTooltip" xml:space="preserve">
+    <value>Click to copy</value>
+  </data>
+  <data name="SystemTtsWindowsOnly" xml:space="preserve">
+    <value>This TTS provider is only supported on Windows.</value>
+  </data>
+  <data name="SystemTtsNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="SystemTtsDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="SystemTtsPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="SystemTtsRate" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="SystemTtsVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="SystemTtsDontSeeAllVoices" xml:space="preserve">
+    <value>Don't see all of your voices?</value>
+  </data>
+  <data name="SystemTtsCheckNaturalVoice" xml:space="preserve">
+    <value>Also check out NaturalVoiceSAPIAdapter!</value>
+  </data>
+  <data name="SystemTtsTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="SystemTtsTestMessage" xml:space="preserve">
+    <value>Hello from Windows Narrator, this is a test message</value>
+  </data>
+  <data name="SystemTtsUseGenderedPresets" xml:space="preserve">
+    <value>Use gendered voice presets</value>
+  </data>
+  <data name="SystemTtsVoiceErrorsFormat" xml:space="preserve">
+    <value>Voice errors:
+  {0}</value>
+  </data>
+  <data name="SystemTtsVoiceErrorFormat" xml:space="preserve">
+    <value>Voice error:
+  {0}</value>
+  </data>
+  <data name="SystemTtsUnknownLanguage" xml:space="preserve">
+    <value>Unknown Language</value>
+  </data>
+  <data name="SystemTtsUnstableVoice" xml:space="preserve">
+    <value>[UNSTABLE]</value>
+  </data>
+  <data name="KokoroPerformanceWarning" xml:space="preserve">
+    <value>This backend may cause performance issues on some systems.</value>
+  </data>
+  <data name="KokoroVoicePresetLabel" xml:space="preserve">
+    <value>Voice preset</value>
+  </data>
+  <data name="KokoroNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="KokoroDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="KokoroPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="KokoroVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="KokoroVoiceTooltip" xml:space="preserve">
+    <value>The built-in Kokoro voice to use for this preset. The first letter is the language/accent:
+a - American, b - British, j - Japanese, ect.
+The second latter is the gender:
+f - Female, m - Male</value>
+  </data>
+  <data name="KokoroSpeed" xml:space="preserve">
+    <value>Speed</value>
+  </data>
+  <data name="KokoroTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="KokoroTestMessageFormat" xml:space="preserve">
+    <value>Hello, my name is {0} and I am a TTS voice preset.</value>
+  </data>
+  <data name="KokoroTestTooltip" xml:space="preserve">
+    <value>Plays a test message using the current voice preset.</value>
+  </data>
+  <data name="KokoroUseAmericanEnglish" xml:space="preserve">
+    <value>Use American English</value>
+  </data>
+  <data name="KokoroUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="KokoroModelDownloadFailedFormat" xml:space="preserve">
+    <value>Failed to download model: {0}</value>
+  </data>
+  <data name="KokoroModelLoading" xml:space="preserve">
+    <value>Model is still downloading or initializing...</value>
+  </data>
+  <data name="GoogleCloudVoicePresetLabel" xml:space="preserve">
+    <value>Voice preset</value>
+  </data>
+  <data name="GoogleCloudNoPresets" xml:space="preserve">
+    <value>You have no presets. Please create one using the "New preset" button.</value>
+  </data>
+  <data name="GoogleCloudDeletePreset" xml:space="preserve">
+    <value>Delete preset</value>
+  </data>
+  <data name="GoogleCloudPresetName" xml:space="preserve">
+    <value>Preset name</value>
+  </data>
+  <data name="GoogleCloudLocale" xml:space="preserve">
+    <value>Locale</value>
+  </data>
+  <data name="GoogleCloudVoice" xml:space="preserve">
+    <value>Voice</value>
+  </data>
+  <data name="GoogleCloudSampleRate" xml:space="preserve">
+    <value>Sample rate</value>
+  </data>
+  <data name="GoogleCloudPitch" xml:space="preserve">
+    <value>Pitch</value>
+  </data>
+  <data name="GoogleCloudPlaybackRate" xml:space="preserve">
+    <value>Playback rate</value>
+  </data>
+  <data name="GoogleCloudTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="GoogleCloudTestMessage" xml:space="preserve">
+    <value>Hello from Google Cloud, this is a test message</value>
+  </data>
+  <data name="GoogleCloudUseGenderedVoices" xml:space="preserve">
+    <value>Use gendered voices</value>
+  </data>
+  <data name="WebsocketBindFailedFormat" xml:space="preserve">
+    <value>TextToTalk failed to bind the WebSocket server to port {0}.</value>
+  </data>
+  <data name="WebsocketPortInUseHint" xml:space="preserve">
+    <value>Please close the owner of that port and reload the Websocket server, or select a different port.</value>
+  </data>
+  <data name="WebsocketAddress" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="WebsocketAddressInvalid" xml:space="preserve">
+    <value>Failed to parse address!</value>
+  </data>
+  <data name="WebsocketIpv6Unsupported" xml:space="preserve">
+    <value>IPv6 address formats are not currently supported.</value>
+  </data>
+  <data name="WebsocketPortAlreadyInUse" xml:space="preserve">
+    <value>Port is already in use by another server.</value>
+  </data>
+  <data name="WebsocketUnknownErrorFormat" xml:space="preserve">
+    <value>Unknown error: {0}</value>
+  </data>
+  <data name="MegaphoneBindFailedFormat" xml:space="preserve">
+    <value>TextToTalk failed to bind the Megaphone server to port {0}.</value>
+  </data>
+  <data name="MegaphonePortInUseHint" xml:space="preserve">
+    <value>Please close the owner of that port and reload the Megaphone server, or select a different port.</value>
+  </data>
+  <data name="MegaphonePortAlreadyInUse" xml:space="preserve">
+    <value>Port is already in use by another server.</value>
+  </data>
+  <data name="MegaphoneUnknownErrorFormat" xml:space="preserve">
+    <value>Unknown error: {0}</value>
+  </data>
+  <data name="GoogleCloudCredentialsOpen" xml:space="preserve">
+    <value>Open Google Credentials</value>
+  </data>
+  <data name="GoogleCloudCredentialsJsonFilter" xml:space="preserve">
+    <value>JSON files{.json},.*</value>
+  </data>
+</root>

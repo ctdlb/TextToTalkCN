@@ -1,0 +1,1401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <!-- Main Window -->
+  <data name="ConfigurationTitle">
+    <value>TextToTalk 设置</value>
+  </data>
+  <data name="EnabledSuffix">
+    <value>已启用</value>
+  </data>
+  <data name="DisabledSuffix">
+    <value>已禁用</value>
+  </data>
+  <!-- Main Tabs -->
+  <data name="TabSynthesizerSettings">
+    <value>语音合成设置</value>
+  </data>
+  <data name="TabPlayerVoices">
+    <value>玩家语音</value>
+  </data>
+  <data name="TabNpcVoices">
+    <value>NPC 语音</value>
+  </data>
+  <data name="TabChannelSettings">
+    <value>频道设置</value>
+  </data>
+  <data name="TabTriggersExclusions">
+    <value>触发器/排除项</value>
+  </data>
+  <!-- Synthesizer Settings -->
+  <data name="SectionKeybinds">
+    <value>快捷键</value>
+  </data>
+  <data name="EnableKeybind">
+    <value>启用快捷键</value>
+  </data>
+  <data name="TtsToggleKeybind">
+    <value>TTS 开关快捷键</value>
+  </data>
+  <data name="KeyControl">
+    <value>Ctrl</value>
+  </data>
+  <data name="KeyShift">
+    <value>Shift</value>
+  </data>
+  <data name="KeyAlt">
+    <value>Alt</value>
+  </data>
+  <data name="SectionGeneral">
+    <value>常规</value>
+  </data>
+  <data name="AudioOutputDevice">
+    <value>音频输出设备</value>
+  </data>
+  <data name="Volume">
+    <value>音量</value>
+  </data>
+  <data name="VolumeHelp">
+    <value>调整所有 TTS 播放的音量。此值会与语音预设的音量相乘。</value>
+  </data>
+  <data name="ReadNpcDialogueFromDialogueWindow">
+    <value>从对话窗口朗读 NPC 对话</value>
+  </data>
+  <data name="CancelSpeechOnTextAdvance">
+    <value>出现新文本或推进文本时停止当前 NPC 语音</value>
+  </data>
+  <data name="SkipVoicedNpcDialogue">
+    <value>跳过已有配音的 NPC 对话</value>
+  </data>
+  <data name="ReadNpcDialogueFromBattleWindow">
+    <value>从战斗对话窗口朗读 NPC 对话</value>
+  </data>
+  <data name="SkipMessagesFromYou">
+    <value>跳过自己发送的消息</value>
+  </data>
+  <data name="OnlyMessagesFromYou">
+    <value>只朗读自己发送的消息</value>
+  </data>
+  <data name="EnableNameWithSay">
+    <value>有人说话时朗读“X 说：”</value>
+  </data>
+  <data name="NameNpcWithSay">
+    <value>在 NPC 对话中也朗读“NPC 名称说：”</value>
+  </data>
+  <data name="SayPlayerWorldName">
+    <value>朗读玩家的服务器名称</value>
+  </data>
+  <data name="DisallowMultipleSay">
+    <value>仅在角色第一次说话时朗读“角色名称说：”</value>
+  </data>
+  <data name="SayPartialName">
+    <value>只朗读名或姓</value>
+  </data>
+  <data name="OnlySayForename">
+    <value>只朗读名</value>
+  </data>
+  <data name="OnlySaySurname">
+    <value>只朗读姓</value>
+  </data>
+  <data name="LimitPlayerTtsFrequency">
+    <value>限制玩家 TTS 频率</value>
+  </data>
+  <data name="MessagesPerSecondFormat">
+    <value>%.3f 条消息/秒</value>
+  </data>
+  <data name="SectionVoices">
+    <value>语音</value>
+  </data>
+  <data name="VoiceBackend">
+    <value>语音后端</value>
+  </data>
+  <data name="SectionExperimental">
+    <value>实验性功能</value>
+  </data>
+  <data name="RemoveStutter">
+    <value>尝试移除 NPC 对话中的结巴效果（默认：开启）</value>
+  </data>
+  <data name="RemoveStutterHelp">
+    <value>移除 NPC 对话中的“结巴”效果，例如“你-你好，很-很高兴认识你……”</value>
+  </data>
+  <!-- Player Voices -->
+  <data name="PlayerVoicesHint">
+    <value>使用以下选项为玩家设置特定的语音预设。</value>
+  </data>
+  <data name="UsePlayerVoicePresets">
+    <value>使用玩家语音预设</value>
+  </data>
+  <data name="TableName">
+    <value>名称</value>
+  </data>
+  <data name="TableWorld">
+    <value>服务器</value>
+  </data>
+  <data name="TablePreset">
+    <value>预设</value>
+  </data>
+  <data name="ActionDelete">
+    <value>删除</value>
+  </data>
+  <data name="PlayerName">
+    <value>玩家名称</value>
+  </data>
+  <data name="PlayerWorld">
+    <value>玩家服务器</value>
+  </data>
+  <data name="ActionAddPlayer">
+    <value>添加玩家</value>
+  </data>
+  <data name="PlayerAddFailedDuplicate">
+    <value>添加玩家失败——是否存在重复项？</value>
+  </data>
+  <!-- NPC Voices -->
+  <data name="NpcVoicesHint">
+    <value>使用以下选项为 NPC 设置特定的语音预设。</value>
+  </data>
+  <data name="UseNpcVoicePresets">
+    <value>使用 NPC 语音预设</value>
+  </data>
+  <data name="NpcName">
+    <value>NPC 名称</value>
+  </data>
+  <data name="ActionAddNpc">
+    <value>添加 NPC</value>
+  </data>
+  <data name="NpcAddFailedDuplicate">
+    <value>添加 NPC 失败——是否存在重复项？</value>
+  </data>
+  <!-- Channel Settings -->
+  <data name="ChannelPreset">
+    <value>预设</value>
+  </data>
+  <data name="ActionNewPreset">
+    <value>新建预设</value>
+  </data>
+  <data name="ActionEdit">
+    <value>编辑</value>
+  </data>
+  <data name="RecommendedForTriggerUse">
+    <value>推荐用于触发器</value>
+  </data>
+  <data name="EnableAllIncludingUndocumented">
+    <value>全部启用（包括未记录的项目）</value>
+  </data>
+  <data name="ChatTypeDebug">
+    <value>调试</value>
+  </data>
+  <data name="ChatTypeCrossParty">
+    <value>跨服小队</value>
+  </data>
+  <data name="ChatTypeEnemyDefeatedByYou">
+    <value>由你击败的敌人</value>
+  </data>
+  <data name="ChatTypeOrchestrion">
+    <value>管弦乐琴</value>
+  </data>
+  <data name="ChatTypeTellIncoming">
+    <value>收到的悄悄话</value>
+  </data>
+  <data name="ChatTypeTellOutgoing">
+    <value>发出的悄悄话</value>
+  </data>
+  <data name="ChatTypeNone">
+    <value>无</value>
+  </data>
+  <data name="ChatTypeSay">
+    <value>è¯´è¯</value>
+  </data>
+  <data name="ChatTypeShout">
+    <value>喊话</value>
+  </data>
+  <data name="ChatTypeParty">
+    <value>小队</value>
+  </data>
+  <data name="ChatTypeStandardEmote">
+    <value>标准情感动作</value>
+  </data>
+  <data name="ChatTypeCustomEmote">
+    <value>自定义情感动作</value>
+  </data>
+  <data name="ChatTypeFreeCompany">
+    <value>部队</value>
+  </data>
+  <data name="ChatTypeLs1">
+    <value>通讯贝 1</value>
+  </data>
+  <data name="ChatTypeLs2">
+    <value>通讯贝 2</value>
+  </data>
+  <data name="ChatTypeLs3">
+    <value>通讯贝 3</value>
+  </data>
+  <data name="ChatTypeLs4">
+    <value>通讯贝 4</value>
+  </data>
+  <data name="ChatTypeLs5">
+    <value>通讯贝 5</value>
+  </data>
+  <data name="ChatTypeLs6">
+    <value>通讯贝 6</value>
+  </data>
+  <data name="ChatTypeLs7">
+    <value>通讯贝 7</value>
+  </data>
+  <data name="ChatTypeLs8">
+    <value>通讯贝 8</value>
+  </data>
+  <data name="ChatTypeYell">
+    <value>呼喊</value>
+  </data>
+  <data name="ChatTypeAlliance">
+    <value>联盟</value>
+  </data>
+  <data name="ChatTypeNoviceNetwork">
+    <value>新人频道</value>
+  </data>
+  <data name="ChatTypePvPTeam">
+    <value>PvP 战队</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell1">
+    <value>跨界通讯贝 1</value>
+  </data>
+  <data name="ChatTypeSystemMessage">
+    <value>系统消息</value>
+  </data>
+  <data name="ChatTypeGatheringSystemMessage">
+    <value>采集系统消息</value>
+  </data>
+  <data name="ChatTypeErrorMessage">
+    <value>错误消息</value>
+  </data>
+  <data name="ChatTypeEcho">
+    <value>回声</value>
+  </data>
+  <data name="ChatTypeNPCDialogue">
+    <value>NPC 对话</value>
+  </data>
+  <data name="ChatTypeLootNotice">
+    <value>战利品通知</value>
+  </data>
+  <data name="ChatTypeProgress">
+    <value>进度</value>
+  </data>
+  <data name="ChatTypeLootRoll">
+    <value>战利品掷骰</value>
+  </data>
+  <data name="ChatTypeCrafting">
+    <value>制作</value>
+  </data>
+  <data name="ChatTypeMessageBook">
+    <value>消息簿提醒</value>
+  </data>
+  <data name="ChatTypeGathering">
+    <value>采集</value>
+  </data>
+  <data name="ChatTypeSystemError">
+    <value>系统错误</value>
+  </data>
+  <data name="ChatTypeNPCDialogueAnnouncements">
+    <value>NPC 对话公告</value>
+  </data>
+  <data name="ChatTypeFreeCompanyAnnouncement">
+    <value>部队公告</value>
+  </data>
+  <data name="ChatTypeFreeCompanyLoginLogout">
+    <value>部队成员登录／登出通知</value>
+  </data>
+  <data name="ChatTypeRetainerSale">
+    <value>雇员出售物品</value>
+  </data>
+  <data name="ChatTypePeriodicRecruitmentNotification">
+    <value>定期招募通知</value>
+  </data>
+  <data name="ChatTypeSign">
+    <value>标记</value>
+  </data>
+  <data name="ChatTypeRandomNumber">
+    <value>随机数</value>
+  </data>
+  <data name="ChatTypeNoviceNetworkSystem">
+    <value>新人频道系统消息</value>
+  </data>
+  <data name="ChatTypePvpTeamAnnouncement">
+    <value>PvP 战队公告</value>
+  </data>
+  <data name="ChatTypePvpTeamLoginLogout">
+    <value>PvP 战队登录／登出通知</value>
+  </data>
+  <data name="ChatTypeDamage">
+    <value>伤害</value>
+  </data>
+  <data name="ChatTypeMiss">
+    <value>未命中</value>
+  </data>
+  <data name="ChatTypeAction">
+    <value>技能</value>
+  </data>
+  <data name="ChatTypeItem">
+    <value>物品</value>
+  </data>
+  <data name="ChatTypeHealing">
+    <value>恢复</value>
+  </data>
+  <data name="ChatTypeGainBuff">
+    <value>获得增益效果</value>
+  </data>
+  <data name="ChatTypeGainDebuff">
+    <value>获得减益效果</value>
+  </data>
+  <data name="ChatTypeDamageYouAreDealt">
+    <value>你受到的伤害</value>
+  </data>
+  <data name="ChatTypeFailedActionUsedOnYou">
+    <value>对你发动的攻击未命中</value>
+  </data>
+  <data name="ChatTypeActionUsedOnYou">
+    <value>对你使用的技能</value>
+  </data>
+  <data name="ChatTypeBeneficialEffectOnYou">
+    <value>你受到的有益效果</value>
+  </data>
+  <data name="ChatTypeLoseBuff">
+    <value>失去增益效果</value>
+  </data>
+  <data name="ChatTypeLoseDebuff">
+    <value>失去减益效果</value>
+  </data>
+  <data name="ChatTypeAlarm">
+    <value>闹钟</value>
+  </data>
+  <data name="ChatTypeGlamourNotifications">
+    <value>投影通知</value>
+  </data>
+  <data name="ChatTypeActionUsedByOtherPlayer">
+    <value>其他玩家使用的技能</value>
+  </data>
+  <data name="ChatTypeBeneficialEffectOnOtherPlayer">
+    <value>其他玩家受到的有益效果</value>
+  </data>
+  <data name="ChatTypeDetrimentalEffectOnOtherPlayer">
+    <value>其他玩家受到的减益效果</value>
+  </data>
+  <data name="ChatTypeBeneficialEffectOnOtherPlayerEnded">
+    <value>其他玩家失去的有益效果</value>
+  </data>
+  <data name="ChatTypeActionReadiedByEngagedEnemy">
+    <value>交战敌人准备使用的技能</value>
+  </data>
+  <data name="ChatTypeDetrimentalEffectOnEnemyEnded">
+    <value>敌人失去的减益效果</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell2">
+    <value>跨界通讯贝 2</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell3">
+    <value>跨界通讯贝 3</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell4">
+    <value>跨界通讯贝 4</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell5">
+    <value>跨界通讯贝 5</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell6">
+    <value>跨界通讯贝 6</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell7">
+    <value>跨界通讯贝 7</value>
+  </data>
+  <data name="ChatTypeCrossLinkShell8">
+    <value>跨界通讯贝 8</value>
+  </data>
+  <data name="ChatTypeUrgent">
+    <value>紧急</value>
+  </data>
+  <data name="ChatTypeNotice">
+    <value>通知</value>
+  </data>
+  <!-- Triggers and Exclusions -->
+  <data name="EnableAllChatTypesIncludingUndocumented">
+    <value>启用所有聊天类型（包括未记录的类型）</value>
+  </data>
+  <data name="TriggersHeading">
+    <value>触发器</value>
+  </data>
+  <data name="ExclusionsHeading">
+    <value>排除项</value>
+  </data>
+  <data name="TriggerInputHintFormat">
+    <value>在此输入 {0}...</value>
+  </data>
+  <data name="TriggersRegex">
+    <value>正则表达式</value>
+  </data>
+  <data name="ActionRemove">
+    <value>移除</value>
+  </data>
+  <data name="ActionAddFormat">
+    <value>添加 {0}</value>
+  </data>
+  <!-- Channel Preset Window -->
+  <data name="ChannelPresetWindowTitle">
+    <value>预设</value>
+  </data>
+  <data name="ChannelPresetName">
+    <value>名称</value>
+  </data>
+  <data name="ChannelPresetEnableKeybind">
+    <value>预设启用快捷键</value>
+  </data>
+  <data name="ActionClose">
+    <value>关闭</value>
+  </data>
+  <!-- Voice Unlocker -->
+  <data name="VoiceUnlockerTitle">
+    <value>VoiceUnlocker</value>
+  </data>
+  <data name="VoiceUnlockerManualTutorial">
+    <value>手动设置教程</value>
+  </data>
+  <data name="VoiceUnlockerEnableAll">
+    <value>启用所有系统语音</value>
+  </data>
+  <data name="VoiceUnlockerWindows10Warning">
+    <value>此修改仅在 Windows 10 上进行过测试。</value>
+  </data>
+  <data name="VoiceUnlockerManualWarningFormat">
+    <value>此功能会通过在系统注册表的不同部分之间复制键来启用所有系统 TTS 语音。此修改可能无法自动撤销。如果希望手动执行此修改，请单击“{0}”按钮。</value>
+  </data>
+  <data name="VoiceUnlockerAutomaticWarningFormat">
+    <value>如果希望继续自动配置，请单击“{0}”按钮。不会考虑由你之前执行的注册表修改所造成的系统不稳定，并且不会为此类情况提供支持。</value>
+  </data>
+  <data name="VoiceUnlockerSuccess">
+    <value>注册表修改成功。重新启动游戏后将应用更改。</value>
+  </data>
+  <data name="VoiceUnlockerStartFailed">
+    <value>VoiceUnlocker 启动失败。未对注册表进行任何修改。</value>
+  </data>
+  <data name="VoiceUnlockerAdminRequired">
+    <value>将请求管理员权限</value>
+  </data>
+  <data name="VoiceUnlockerResultTitle">
+    <value>VoiceUnlocker 结果</value>
+  </data>
+  <!-- Voice Styles -->
+  <data name="VoiceStylesTitle">
+    <value>语音风格</value>
+  </data>
+  <data name="VoiceStylesConfigureAdHocTags">
+    <value>配置临时风格标签</value>
+  </data>
+  <data name="VoiceStylesEnableAdHocTags">
+    <value>启用临时风格标签</value>
+  </data>
+  <data name="VoiceStylesAdHocTagsHelp">
+    <value>选中后，包含风格标签的聊天消息将使用该风格进行语音合成。这会覆盖语音预设中配置的任何风格。</value>
+  </data>
+  <data name="VoiceStylesDelimiter">
+    <value>风格标签分隔符</value>
+  </data>
+  <data name="VoiceStylesDelimiterHint">
+    <value>风格标签</value>
+  </data>
+  <data name="VoiceStylesExampleFormat">
+    <value>示例：{0}低声耳语{0} 你好，世界</value>
+  </data>
+  <data name="VoiceStylesUnsupportedBackend">
+    <value>此后端暂不支持动态风格。</value>
+  </data>
+  <!-- Lexicons -->
+  <data name="LexiconsTitle">
+    <value>发音词典</value>
+  </data>
+  <data name="LexiconsCommunityHint">
+    <value>想找更多发音词典？看看我们的社区发音词典列表吧！</value>
+  </data>
+  <data name="ActionWiki">
+    <value>Wiki</value>
+  </data>
+  <data name="LexiconsOpenRepository">
+    <value>打开发音词典仓库</value>
+  </data>
+  <data name="LexiconsOpenFile">
+    <value>打开发音词典</value>
+  </data>
+  <data name="FileDialogOpenFile">
+    <value>打开文件...</value>
+  </data>
+  <!-- Lexicon Repository -->
+  <data name="LexiconRepositoryTitle">
+    <value>发音词典仓库</value>
+  </data>
+  <data name="LexiconRepositoryColumnLexicon">
+    <value>发音词典</value>
+  </data>
+  <data name="LexiconRepositoryColumnStatus">
+    <value>状态</value>
+  </data>
+  <data name="LexiconRepositoryColumnAuthors">
+    <value>作者</value>
+  </data>
+  <data name="LexiconRepositoryStatusHasUpdate">
+    <value>有可用更新</value>
+  </data>
+  <data name="LexiconRepositoryStatusInstalled">
+    <value>已安装</value>
+  </data>
+  <data name="LexiconRepositoryPackageByFormat">
+    <value>{0}，作者：{1}</value>
+  </data>
+  <data name="LexiconRepositoryFiles">
+    <value>发音词典包文件：</value>
+  </data>
+  <data name="LexiconRepositoryFileFormat">
+    <value> - {0}</value>
+  </data>
+  <data name="ActionInstall">
+    <value>安装</value>
+  </data>
+  <data name="ActionUninstall">
+    <value>卸载</value>
+  </data>
+  <data name="ActionUpdating">
+    <value>正在更新</value>
+  </data>
+  <data name="ActionUpdate">
+    <value>更新</value>
+  </data>
+  <data name="LexiconRepositoryEnabledBackends">
+    <value>已为以下后端启用：</value>
+  </data>
+  <!-- Shared Backend Settings -->
+  <data name="BackendUngenderedPresets">
+    <value>无性别预设</value>
+  </data>
+  <data name="BackendUngenderedHelp">
+    <value>默认情况下，游戏中的 NPC 只有 0 和 1 两种性别值，无论其设定中的性别为何（或是否没有性别）。因此，为了在游戏中正确反映无性别角色，我们需要单独指定这些角色。更多信息请参阅 https://github.com/karashiiro/TextToTalk/wiki/Adding-NPCs-to-the-Ungendered-Overrides-List</value>
+  </data>
+  <data name="BackendNoUngenderedPresets">
+    <value>未选择无性别语音预设。</value>
+  </data>
+  <data name="BackendMalePresets">
+    <value>男性预设</value>
+  </data>
+  <data name="BackendNoMalePresets">
+    <value>未选择男性语音预设。</value>
+  </data>
+  <data name="BackendFemalePresets">
+    <value>女性预设</value>
+  </data>
+  <data name="BackendNoFemalePresets">
+    <value>未选择女性语音预设。</value>
+  </data>
+  <data name="BackendVoiceUnsupported">
+    <value>此引擎不支持该语音</value>
+  </data>
+  <data name="BackendNoVoiceSelected">
+    <value>未选择语音</value>
+  </data>
+  <data name="BackendMultiplePresetsHint">
+    <value>如果每种性别选择了多个预设，它们将随机分配给角色。</value>
+  </data>
+  <data name="BackendSwitchFailed"><value>无法切换到 {0} 后端。</value></data>
+  <data name="BackendNoPresetsConfigured"><value>你尚未配置任何语音预设。</value></data>
+  <data name="BackendCreatePresetHint"><value>请在 TextToTalk 配置中创建语音预设。</value></data>
+
+  <!-- Megaphone -->
+  <data name="MegaphonePort">
+    <value>端口</value>
+  </data>
+  <data name="MegaphonePortOutOfRange">
+    <value>端口超出范围 [0, 65535]</value>
+  </data>
+  <data name="MegaphonePortInvalid">
+    <value>无法解析端口。</value>
+  </data>
+  <data name="MegaphoneInstallPrompt">
+    <value>安装 Megaphone Dalamud 插件：</value>
+  </data>
+  <data name="MegaphoneOpenInstallGuide">
+    <value>打开安装指南</value>
+  </data>
+  <data name="MegaphoneServerStatusFormat">
+    <value>{0} 于 {1}</value>
+  </data>
+  <data name="MegaphoneServerStarted">
+    <value>已启动</value>
+  </data>
+  <data name="MegaphoneServerWillStart">
+    <value>即将启动</value>
+  </data>
+  <data name="MegaphoneRestartServer">
+    <value>重启服务器</value>
+  </data>
+  <data name="ChatTypeFreeCompanyMemberLoginNotifications">
+    <value>部队成员登录通知</value>
+  </data>
+  <data name="ChatTypeDamageDealtByYou">
+    <value>伤害</value>
+  </data>
+  <data name="ChatTypeFailedAttacksOnYou">
+    <value>未命中</value>
+  </data>
+  <data name="ChatTypeActionReadiedByYou">
+    <value>技能</value>
+  </data>
+  <data name="ChatTypeDetrimentalEffectsInflictedByYou">
+    <value>施加减益效果</value>
+  </data>
+  <data name="ChatTypeBeneficialEffectOnYouEnded">
+    <value>失去增益效果</value>
+  </data>
+  <data name="BackendNameSystem" xml:space="preserve">
+    <value>系统语音</value>
+  </data>
+  <data name="BackendNameWebsocket" xml:space="preserve">
+    <value>WebSocket</value>
+  </data>
+  <data name="BackendNameAmazonPolly" xml:space="preserve">
+    <value>亚马逊 Polly</value>
+  </data>
+  <data name="BackendNameUberduck" xml:space="preserve">
+    <value>Uberduck</value>
+  </data>
+  <data name="BackendNameAzure" xml:space="preserve">
+    <value>Azure 认知服务</value>
+  </data>
+  <data name="BackendNameElevenLabs" xml:space="preserve">
+    <value>ElevenLabs</value>
+  </data>
+  <data name="BackendNameOpenAi" xml:space="preserve">
+    <value>OpenAI</value>
+  </data>
+  <data name="BackendNameGoogleCloud" xml:space="preserve">
+    <value>谷歌云</value>
+  </data>
+  <data name="BackendNameKokoro" xml:space="preserve">
+    <value>Kokoro</value>
+  </data>
+  <data name="BackendNameKokoroDownloadRequired" xml:space="preserve">
+    <value>Kokoro（需下载 169MB 模型）</value>
+  </data>
+  <data name="BackendNameMegaphone" xml:space="preserve">
+    <value>Megaphone</value>
+  </data>
+  <data name="BackendNameFishAudio" xml:space="preserve">
+    <value>Fish Audio</value>
+  </data>
+  <data name="CommandCancelTts" xml:space="preserve">
+    <value>取消所有已排队的朗读。</value>
+  </data>
+  <data name="CommandToggleTts" xml:space="preserve">
+    <value>开关 TextToTalk 朗读。</value>
+  </data>
+  <data name="CommandDisableTts" xml:space="preserve">
+    <value>关闭 TextToTalk 朗读。</value>
+  </data>
+  <data name="CommandEnableTts" xml:space="preserve">
+    <value>开启 TextToTalk 朗读。</value>
+  </data>
+  <data name="CommandToggleConfig" xml:space="preserve">
+    <value>打开或关闭 TextToTalk 设置窗口。</value>
+  </data>
+  <data name="CommandToggleStyles" xml:space="preserve">
+    <value>打开或关闭 TextToTalk 语音风格窗口。</value>
+  </data>
+  <data name="CommandSwitchPreset" xml:space="preserve">
+    <value>按名称切换当前频道设置预设。不带参数时显示当前预设并列出可用预设。</value>
+  </data>
+  <data name="CommandAdjustVolume" xml:space="preserve">
+    <value>调整全局朗读音量。传入百分比（0-200）直接设置，或用 +N/-N 相对调整。不带参数时显示当前音量。</value>
+  </data>
+  <data name="TtsDisabledMessage" xml:space="preserve">
+    <value>已关闭朗读。</value>
+  </data>
+  <data name="TtsEnabledMessage" xml:space="preserve">
+    <value>已开启朗读。</value>
+  </data>
+  <data name="CurrentPresetFormat" xml:space="preserve">
+    <value>当前预设：{0}</value>
+  </data>
+  <data name="UnnamedPreset" xml:space="preserve">
+    <value>（未命名）</value>
+  </data>
+  <data name="AvailablePresetsFormat" xml:space="preserve">
+    <value>可用预设：{0}</value>
+  </data>
+  <data name="NoSuchPresetFormat" xml:space="preserve">
+    <value>不存在名为“{0}”的预设。</value>
+  </data>
+  <data name="PresetSwitchedFormat" xml:space="preserve">
+    <value>已切换预设 → {0}</value>
+  </data>
+  <data name="CurrentVolumeFormat" xml:space="preserve">
+    <value>当前音量：{0:0}%</value>
+  </data>
+  <data name="InvalidVolumeAdjustFormat" xml:space="preserve">
+    <value>无效的音量调整：“{0}”。请使用 +N 或 -N。</value>
+  </data>
+  <data name="InvalidVolumeFormat" xml:space="preserve">
+    <value>无效的音量：“{0}”。请使用百分比（0-200）、+N 或 -N。</value>
+  </data>
+  <data name="VolumeSetFormat" xml:space="preserve">
+    <value>音量 → {0:0}%</value>
+  </data>
+  <data name="RateLimitWarningTitle" xml:space="preserve">
+    <value>朗读请求触发了限流。</value>
+  </data>
+  <data name="RateLimitWarningBody" xml:space="preserve">
+    <value>请降低语速，或减少启用的聊天频道以减轻负载。</value>
+  </data>
+  <data name="ElevenLabsApiKey" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="ElevenLabsSaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="ElevenLabsRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="ElevenLabsCredentialsSecured" xml:space="preserve">
+    <value>凭据已由 Windows 凭据管理器保存</value>
+  </data>
+  <data name="ElevenLabsLoginFailedFormat" xml:space="preserve">
+    <value>登录失败：{0}</value>
+  </data>
+  <data name="ElevenLabsCharactersUsed" xml:space="preserve">
+    <value>已用字符数</value>
+  </data>
+  <data name="ElevenLabsNextQuotaResetFormat" xml:space="preserve">
+    <value>下次额度重置：{0}</value>
+  </data>
+  <data name="ElevenLabsNoPresets" xml:space="preserve">
+    <value>没有可用预设。请点击“新建预设”按钮创建。</value>
+  </data>
+  <data name="ElevenLabsDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="ElevenLabsPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="ElevenLabsVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="ElevenLabsLogInToLoadModels" xml:space="preserve">
+    <value>登录后加载可用模型</value>
+  </data>
+  <data name="ElevenLabsSelectModel" xml:space="preserve">
+    <value>选择模型…</value>
+  </data>
+  <data name="ElevenLabsSelectModelCurrentFormat" xml:space="preserve">
+    <value>选择模型…（当前：{0}）</value>
+  </data>
+  <data name="ElevenLabsModelCostFormat" xml:space="preserve">
+    <value>{0} || 费用倍率：{1}</value>
+  </data>
+  <data name="ElevenLabsStylesAvailable" xml:space="preserve">
+    <value> [可用风格]</value>
+  </data>
+  <data name="ElevenLabsModel" xml:space="preserve">
+    <value>模型</value>
+  </data>
+  <data name="ElevenLabsClaritySimilarityBoost" xml:space="preserve">
+    <value>清晰度/相似度提升</value>
+  </data>
+  <data name="ElevenLabsStability" xml:space="preserve">
+    <value>稳定性</value>
+  </data>
+  <data name="ElevenLabsPlaybackRate" xml:space="preserve">
+    <value>播放速度</value>
+  </data>
+  <data name="ElevenLabsStyle" xml:space="preserve">
+    <value>风格</value>
+  </data>
+  <data name="ElevenLabsNoStylesConfigured" xml:space="preserve">
+    <value>尚未配置任何风格</value>
+  </data>
+  <data name="ElevenLabsVoiceStyle" xml:space="preserve">
+    <value>语音风格</value>
+  </data>
+  <data name="ElevenLabsStylesOnlyOnModelFormat" xml:space="preserve">
+    <value>仅模型 {0} 支持语音风格</value>
+  </data>
+  <data name="ElevenLabsTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="ElevenLabsTestMessage" xml:space="preserve">
+    <value>这是来自 ElevenLabs 的测试消息</value>
+  </data>
+  <data name="ElevenLabsConfigureVoiceStyles" xml:space="preserve">
+    <value>配置语音风格</value>
+  </data>
+  <data name="ElevenLabsTagsTooltip" xml:space="preserve">
+    <value>使用“Shout”或“Whisper”等标签来指定语音风格</value>
+  </data>
+  <data name="ElevenLabsUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="ElevenLabsStylesNote" xml:space="preserve">
+    <value>注意：ElevenLabs 临时风格需要“eleven_v3”，包含临时标签的消息将强制使用 V3 模型。</value>
+  </data>
+  <data name="ElevenLabsStylesHaveFun" xml:space="preserve">
+    <value>尽情试验，玩得开心！</value>
+  </data>
+  <data name="ElevenLabsStylesAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="ElevenLabsStylesCopyHint" xml:space="preserve">
+    <value>点击风格即可将标签复制到剪贴板：</value>
+  </data>
+  <data name="ElevenLabsStylesCopied" xml:space="preserve">
+    <value>已复制！</value>
+  </data>
+  <data name="ElevenLabsStylesClickToCopy" xml:space="preserve">
+    <value>点击复制</value>
+  </data>
+  <data name="ElevenLabsStylesRemoveStyle" xml:space="preserve">
+    <value>删除风格</value>
+  </data>
+  <data name="ElevenLabsStylesNoStylesYet" xml:space="preserve">
+    <value>尚未添加任何语音风格。</value>
+  </data>
+  <data name="FishAudioApiKey" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="FishAudioSaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="FishAudioRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="FishAudioCredentialsSecured" xml:space="preserve">
+    <value>凭据已由 Windows 凭据管理器保存</value>
+  </data>
+  <data name="FishAudioLoginFailedFormat" xml:space="preserve">
+    <value>登录失败：{0}</value>
+  </data>
+  <data name="FishAudioApiCreditFormat" xml:space="preserve">
+    <value>API 余额：{0}</value>
+  </data>
+  <data name="FishAudioNoPresets" xml:space="preserve">
+    <value>没有可用预设。请点击“新建预设”按钮创建。</value>
+  </data>
+  <data name="FishAudioDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="FishAudioPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="FishAudioDefaultVoiceModel" xml:space="preserve">
+    <value>默认（无语音模型）</value>
+  </data>
+  <data name="FishAudioVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="FishAudioVoiceModelsHint" xml:space="preserve">
+    <value>此处仅列出你自己的语音模型；请前往 fish.audio 创建。</value>
+  </data>
+  <data name="FishAudioSelectModel" xml:space="preserve">
+    <value>选择模型…</value>
+  </data>
+  <data name="FishAudioModel" xml:space="preserve">
+    <value>模型</value>
+  </data>
+  <data name="FishAudioLatency" xml:space="preserve">
+    <value>延迟</value>
+  </data>
+  <data name="FishAudioTemperature" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="FishAudioTopP" xml:space="preserve">
+    <value>Top P</value>
+  </data>
+  <data name="FishAudioPlaybackRate" xml:space="preserve">
+    <value>播放速度</value>
+  </data>
+  <data name="FishAudioStyle" xml:space="preserve">
+    <value>风格</value>
+  </data>
+  <data name="FishAudioNoStylesConfigured" xml:space="preserve">
+    <value>尚未配置任何风格</value>
+  </data>
+  <data name="FishAudioVoiceStyle" xml:space="preserve">
+    <value>语音风格</value>
+  </data>
+  <data name="FishAudioTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="FishAudioTestMessage" xml:space="preserve">
+    <value>这是来自 Fish Audio 的测试消息</value>
+  </data>
+  <data name="FishAudioConfigureVoiceStyles" xml:space="preserve">
+    <value>配置语音风格</value>
+  </data>
+  <data name="FishAudioEmotionTagsTooltip" xml:space="preserve">
+    <value>使用“happy”或“whispering”等情感标签来指定语音风格</value>
+  </data>
+  <data name="FishAudioUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="FishAudioStylesHaveFun" xml:space="preserve">
+    <value>尽情试验，玩得开心！</value>
+  </data>
+  <data name="FishAudioStylesAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="FishAudioStylesCopyHint" xml:space="preserve">
+    <value>点击风格即可将标签复制到剪贴板：</value>
+  </data>
+  <data name="FishAudioStylesCopied" xml:space="preserve">
+    <value>已复制！</value>
+  </data>
+  <data name="FishAudioStylesClickToCopy" xml:space="preserve">
+    <value>点击复制</value>
+  </data>
+  <data name="FishAudioStylesRemoveStyle" xml:space="preserve">
+    <value>删除风格</value>
+  </data>
+  <data name="FishAudioStylesNoStylesYet" xml:space="preserve">
+    <value>尚未添加任何语音风格。</value>
+  </data>
+  <data name="OpenAiApiKeyHint" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="OpenAiSaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="OpenAiCredentialsSecured" xml:space="preserve">
+    <value>凭据已由 Windows 凭据管理器保存</value>
+  </data>
+  <data name="OpenAiLoginFailedFormat" xml:space="preserve">
+    <value>登录失败：{0}</value>
+  </data>
+  <data name="OpenAiVoicePreset" xml:space="preserve">
+    <value>语音预设</value>
+  </data>
+  <data name="OpenAiNoPresets" xml:space="preserve">
+    <value>你还没有预设。请使用“新建预设”按钮创建。</value>
+  </data>
+  <data name="OpenAiDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="OpenAiPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="OpenAiModel" xml:space="preserve">
+    <value>模型</value>
+  </data>
+  <data name="OpenAiVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="OpenAiPlaybackRate" xml:space="preserve">
+    <value>播放速度</value>
+  </data>
+  <data name="OpenAiStyle" xml:space="preserve">
+    <value>风格</value>
+  </data>
+  <data name="OpenAiNoStylesConfigured" xml:space="preserve">
+    <value>尚未配置任何风格</value>
+  </data>
+  <data name="OpenAiVoiceStyle" xml:space="preserve">
+    <value>语音风格</value>
+  </data>
+  <data name="OpenAiStylesHelp" xml:space="preserve">
+    <value>风格是提供给模型的附加信息，可帮助其生成更准确的语音。
+可包括强调、发音、停顿、语气、语速、情感、语调、用词等。
+示例可参见 https://openai.fm</value>
+  </data>
+  <data name="OpenAiTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="OpenAiTestMessage" xml:space="preserve">
+    <value>这是来自 Open AI 的测试消息</value>
+  </data>
+  <data name="OpenAiConfigureVoiceStyles" xml:space="preserve">
+    <value>配置语音风格</value>
+  </data>
+  <data name="OpenAiVoiceStylesTooltip" xml:space="preserve">
+    <value>使用“Shout”或“Whisper”等标签来指定语音风格</value>
+  </data>
+  <data name="OpenAiUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="OpenAiStylesExperimentHint" xml:space="preserve">
+    <value>尽情试验，玩得开心！</value>
+  </data>
+  <data name="OpenAiStylesAdd" xml:space="preserve">
+    <value>添加</value>
+  </data>
+  <data name="OpenAiStylesCopyHint" xml:space="preserve">
+    <value>点击风格即可将标签复制到剪贴板：</value>
+  </data>
+  <data name="OpenAiStylesCopied" xml:space="preserve">
+    <value>已复制！</value>
+  </data>
+  <data name="OpenAiStylesClickToCopy" xml:space="preserve">
+    <value>点击复制</value>
+  </data>
+  <data name="OpenAiStylesRemoveStyle" xml:space="preserve">
+    <value>移除风格</value>
+  </data>
+  <data name="OpenAiStylesNoStyles" xml:space="preserve">
+    <value>尚未添加任何语音风格。</value>
+  </data>
+  <data name="UberduckRateLimitHint" xml:space="preserve">
+    <value>由于速率限制，TTS 可能会有延迟。</value>
+  </data>
+  <data name="UberduckApiKeyHint" xml:space="preserve">
+    <value>API 密钥</value>
+  </data>
+  <data name="UberduckApiSecretHint" xml:space="preserve">
+    <value>API 私有密钥</value>
+  </data>
+  <data name="UberduckSaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="UberduckRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="UberduckCredentialsSecured" xml:space="preserve">
+    <value>凭据已由 Windows 凭据管理器保存</value>
+  </data>
+  <data name="UberduckNoPresets" xml:space="preserve">
+    <value>你还没有预设。请使用“新建预设”按钮创建。</value>
+  </data>
+  <data name="UberduckDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="UberduckPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="UberduckVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="UberduckNoVoices" xml:space="preserve">
+    <value>未找到语音。这可能表示服务暂时中断。</value>
+  </data>
+  <data name="UberduckPlaybackRate" xml:space="preserve">
+    <value>播放速度</value>
+  </data>
+  <data name="UberduckTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="UberduckTestMessage" xml:space="preserve">
+    <value>这是来自 Uberduck 的测试消息</value>
+  </data>
+  <data name="UberduckLexiconsUnsupported" xml:space="preserve">
+    <value>Uberduck 后端不支持发音词典。</value>
+  </data>
+  <data name="UberduckUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="PollyRegion" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="PollyAccessKey" xml:space="preserve">
+    <value>访问密钥</value>
+  </data>
+  <data name="PollySecretKey" xml:space="preserve">
+    <value>私有访问密钥</value>
+  </data>
+  <data name="PollySaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="PollyRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="PollyCredentialsSecured" xml:space="preserve">
+    <value>凭据已安全保存至 Windows 凭据管理器</value>
+  </data>
+  <data name="PollyLoginFailedFormat" xml:space="preserve">
+    <value>登录失败：{0}</value>
+  </data>
+  <data name="PollyNoPresetsFormat" xml:space="preserve">
+    <value>尚未创建预设，请点击“{0}”按钮新建。</value>
+  </data>
+  <data name="PollyDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="PollyPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="PollyEngine" xml:space="preserve">
+    <value>引擎</value>
+  </data>
+  <data name="PollyVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="PollyNoVoices" xml:space="preserve">
+    <value>当前区域下此语音引擎没有可用语音。
+请换用其他区域登录。</value>
+  </data>
+  <data name="PollySampleRate" xml:space="preserve">
+    <value>采样率</value>
+  </data>
+  <data name="PollyPlaybackRate" xml:space="preserve">
+    <value>播放速率</value>
+  </data>
+  <data name="PollyNewscasterStyle" xml:space="preserve">
+    <value>新闻播报风格（仅限部分语音）</value>
+  </data>
+  <data name="PollyTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="PollyUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="AzureRegion" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="AzureSubscriptionKey" xml:space="preserve">
+    <value>订阅密钥</value>
+  </data>
+  <data name="AzureSaveAndLogin" xml:space="preserve">
+    <value>保存并登录</value>
+  </data>
+  <data name="AzureRegister" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="AzureCredentialsSecured" xml:space="preserve">
+    <value>凭据已安全保存至 Windows 凭据管理器</value>
+  </data>
+  <data name="AzureLoginFailedFormat" xml:space="preserve">
+    <value>登录失败：{0}</value>
+  </data>
+  <data name="AzureNoPresetsFormat" xml:space="preserve">
+    <value>尚未创建预设，请点击“{0}”按钮新建。</value>
+  </data>
+  <data name="AzureDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="AzurePresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="AzureVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="AzureStylesAvailable" xml:space="preserve">
+    <value>[可用风格]</value>
+  </data>
+  <data name="AzureSelectVoice" xml:space="preserve">
+    <value>选择语音…</value>
+  </data>
+  <data name="AzureNoVoices" xml:space="preserve">
+    <value>当前区域下此语音引擎没有可用语音。
+请换用其他区域登录。</value>
+  </data>
+  <data name="AzurePlaybackRate" xml:space="preserve">
+    <value>播放速率</value>
+  </data>
+  <data name="AzureStyle" xml:space="preserve">
+    <value>风格</value>
+  </data>
+  <data name="AzureNoStylesAvailable" xml:space="preserve">
+    <value>此语音没有可用风格</value>
+  </data>
+  <data name="AzureTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="AzureConfigureVoiceStyles" xml:space="preserve">
+    <value>配置语音风格</value>
+  </data>
+  <data name="AzureUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="AzureStylesNoStyles" xml:space="preserve">
+    <value>此语音没有可用风格。</value>
+  </data>
+  <data name="AzureStylesNote" xml:space="preserve">
+    <value>注意：Azure 语音风格由语音预先确定，且仅适用于所选语音</value>
+  </data>
+  <data name="AzureStylesClickToCopy" xml:space="preserve">
+    <value>点击风格即可将其标签复制到剪贴板：</value>
+  </data>
+  <data name="AzureStylesCopied" xml:space="preserve">
+    <value>已复制！</value>
+  </data>
+  <data name="AzureStylesClickToCopyTooltip" xml:space="preserve">
+    <value>点击复制</value>
+  </data>
+  <data name="SystemTtsWindowsOnly" xml:space="preserve">
+    <value>此 TTS 提供程序仅在 Windows 上受支持。</value>
+  </data>
+  <data name="SystemTtsNoPresets" xml:space="preserve">
+    <value>没有可用预设。请点击“新建预设”按钮创建。</value>
+  </data>
+  <data name="SystemTtsDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="SystemTtsPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="SystemTtsRate" xml:space="preserve">
+    <value>语速</value>
+  </data>
+  <data name="SystemTtsVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="SystemTtsDontSeeAllVoices" xml:space="preserve">
+    <value>看不到全部语音？</value>
+  </data>
+  <data name="SystemTtsCheckNaturalVoice" xml:space="preserve">
+    <value>也可以试试 NaturalVoiceSAPIAdapter！</value>
+  </data>
+  <data name="SystemTtsTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="SystemTtsTestMessage" xml:space="preserve">
+    <value>来自 Windows 讲述人的测试语音。</value>
+  </data>
+  <data name="SystemTtsUseGenderedPresets" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="SystemTtsVoiceErrorsFormat" xml:space="preserve">
+    <value>语音错误：
+  {0}</value>
+  </data>
+  <data name="SystemTtsVoiceErrorFormat" xml:space="preserve">
+    <value>语音错误：
+  {0}</value>
+  </data>
+  <data name="SystemTtsUnknownLanguage" xml:space="preserve">
+    <value>未知语言</value>
+  </data>
+  <data name="SystemTtsUnstableVoice" xml:space="preserve">
+    <value>[不稳定]</value>
+  </data>
+  <data name="KokoroPerformanceWarning" xml:space="preserve">
+    <value>此语音后端在部分系统上可能导致性能问题。</value>
+  </data>
+  <data name="KokoroVoicePresetLabel" xml:space="preserve">
+    <value>语音预设</value>
+  </data>
+  <data name="KokoroNoPresets" xml:space="preserve">
+    <value>没有可用预设。请点击“新建预设”按钮创建。</value>
+  </data>
+  <data name="KokoroDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="KokoroPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="KokoroVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="KokoroVoiceTooltip" xml:space="preserve">
+    <value>此预设使用的内置 Kokoro 语音。首字母表示语言/口音：
+a - 美式，b - 英式，j - 日语等。
+第二个字母表示性别：
+f - 女声，m - 男声</value>
+  </data>
+  <data name="KokoroSpeed" xml:space="preserve">
+    <value>语速</value>
+  </data>
+  <data name="KokoroTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="KokoroTestMessageFormat" xml:space="preserve">
+    <value>你好，我是 {0}，是一个 TTS 语音预设。</value>
+  </data>
+  <data name="KokoroTestTooltip" xml:space="preserve">
+    <value>使用当前语音预设播放一段测试语音。</value>
+  </data>
+  <data name="KokoroUseAmericanEnglish" xml:space="preserve">
+    <value>使用美式英语</value>
+  </data>
+  <data name="KokoroUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="KokoroModelDownloadFailedFormat" xml:space="preserve">
+    <value>模型下载失败：{0}</value>
+  </data>
+  <data name="KokoroModelLoading" xml:space="preserve">
+    <value>模型仍在下载或初始化……</value>
+  </data>
+  <data name="GoogleCloudVoicePresetLabel" xml:space="preserve">
+    <value>语音预设</value>
+  </data>
+  <data name="GoogleCloudNoPresets" xml:space="preserve">
+    <value>没有可用预设。请点击“新建预设”按钮创建。</value>
+  </data>
+  <data name="GoogleCloudDeletePreset" xml:space="preserve">
+    <value>删除预设</value>
+  </data>
+  <data name="GoogleCloudPresetName" xml:space="preserve">
+    <value>预设名称</value>
+  </data>
+  <data name="GoogleCloudLocale" xml:space="preserve">
+    <value>区域</value>
+  </data>
+  <data name="GoogleCloudVoice" xml:space="preserve">
+    <value>语音</value>
+  </data>
+  <data name="GoogleCloudSampleRate" xml:space="preserve">
+    <value>采样率</value>
+  </data>
+  <data name="GoogleCloudPitch" xml:space="preserve">
+    <value>音高</value>
+  </data>
+  <data name="GoogleCloudPlaybackRate" xml:space="preserve">
+    <value>播放速度</value>
+  </data>
+  <data name="GoogleCloudTest" xml:space="preserve">
+    <value>试听</value>
+  </data>
+  <data name="GoogleCloudTestMessage" xml:space="preserve">
+    <value>来自 Google Cloud 的测试语音。</value>
+  </data>
+  <data name="GoogleCloudUseGenderedVoices" xml:space="preserve">
+    <value>使用分性别语音预设</value>
+  </data>
+  <data name="WebsocketBindFailedFormat" xml:space="preserve">
+    <value>TextToTalk 无法将 WebSocket 服务器绑定到端口 {0}。</value>
+  </data>
+  <data name="WebsocketPortInUseHint" xml:space="preserve">
+    <value>请关闭占用该端口的程序并重新加载 WebSocket 服务器，或选择其他端口。</value>
+  </data>
+  <data name="WebsocketAddress" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="WebsocketAddressInvalid" xml:space="preserve">
+    <value>无法解析地址！</value>
+  </data>
+  <data name="WebsocketIpv6Unsupported" xml:space="preserve">
+    <value>当前不支持 IPv6 地址格式。</value>
+  </data>
+  <data name="WebsocketPortAlreadyInUse" xml:space="preserve">
+    <value>端口已被其他服务器占用。</value>
+  </data>
+  <data name="WebsocketUnknownErrorFormat" xml:space="preserve">
+    <value>未知错误：{0}</value>
+  </data>
+  <data name="MegaphoneBindFailedFormat" xml:space="preserve">
+    <value>TextToTalk 无法将 Megaphone 服务器绑定到端口 {0}。</value>
+  </data>
+  <data name="MegaphonePortInUseHint" xml:space="preserve">
+    <value>请关闭占用该端口的程序并重新加载 Megaphone 服务器，或选择其他端口。</value>
+  </data>
+  <data name="MegaphonePortAlreadyInUse" xml:space="preserve">
+    <value>端口已被其他服务器占用。</value>
+  </data>
+  <data name="MegaphoneUnknownErrorFormat" xml:space="preserve">
+    <value>未知错误：{0}</value>
+  </data>
+  <data name="GoogleCloudCredentialsOpen" xml:space="preserve">
+    <value>打开 Google 凭据</value>
+  </data>
+  <data name="GoogleCloudCredentialsJsonFilter" xml:space="preserve">
+    <value>JSON 文件{.json},.*</value>
+  </data>
+</root>

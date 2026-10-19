@@ -1,0 +1,252 @@
+using Dalamud.Bindings.ImGui;
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Numerics;
+using Dalamud.Interface.Utility.Raii;
+using TextToTalk.Events;
+using TextToTalk.Resources;
+using TextToTalk.Services;
+using TextToTalk.UI;
+
+namespace TextToTalk.Backends.Websocket;
+
+public class WebsocketBackend : VoiceBackend
+{
+    private static readonly Vector4 Red = new(1, 0, 0, 1);
+    private static readonly Vector4 Hint = new(1.0f, 1.0f, 1.0f, 0.6f);
+    private static readonly Vector4 Azure = new(0.24f, 0.44f, 0.6f, 1.0f);
+    private static readonly Vector4 AzureHovered = new(0.21f, 0.49f, 0.7f, 1.0f);
+    private static readonly Vector4 AzureActive = new(0.16f, 0.52f, 0.8f, 1.0f);
+
+    private readonly WSServer wsServer;
+    private readonly PluginConfiguration config;
+
+    private bool dirtyConfig;
+    private Exception? lastException;
+
+    public WebsocketBackend(PluginConfiguration config, INotificationService notificationService)
+    {
+        this.config = config;
+
+        try
+        {
+            this.wsServer = new WSServer(config);
+        }
+        catch (Exception e) when (e is SocketException or ArgumentOutOfRangeException)
+        {
+            notificationService.NotifyError(
+                string.Format(Strings.Get("WebsocketBindFailedFormat"), config.WebsocketPort),
+                Strings.Get("WebsocketPortInUseHint"));
+            this.wsServer = new WSServer(config, 0);
+        }
+    }
+
+    public override void Start()
+    {
+        try
+        {
+            this.wsServer.Start();
+        }
+        catch (Exception e)
+        {
+            lastException = e;
+        }
+    }
+
+    public override void Stop()
+    {
+        this.wsServer.Stop();
+    }
+
+    public override void DrawStyles(IConfigUIDelegates helpers)
+    {
+        helpers.OpenVoiceStylesConfig();
+    }
+    public override void Say(SayRequest request)
+    {
+        try
+        {
+            this.wsServer.Broadcast(request);
+            DetailedLog.Debug($"Sent message \"{request.Text}\" on WebSocket server.");
+        }
+        catch (Exception e)
+        {
+            DetailedLog.Error(e, "Failed to send message over Websocket.");
+        }
+    }
+
+    public override void CancelAllSpeech()
+    {
+        this.wsServer.CancelAll();
+    }
+
+    public override void CancelSay(TextSource source)
+    {
+        this.wsServer.Cancel(source);
+    }
+
+    public override void OnNpcDialogueSessionEvent(NpcDialogueSessionEvent ev)
+    {
+        try
+        {
+            var ipcMsg = MapEventToIpcMessage(ev);
+            this.wsServer.Broadcast(ipcMsg);
+        }
+        catch (Exception e)
+        {
+            DetailedLog.Error(e, "Failed to send NPC dialogue session event over Websocket.");
+        }
+    }
+
+    private static IpcMessage MapEventToIpcMessage(NpcDialogueSessionEvent ev)
+    {
+        return new IpcMessage(IpcMessageType.Event, ev.Source)
+        {
+            EventType = ev.EventType,
+            EventSessionId = ev.SessionId,
+            EventReason = ev.Reason,
+        };
+    }
+
+    public override void DrawSettings(IConfigUIDelegates helpers)
+    {
+        DrawPortConfig();
+        DrawAddressConfig();
+
+        ImGui.Spacing();
+        DrawServerStatus();
+
+        ImGui.Spacing();
+        DrawServerRestart();
+    }
+
+    private void DrawPortConfig()
+    {
+        var port = this.config.WebsocketPort;
+        var portStr = port.ToString();
+
+        var didUpdate = ImGui.InputText(Strings.Get("MegaphonePort"), ref portStr, 5, ImGuiInputTextFlags.CharsDecimal);
+
+        if (int.TryParse(portStr, out var newPort))
+        {
+            if (!IsValidPort(newPort))
+            {
+                ImGui.TextColored(Red, Strings.Get("MegaphonePortOutOfRange"));
+            }
+            else if (didUpdate)
+            {
+                this.config.WebsocketPort = newPort;
+                this.dirtyConfig = true;
+                this.config.Save();
+            }
+        }
+        else
+        {
+            ImGui.TextColored(Red, Strings.Get("MegaphonePortInvalid"));
+        }
+    }
+
+    private void DrawAddressConfig()
+    {
+        var address = this.config.WebsocketAddress ?? "";
+        if (ImGui.InputTextWithHint($"{Strings.Get("WebsocketAddress")}##{MemoizedId.Create()}", "localhost", ref address, 40))
+        {
+            if (string.IsNullOrWhiteSpace(address))
+            {
+                this.config.WebsocketAddress = null;
+                this.dirtyConfig = true;
+                this.config.Save();
+            }
+            else if (IPAddress.TryParse(address, out _))
+            {
+                this.config.WebsocketAddress = address;
+                this.dirtyConfig = true;
+                this.config.Save();
+            }
+            else
+            {
+                ImGui.TextColored(Red, Strings.Get("WebsocketAddressInvalid"));
+            }
+        }
+
+        ImGui.TextColored(Hint, Strings.Get("WebsocketIpv6Unsupported"));
+    }
+
+    private void DrawServerStatus()
+    {
+        var fullServiceUrl = this.wsServer.ServiceUrl + this.wsServer.ServicePath;
+        ImGui.TextColored(Hint, string.Format(Strings.Get("MegaphoneServerStatusFormat"),
+            this.wsServer.Active ? Strings.Get("MegaphoneServerStarted") : Strings.Get("MegaphoneServerWillStart"),
+            fullServiceUrl));
+    }
+
+    private void DrawServerRestart()
+    {
+        using var bcAzure = ImRaii.PushColor(ImGuiCol.Button, Azure, this.dirtyConfig);
+        using var bcAzureHovered = ImRaii.PushColor(ImGuiCol.ButtonHovered, AzureHovered, this.dirtyConfig);
+        using var bcAzureActive = ImRaii.PushColor(ImGuiCol.ButtonActive, AzureActive, this.dirtyConfig);
+        if (ImGui.Button($"{Strings.Get("MegaphoneRestartServer")}##{MemoizedId.Create()}"))
+        {
+            ImCatchServerRestart(() =>
+            {
+                this.wsServer.RestartWithConnection(
+                    IPAddress.TryParse(this.config.WebsocketAddress, out var ip) ? ip : null,
+                    this.config.WebsocketPort);
+                this.dirtyConfig = false;
+            });
+        }
+
+        ImLastError();
+    }
+
+    private void ImCatchServerRestart(Action fn)
+    {
+        try
+        {
+            lastException = null;
+            fn();
+        }
+        catch (Exception e)
+        {
+            lastException = e;
+        }
+    }
+
+    private void ImLastError()
+    {
+        if (lastException == null)
+        {
+            return;
+        }
+
+        switch (lastException)
+        {
+            case ArgumentOutOfRangeException:
+                ImGui.TextColored(Red, Strings.Get("MegaphonePortOutOfRange"));
+                break;
+            case SocketException:
+                ImGui.TextColored(Red, Strings.Get("WebsocketPortAlreadyInUse"));
+                break;
+            default:
+                ImGui.TextColored(Red, string.Format(Strings.Get("WebsocketUnknownErrorFormat"), lastException.Message));
+                break;
+        }
+    }
+
+    private static bool IsValidPort(int port) => port is >= 0 and <= 65535;
+
+    public override TextSource GetCurrentlySpokenTextSource()
+    {
+        // It's not possible to implement this correctly here.
+        return TextSource.None;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            this.wsServer.Dispose();
+        }
+    }
+}

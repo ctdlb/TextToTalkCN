@@ -1,0 +1,170 @@
+{
+  "SystemTtsWindowsOnly": {
+    "en": "This TTS provider is only supported on Windows.",
+    "zh": "此 TTS 提供程序仅在 Windows 上受支持。"
+  },
+  "SystemTtsNoPresets": {
+    "en": "You have no presets. Please create one using the \"New preset\" button.",
+    "zh": "没有可用预设。请点击“新建预设”按钮创建。"
+  },
+  "SystemTtsDeletePreset": {
+    "en": "Delete preset",
+    "zh": "删除预设"
+  },
+  "SystemTtsPresetName": {
+    "en": "Preset name",
+    "zh": "预设名称"
+  },
+  "SystemTtsRate": {
+    "en": "Rate",
+    "zh": "语速"
+  },
+  "SystemTtsVoice": {
+    "en": "Voice",
+    "zh": "语音"
+  },
+  "SystemTtsDontSeeAllVoices": {
+    "en": "Don't see all of your voices?",
+    "zh": "看不到全部语音？"
+  },
+  "SystemTtsCheckNaturalVoice": {
+    "en": "Also check out NaturalVoiceSAPIAdapter!",
+    "zh": "也可以试试 NaturalVoiceSAPIAdapter！"
+  },
+  "SystemTtsTest": {
+    "en": "Test",
+    "zh": "测试"
+  },
+  "SystemTtsTestMessage": {
+    "en": "Hello from Windows Narrator, this is a test message",
+    "zh": "来自 Windows 讲述人的测试语音。"
+  },
+  "SystemTtsUseGenderedPresets": {
+    "en": "Use gendered voice presets",
+    "zh": "使用分性别语音预设"
+  },
+  "SystemTtsVoiceErrorsFormat": {
+    "en": "Voice errors:\n  {0}",
+    "zh": "语音错误：\n  {0}"
+  },
+  "SystemTtsVoiceErrorFormat": {
+    "en": "Voice error:\n  {0}",
+    "zh": "语音错误：\n  {0}"
+  },
+  "SystemTtsUnknownLanguage": {
+    "en": "Unknown Language",
+    "zh": "未知语言"
+  },
+  "SystemTtsUnstableVoice": {
+    "en": "[UNSTABLE]",
+    "zh": "[不稳定]"
+  },
+  "KokoroPerformanceWarning": {
+    "en": "This backend may cause performance issues on some systems.",
+    "zh": "此语音后端在部分系统上可能导致性能问题。"
+  },
+  "KokoroVoicePresetLabel": {
+    "en": "Voice preset",
+    "zh": "语音预设"
+  },
+  "KokoroNoPresets": {
+    "en": "You have no presets. Please create one using the \"New preset\" button.",
+    "zh": "没有可用预设。请点击“新建预设”按钮创建。"
+  },
+  "KokoroDeletePreset": {
+    "en": "Delete preset",
+    "zh": "删除预设"
+  },
+  "KokoroPresetName": {
+    "en": "Preset name",
+    "zh": "预设名称"
+  },
+  "KokoroVoice": {
+    "en": "Voice",
+    "zh": "语音"
+  },
+  "KokoroVoiceTooltip": {
+    "en": "The built-in Kokoro voice to use for this preset. The first letter is the language/accent:\na - American, b - British, j - Japanese, ect.\nThe second latter is the gender:\nf - Female, m - Male",
+    "zh": "此预设使用的内置 Kokoro 语音。首字母表示语言/口音：\na - 美式，b - 英式，j - 日语等。\n第二个字母表示性别：\nf - 女声，m - 男声"
+  },
+  "KokoroSpeed": {
+    "en": "Speed",
+    "zh": "语速"
+  },
+  "KokoroTest": {
+    "en": "Test",
+    "zh": "测试"
+  },
+  "KokoroTestMessageFormat": {
+    "en": "Hello, my name is {0} and I am a TTS voice preset.",
+    "zh": "你好，我是 {0}，是一个 TTS 语音预设。"
+  },
+  "KokoroTestTooltip": {
+    "en": "Plays a test message using the current voice preset.",
+    "zh": "使用当前语音预设播放一段测试语音。"
+  },
+  "KokoroUseAmericanEnglish": {
+    "en": "Use American English",
+    "zh": "使用美式英语"
+  },
+  "KokoroUseGenderedVoices": {
+    "en": "Use gendered voices",
+    "zh": "使用分性别语音"
+  },
+  "KokoroModelDownloadFailedFormat": {
+    "en": "Failed to download model: {0}",
+    "zh": "模型下载失败：{0}"
+  },
+  "KokoroModelLoading": {
+    "en": "Model is still downloading or initializing...",
+    "zh": "模型仍在下载或初始化……"
+  },
+  "GoogleCloudVoicePresetLabel": {
+    "en": "Voice preset",
+    "zh": "语音预设"
+  },
+  "GoogleCloudNoPresets": {
+    "en": "You have no presets. Please create one using the \"New preset\" button.",
+    "zh": "没有可用预设。请点击“新建预设”按钮创建。"
+  },
+  "GoogleCloudDeletePreset": {
+    "en": "Delete preset",
+    "zh": "删除预设"
+  },
+  "GoogleCloudPresetName": {
+    "en": "Preset name",
+    "zh": "预设名称"
+  },
+  "GoogleCloudLocale": {
+    "en": "Locale",
+    "zh": "区域"
+  },
+  "GoogleCloudVoice": {
+    "en": "Voice",
+    "zh": "语音"
+  },
+  "GoogleCloudSampleRate": {
+    "en": "Sample rate",
+    "zh": "采样率"
+  },
+  "GoogleCloudPitch": {
+    "en": "Pitch",
+    "zh": "音高"
+  },
+  "GoogleCloudPlaybackRate": {
+    "en": "Playback rate",
+    "zh": "播放速度"
+  },
+  "GoogleCloudTest": {
+    "en": "Test",
+    "zh": "测试"
+  },
+  "GoogleCloudTestMessage": {
+    "en": "Hello from Google Cloud, this is a test message",
+    "zh": "来自 Google Cloud 的测试语音。"
+  },
+  "GoogleCloudUseGenderedVoices": {
+    "en": "Use gendered voices",
+    "zh": "使用分性别语音"
+  }
+}
