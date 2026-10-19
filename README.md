@@ -71,7 +71,13 @@ https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/pluginmaster-mirror.json
 https://cdn.jsdelivr.net/gh/ctdlb/TextToTalkCN@main/pluginmaster.json
 ```
 
-两个地址只是安装包下载链接不同（一个走 `gh-proxy.com` 加速，一个走 GitHub 官方），插件本身完全一样。
+**GitHub 原始地址（不加 CDN，网络能直连 GitHub 时可用）：**
+
+```
+https://raw.githubusercontent.com/ctdlb/TextToTalkCN/main/pluginmaster-mirror.json
+```
+
+这几个地址的区别只在「清单/安装包从哪条线路下载」，插件本身完全一样。
 
 添加方法：`/xlplugins` → 设置 → 自定义插件仓库 → 添加，粘贴地址并保存，回到「全部插件」搜索 `TextToTalkCN`。
 
