@@ -1,4 +1,4 @@
-﻿# TextToTalk 中文版
+# TextToTalk 中文版
 
 《最终幻想 14》聊天与剧情对话朗读插件，基于 [karashiiro/TextToTalk](https://github.com/karashiiro/TextToTalk) 重构并完成简体中文本地化。
 
@@ -63,11 +63,7 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Configuration Releas
 https://raw.githubusercontent.com/ctdlb/DalamudPlugins/main/pluginmaster.json
 ```
 
-如果直连 GitHub 打不开，可以把同一个文件换成 CDN 地址：
-
-```
-https://cdn.jsdelivr.net/gh/ctdlb/DalamudPlugins@main/pluginmaster.json
-```
+如果直连 GitHub 打不开，用系统代理或加速器，不要用 jsDelivr 镜像——它的分支缓存最长 12 小时，新版本会迟迟不出现。
 
 添加方法：`/xlplugins` → 设置 → 自定义插件仓库 → 添加，粘贴地址并保存，回到「全部插件」搜索 `TextToTalkCN`。
 
