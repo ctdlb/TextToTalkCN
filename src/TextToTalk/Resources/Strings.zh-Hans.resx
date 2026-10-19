@@ -1401,4 +1401,10 @@ f - 女声，m - 男声</value>
   <data name="AzureShowChineseOnly">
     <value>仅显示中文语音</value>
   </data>
+  <data name="AzureTestMessage">
+    <value>这是来自 Azure 认知服务的测试语音。</value>
+  </data>
+  <data name="AzureTestTextHint">
+    <value>试听文本，留空使用默认示例</value>
+  </data>
 </root>

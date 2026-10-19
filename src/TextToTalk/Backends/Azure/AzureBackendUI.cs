@@ -27,6 +27,7 @@ public class AzureBackendUI
     private string region;
     private string subscriptionKey;
     private bool chineseOnly = true;
+    private string testText = string.Empty;
 
     public AzureBackendUI(AzureBackendUIModel model, PluginConfiguration config, LexiconManager lexiconManager,
         HttpClient http, AzureBackend backend)
@@ -245,6 +246,10 @@ public class AzureBackendUI
         }
         ImGui.Separator();
 
+        var testMessage = string.IsNullOrWhiteSpace(this.testText)
+            ? Strings.Get("AzureTestMessage")
+            : this.testText;
+
         if (ImGui.Button($"{Strings.Get("AzureTest")}##{MemoizedId.Create()}"))
         {
             var voice = currentVoicePreset;
@@ -255,8 +260,8 @@ public class AzureBackendUI
                     Source = TextSource.Chat,
                     Voice = currentVoicePreset,
                     Speaker = "Speaker",
-                    Text = $"Hello from Azure Cognitive Services, this is a test message",
-                    TextTemplate = "Hello from Azure Cognitive Services, this is a test message",
+                    Text = testMessage,
+                    TextTemplate = testMessage,
                     Race = "Hyur",
                     BodyType = GameEnums.BodyType.Adult,
                     Gender = GameEnums.Gender.None,
@@ -272,6 +277,8 @@ public class AzureBackendUI
         {
             VoiceStyles.Instance?.ToggleStyle();
         }
+
+        ImGui.InputTextWithHint($"##{MemoizedId.Create()}", Strings.Get("AzureTestTextHint"), ref this.testText, 256);
 
         this.lexiconComponent.Draw();
         ImGui.Spacing();

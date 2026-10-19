@@ -908,4 +908,10 @@ f - Female, m - Male</value>
   <data name="AzureShowChineseOnly">
     <value>Show Chinese voices only</value>
   </data>
+  <data name="AzureTestMessage">
+    <value>Hello from Azure Cognitive Services, this is a test message</value>
+  </data>
+  <data name="AzureTestTextHint">
+    <value>Test text (leave empty to use the default sample)</value>
+  </data>
 </root>
