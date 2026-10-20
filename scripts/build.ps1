@@ -7,7 +7,7 @@
         pwsh -NoProfile -File scripts\build.ps1 -Install        # 构建后复制到 devPlugins
 
     依赖：
-        .NET 10 SDK（dotnet 在 PATH 上，或放在 E:\dotnet\dotnet.exe）
+        .NET 10 SDK（dotnet 在 PATH 上，或放在 E:\FF14Dev\dotnet\dotnet.exe）
         Dalamud dev 目录（默认自动探测 %APPDATA%\XIVLauncherCN\addon\Hooks\dev）
 #>
 param(
@@ -23,7 +23,7 @@ $root = Split-Path -Parent $PSScriptRoot
 function Resolve-Dotnet {
     $candidates = @(
         (Get-Command dotnet -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty Source),
-        'E:\dotnet\dotnet.exe',
+        'E:\FF14Dev\dotnet\dotnet.exe',
         "$env:ProgramFiles\dotnet\dotnet.exe"
     ) | Where-Object { $_ -and (Test-Path $_) }
 
