@@ -48,16 +48,17 @@
 
 > 不想自己编译？直接下载打好包的压缩包：[Releases · v1.43.11-cn](https://github.com/ctdlb/TextToTalkCN/releases)
 
-### 方式一：使用已构建好的开发插件
+### 方式一：使用已发布的压缩包
 
-仓库里已附带一份构建产物：`dist\TextToTalkCN\`。
+到 [Releases](https://github.com/ctdlb/TextToTalkCN/releases) 下载最新的 `TextToTalkCN-vX.Y.Z-cn.zip`，仓库里不带构建产物，`dist` 目录只在本机构建时生成。
 
 1. 关闭游戏。
-2. 把 `dist\TextToTalkCN\` 整个文件夹复制到 `%APPDATA%\XIVLauncherCN\devPlugins\`。
-3. 启动游戏，在 `/xlplugins` →「开发插件」中启用 **TextToTalkCN**。
-4. 本插件内部名称为 `TextToTalkCN`，可与官方版 TextToTalk 并存；若不想保留官方版，在插件列表里停用即可。
+2. 解压压缩包，得到 `TextToTalkCN` 文件夹。
+3. 把该文件夹复制到 `%APPDATA%\XIVLauncherCN\devPlugins\`。
+4. 启动游戏，在 `/xlplugins` →「开发插件」中启用 **TextToTalkCN**。
+5. 本插件内部名称为 `TextToTalkCN`，可与官方版 TextToTalk 并存；若不想保留官方版，在插件列表里停用即可。
 
-也可以直接用脚本一步完成（构建 + 复制）：
+也可以从源码一键构建并安装（构建 + 复制）：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Configuration Release -Install
