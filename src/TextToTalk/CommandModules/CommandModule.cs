@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Dalamud.Game.Command;
 using Dalamud.Plugin.Services;
@@ -11,12 +11,18 @@ public class CommandModule(ICommandManager commandManager) : IDisposable
 
     protected void AddCommand(string name, IReadOnlyCommandInfo.HandlerDelegate method, string help)
     {
-        commandManager.AddHandler(name, new CommandInfo(method)
+        var info = new CommandInfo(method)
         {
             HelpMessage = help,
             ShowInHelp = true,
-        });
-        this.commandNames.Add(name);
+        };
+
+        // 注册失败（命令名已被其他插件占用）时不要记进 commandNames，
+        // 否则 Dispose 里的 RemoveHandler 会按名字删掉别人的命令。
+        if (commandManager.AddHandler(name, info))
+        {
+            this.commandNames.Add(name);
+        }
     }
 
     protected void RemoveCommand(string name)
