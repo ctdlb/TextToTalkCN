@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <RuntimeFrameworkVersion>10.0.0</RuntimeFrameworkVersion>
-        <Version>1.43.12.0</Version>
+        <Version>1.43.13.0</Version>
         <!-- 独立内部名：与官方 TextToTalk 并存，互不覆盖配置 -->
         <AssemblyName>TextToTalkCN</AssemblyName>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -75,6 +75,9 @@
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('ios'))" />
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('osx'))" />
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('maccatalyst'))" />
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('linux'))" />
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('freebsd'))" />
+            <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').StartsWith('browser'))" />
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').EndsWith('-arm'))" />
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').EndsWith('-arm64'))" />
             <ReferenceCopyLocalPaths Remove="@(ReferenceCopyLocalPaths)" Condition="$([System.String]::new('%(ReferenceCopyLocalPaths.RuntimeIdentifier)').EndsWith('-x86'))" />
@@ -84,5 +87,22 @@
     <ItemGroup>
         <InternalsVisibleTo Include="TextToTalk.Tests" />
     </ItemGroup>
+
+    <!--
+      发布瘦身：espeak 数据里只保留 Kokoro 支持的语言词表，其余词表和
+      Linux / macOS / arm64 原生库在 Windows 插件里没有用途，打包前从输出目录删掉。
+    -->
+    <Target Name="_TrimEspeakAssets" BeforeTargets="PackagePlugin">
+        <ItemGroup>
+            <_EspeakKeep Include="en;es;fr;hi;it;ja;pt;cmn" />
+            <_EspeakJunk Include="$(TargetDir)espeak\espeak-ng-linux-amd64.dll" />
+            <_EspeakJunk Include="$(TargetDir)espeak\espeak-ng-macos-amd64.dll" />
+            <_EspeakJunk Include="$(TargetDir)espeak\espeak-ng-macos-arm64.dll" />
+            <_EspeakJunk Include="$(TargetDir)espeak\espeak-ng-win-arm64.dll" />
+            <_EspeakJunk Include="$(TargetDir)espeak\espeak-ng-data\*_dict"
+                         Exclude="@(_EspeakKeep->'$(TargetDir)espeak\espeak-ng-data\%(Identity)_dict')" />
+        </ItemGroup>
+        <Delete Files="@(_EspeakJunk)" ContinueOnError="true" />
+    </Target>
 
 </Project>
