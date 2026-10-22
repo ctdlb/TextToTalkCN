@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
   <resheader name="version"><value>2.0</value></resheader>
@@ -1024,5 +1024,14 @@ f - Female, m - Male</value>
   </data>
   <data name="DefaultPresetName">
     <value>Default</value>
+  </data>
+  <data name="ConfigTooltipUseGenderedVoicePresets">
+    <value>Set specific voice presets to be used for Ungendered, Male, and Female characters.</value>
+  </data>
+  <data name="ConfigTooltipUsePlayerRateLimiter">
+    <value>Sets a rate limit for every player character.</value>
+  </data>
+  <data name="ConfigTooltipKokoroUseAmericanEnglish">
+    <value>Use the American pronunciation for English instead of the British one. This doesn't affect the accents of the voices.</value>
   </data>
 </root>

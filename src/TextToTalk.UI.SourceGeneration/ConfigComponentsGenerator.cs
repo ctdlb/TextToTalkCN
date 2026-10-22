@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
@@ -61,7 +61,7 @@ public class ConfigComponentsGenerator : IIncrementalGenerator
                         if (global::Dalamud.Bindings.ImGui.ImGui.IsItemHovered())
                         {
                             global::Dalamud.Bindings.ImGui.ImGui.BeginTooltip();
-                            global::Dalamud.Bindings.ImGui.ImGui.Text(@"{{option.Tooltip}}");
+                            global::Dalamud.Bindings.ImGui.ImGui.Text(global::TextToTalk.Resources.Strings.Get("ConfigTooltip{{option.Name}}"));
                             global::Dalamud.Bindings.ImGui.ImGui.EndTooltip();
                         }
                 """;

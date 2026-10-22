@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <resheader name="resmimetype">
     <value>text/microsoft-resx</value>
@@ -1517,5 +1517,14 @@ f - 女声，m - 男声</value>
   </data>
   <data name="DefaultPresetName">
     <value>默认</value>
+  </data>
+  <data name="ConfigTooltipUseGenderedVoicePresets">
+    <value>为无性别、男性、女性角色分别指定要使用的语音预设。</value>
+  </data>
+  <data name="ConfigTooltipUsePlayerRateLimiter">
+    <value>为每个玩家角色设置语速上限。</value>
+  </data>
+  <data name="ConfigTooltipKokoroUseAmericanEnglish">
+    <value>英语使用美式发音而不是英式发音。这不影响语音本身的口音。</value>
   </data>
 </root>
