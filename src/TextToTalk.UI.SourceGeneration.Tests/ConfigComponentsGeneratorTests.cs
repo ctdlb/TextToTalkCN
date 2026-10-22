@@ -105,7 +105,7 @@ namespace TextToTalk.UI;
         if (global::Dalamud.Bindings.ImGui.ImGui.IsItemHovered())
         {{
             global::Dalamud.Bindings.ImGui.ImGui.BeginTooltip();
-            global::Dalamud.Bindings.ImGui.ImGui.Text(@""This is the 3rd option."");
+            global::Dalamud.Bindings.ImGui.ImGui.Text(global::TextToTalk.Resources.Strings.Get(""ConfigTooltipOption3""));
             global::Dalamud.Bindings.ImGui.ImGui.EndTooltip();
         }}
     }}
