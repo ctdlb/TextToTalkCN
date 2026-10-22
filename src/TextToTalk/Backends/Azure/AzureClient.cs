@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -65,7 +65,8 @@ public class AzureClient : IDisposable
         return res.Voices.Select(voice => voice.Name).ToList();
     }
 
-    public async Task Say(string? voice, int playbackRate, float volume, TextSource source, string text, string style)
+    public async Task Say(string? voice, int playbackRate, float volume, TextSource source, string text, string style,
+        CancellationToken cancellationToken = default)
     {
         if (!TryBeginSynthesis())
         {
@@ -92,6 +93,13 @@ public class AzureClient : IDisposable
 
             var soundStream = new MemoryStream(res.AudioData);
             soundStream.Seek(0, SeekOrigin.Begin);
+
+            // 取消之后不要再补播。
+            if (cancellationToken.IsCancellationRequested)
+            {
+                soundStream.Dispose();
+                cancellationToken.ThrowIfCancellationRequested();
+            }
 
             this.soundQueue.EnqueueSound(soundStream, source, StreamFormat.Wave, volume);
         }

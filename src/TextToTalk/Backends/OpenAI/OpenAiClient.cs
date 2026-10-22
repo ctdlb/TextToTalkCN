@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using TextToTalk.GameEnums;
@@ -154,7 +155,8 @@ public class OpenAiClient(StreamSoundQueue soundQueue, HttpClient http)
         return instructions.Length > 0 ? instructions : null;
     }
 
-    public async Task Say(OpenAiVoicePreset preset, SayRequest request, string text, string style)
+    public async Task Say(OpenAiVoicePreset preset, SayRequest request, string text, string style,
+        CancellationToken cancellationToken = default)
     {
         if (!IsAuthorizationSet())
         {
@@ -218,13 +220,20 @@ public class OpenAiClient(StreamSoundQueue soundQueue, HttpClient http)
         using var content = new StringContent(json, Encoding.UTF8, "application/json");
         req.Content = content;
 
-        var res = await http.SendAsync(req);
+        var res = await http.SendAsync(req, cancellationToken);
         await EnsureSuccessStatusCode(res);
 
         var mp3Stream = new MemoryStream();
-        var responseStream = await res.Content.ReadAsStreamAsync();
-        await responseStream.CopyToAsync(mp3Stream);
+        var responseStream = await res.Content.ReadAsStreamAsync(cancellationToken);
+        await responseStream.CopyToAsync(mp3Stream, cancellationToken);
         mp3Stream.Seek(0, SeekOrigin.Begin);
+
+        // 取消之后不要再补播。
+        if (cancellationToken.IsCancellationRequested)
+        {
+            mp3Stream.Dispose();
+            cancellationToken.ThrowIfCancellationRequested();
+        }
 
         soundQueue.EnqueueSound(mp3Stream, request.Source, StreamFormat.Mp3, preset.Volume);
     }

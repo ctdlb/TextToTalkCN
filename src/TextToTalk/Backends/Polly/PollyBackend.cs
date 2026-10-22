@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Dalamud.Bindings.ImGui;
 using Serilog;
 
@@ -37,13 +38,33 @@ namespace TextToTalk.Backends.Polly
                 DetailedLog.Warn("Polly client has not yet been initialized");
                 return;
             }
-            _ = this.uiModel.Polly.Say(pollyVoicePreset.VoiceEngine, pollyVoicePreset.VoiceName,
-                pollyVoicePreset.AmazonDomainName, pollyVoicePreset.SampleRate, pollyVoicePreset.PlaybackRate,
-                pollyVoicePreset.Volume, request.Source, request.Text);
+            var handle = BeginSynthesis(request.Source);
+            _ = Task.Run(async () =>
+            {
+                try
+                {
+                    await this.uiModel.Polly.Say(pollyVoicePreset.VoiceEngine, pollyVoicePreset.VoiceName,
+                        pollyVoicePreset.AmazonDomainName, pollyVoicePreset.SampleRate, pollyVoicePreset.PlaybackRate,
+                        pollyVoicePreset.Volume, request.Source, request.Text, handle.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    // 用户取消或切场景，属于正常路径。
+                }
+                catch (Exception e)
+                {
+                    DetailedLog.Error(e, "Failed to synthesize Polly audio.");
+                }
+                finally
+                {
+                    handle.Dispose();
+                }
+            });
         }
 
         public override void CancelAllSpeech()
         {
+            CancelPendingSynthesis();
             if (this.uiModel.Polly == null)
             {
                 DetailedLog.Warn("Polly client has not yet been initialized");
@@ -55,6 +76,7 @@ namespace TextToTalk.Backends.Polly
 
         public override void CancelSay(TextSource source)
         {
+            CancelPendingSynthesis(source);
             if (this.uiModel.Polly == null)
             {
                 DetailedLog.Warn("Polly client has not yet been initialized");

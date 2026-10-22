@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TextToTalk.Backends.Uberduck;
@@ -42,7 +43,8 @@ public partial class UberduckClient
                 g => (IList<UberduckVoice>)g.OrderByDescending(v => v.DisplayName).ToList());
     }
 
-    public async Task Say(string voice, int playbackRate, float volume, TextSource source, string text)
+    public async Task Say(string voice, int playbackRate, float volume, TextSource source, string text,
+        CancellationToken cancellationToken = default)
     {
         if (!IsAuthorizationSet())
         {
@@ -92,16 +94,24 @@ public partial class UberduckClient
                 // ignored
             }
 
-            await Task.Delay(100);
+            await Task.Delay(100, cancellationToken);
         } while (string.IsNullOrEmpty(path));
 
         DetailedLog.Debug($"Got response for TTS request {uuid}");
 
         // Copy the sound to a new buffer and enqueue it
-        var responseStream = await this.http.GetStreamAsync(new Uri(path));
+        using var download = await this.http.GetAsync(new Uri(path), cancellationToken);
+        var responseStream = await download.Content.ReadAsStreamAsync(cancellationToken);
         var waveStream = new MemoryStream();
-        await responseStream.CopyToAsync(waveStream);
+        await responseStream.CopyToAsync(waveStream, cancellationToken);
         waveStream.Seek(0, SeekOrigin.Begin);
+
+        // 取消之后不要再补播。
+        if (cancellationToken.IsCancellationRequested)
+        {
+            waveStream.Dispose();
+            cancellationToken.ThrowIfCancellationRequested();
+        }
 
         this.soundQueue.EnqueueSound(waveStream, source, StreamFormat.Wave, volume);
     }

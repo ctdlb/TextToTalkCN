@@ -33,12 +33,18 @@ public class OpenAiBackend : VoiceBackend
         if (request.Voice is not OpenAiVoicePreset voicePreset)
             throw new InvalidOperationException("Invalid voice preset provided.");
 
+        var handle = BeginSynthesis(request.Source);
         _ = Task.Run(async () =>
         {
             try
             {
                 Log.Information($"Voice name  = {voicePreset.VoiceName}");
-                await this.uiModel.OpenAi.Say(voicePreset, request, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (voicePreset.Style ?? string.Empty));
+                await this.uiModel.OpenAi.Say(voicePreset, request, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (voicePreset.Style ?? string.Empty),
+                    handle.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
             }
             catch (OpenAiUnauthorizedException e)
             {
@@ -65,16 +71,22 @@ public class OpenAiBackend : VoiceBackend
             {
                 DetailedLog.Warn(e.Message);
             }
+            finally
+            {
+                handle.Dispose();
+            }
         });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         this.uiModel.SoundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         this.uiModel.SoundQueue.CancelFromSource(source);
     }
 

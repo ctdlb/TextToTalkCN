@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Dalamud.Bindings.ImGui;
 
 namespace TextToTalk.Backends.GoogleCloud;
@@ -25,17 +26,39 @@ public class GoogleCloudBackend : VoiceBackend
         if (request.Voice is not GoogleCloudVoicePreset voicePreset)
             throw new InvalidOperationException("Invalid voice preset provided.");
 
-        _ = client.Say(voicePreset.Locale, voicePreset.VoiceName, voicePreset.SampleRate, voicePreset.Pitch, voicePreset.PlaybackRate, voicePreset.Volume, request.Source,
-            request.Text);
+        var handle = BeginSynthesis(request.Source);
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await client.Say(voicePreset.Locale, voicePreset.VoiceName, voicePreset.SampleRate,
+                    voicePreset.Pitch, voicePreset.PlaybackRate, voicePreset.Volume, request.Source, request.Text,
+                    handle.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
+            }
+            catch (Exception e)
+            {
+                DetailedLog.Error(e, "Failed to synthesize Google Cloud TTS audio.");
+            }
+            finally
+            {
+                handle.Dispose();
+            }
+        });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         soundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         soundQueue.CancelFromSource(source);
     }
 

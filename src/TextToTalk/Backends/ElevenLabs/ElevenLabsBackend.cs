@@ -35,14 +35,21 @@ public class ElevenLabsBackend : VoiceBackend
             throw new InvalidOperationException("Invalid voice preset provided.");
         }
 
+        var handle = BeginSynthesis(request.Source);
         _ = Task.Run(async () =>
         {
             try
             {
                 await this.uiModel.ElevenLabs.Say(elevenLabsVoicePreset.VoiceId, elevenLabsVoicePreset.PlaybackRate,
                     elevenLabsVoicePreset.Volume, elevenLabsVoicePreset.SimilarityBoost,
-                    elevenLabsVoicePreset.Stability, request.Source, request.Text, elevenLabsVoicePreset.ModelId, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (elevenLabsVoicePreset.Style ?? string.Empty));
+                    elevenLabsVoicePreset.Stability, request.Source, request.Text, elevenLabsVoicePreset.ModelId, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (elevenLabsVoicePreset.Style ?? string.Empty),
+                    handle.Token);
+                if (handle.Token.IsCancellationRequested) return;
                 this.uiModel.UpdateUserSubscriptionInfo();
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
             }
             catch (ElevenLabsUnauthorizedException e)
             {
@@ -62,16 +69,22 @@ public class ElevenLabsBackend : VoiceBackend
             {
                 DetailedLog.Warn(e.Message);
             }
+            finally
+            {
+                handle.Dispose();
+            }
         });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         this.uiModel.SoundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         this.uiModel.SoundQueue.CancelFromSource(source);
     }
 

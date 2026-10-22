@@ -39,11 +39,14 @@ public class FreeWebTtsBackend : VoiceBackend
         var volume = preset.Volume;
         var source = request.Source;
 
+        var handle = BeginSynthesis(source);
         _ = Task.Run(async () =>
         {
             try
             {
-                var data = await this.client.SynthesizeAsync(text, provider, language, speed);
+                var data = await this.client.SynthesizeAsync(text, provider, language, speed, handle.Token)
+                    .WaitAsync(handle.Token);
+                if (handle.Token.IsCancellationRequested) return;
                 if (data.Length == 0)
                 {
                     this.notificationService.NotifyWarning(
@@ -54,21 +57,31 @@ public class FreeWebTtsBackend : VoiceBackend
 
                 this.soundQueue.EnqueueSound(data, source, StreamFormat.Mp3, volume);
             }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
+            }
             catch (Exception e)
             {
                 DetailedLog.Error(e, "Failed to synthesize free web TTS audio.");
                 this.notificationService.NotifyError(Strings.Get("FreeWebFailed"), e.Message);
+            }
+            finally
+            {
+                handle.Dispose();
             }
         });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         this.soundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         this.soundQueue.CancelFromSource(source);
     }
 

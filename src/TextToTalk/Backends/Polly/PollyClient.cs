@@ -1,10 +1,11 @@
-﻿using Amazon;
+using Amazon;
 using Amazon.Polly;
 using Amazon.Polly.Model;
 using Amazon.Runtime;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using TextToTalk.Lexicons;
 
@@ -15,7 +16,6 @@ namespace TextToTalk.Backends.Polly
         private readonly AmazonPollyClient client;
         private readonly StreamSoundQueue soundQueue;
         private readonly LexiconManager lexiconManager;
-        private readonly PluginConfiguration config;
 
         public PollyClient(string accessKey, string secretKey, RegionEndpoint region, LexiconManager lexiconManager, PluginConfiguration config)
         {
@@ -51,7 +51,7 @@ namespace TextToTalk.Backends.Polly
         }
 
         public async Task Say(Engine engine, VoiceId voice, string? amazonDomainName, int sampleRate, int playbackRate,
-            float volume, TextSource source, string text)
+            float volume, TextSource source, string text, CancellationToken cancellationToken = default)
         {
             if (!string.IsNullOrEmpty(amazonDomainName))
             {
@@ -83,8 +83,15 @@ namespace TextToTalk.Backends.Polly
             }
 
             var responseStream = new MemoryStream();
-            await res.AudioStream.CopyToAsync(responseStream);
+            await res.AudioStream.CopyToAsync(responseStream, cancellationToken);
             responseStream.Seek(0, SeekOrigin.Begin);
+
+            // 取消之后不要再补播。
+            if (cancellationToken.IsCancellationRequested)
+            {
+                responseStream.Dispose();
+                cancellationToken.ThrowIfCancellationRequested();
+            }
 
             this.soundQueue.EnqueueSound(responseStream, source, StreamFormat.Mp3, volume);
         }

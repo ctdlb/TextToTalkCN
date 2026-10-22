@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Serilog;
@@ -28,7 +29,7 @@ public class ElevenLabsClient
     }
 
     public async Task Say(string? voice, int playbackRate, float volume, float similarityBoost, float stability,
-        TextSource source, string text, string? model, string? style)
+        TextSource source, string text, string? model, string? style, CancellationToken cancellationToken = default)
     {
         if (!IsAuthorizationSet())
         {
@@ -69,14 +70,21 @@ public class ElevenLabsClient
         content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
         req.Content = content;
         
-        var res = await this.http.SendAsync(req);
+        var res = await this.http.SendAsync(req, cancellationToken);
         EnsureSuccessStatusCode(res);
 
         // Copy the sound to a new buffer and enqueue it
-        var responseStream = await res.Content.ReadAsStreamAsync();
+        var responseStream = await res.Content.ReadAsStreamAsync(cancellationToken);
         var mp3Stream = new MemoryStream();
-        await responseStream.CopyToAsync(mp3Stream);
+        await responseStream.CopyToAsync(mp3Stream, cancellationToken);
         mp3Stream.Seek(0, SeekOrigin.Begin);
+
+        // 取消之后不要再补播。
+        if (cancellationToken.IsCancellationRequested)
+        {
+            mp3Stream.Dispose();
+            cancellationToken.ThrowIfCancellationRequested();
+        }
 
         this.soundQueue.EnqueueSound(mp3Stream, source, StreamFormat.Mp3, volume);
     }

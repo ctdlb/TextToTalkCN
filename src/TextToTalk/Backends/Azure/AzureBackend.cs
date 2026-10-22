@@ -1,7 +1,8 @@
-﻿using Dalamud.Bindings.ImGui;
+using Dalamud.Bindings.ImGui;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using static TextToTalk.Backends.Azure.AzureClient;
 
 namespace TextToTalk.Backends.Azure;
@@ -43,12 +44,33 @@ public class AzureBackend : VoiceBackend
             return;
         }
 
-        _ = this.uiModel.Azure.Say(azureVoicePreset.VoiceName,
-            azureVoicePreset.PlaybackRate, azureVoicePreset.Volume, request.Source, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (azureVoicePreset.Style ?? string.Empty));
+        var handle = BeginSynthesis(request.Source);
+        _ = Task.Run(async () =>
+        {
+            try
+            {
+                await this.uiModel.Azure.Say(azureVoicePreset.VoiceName,
+                    azureVoicePreset.PlaybackRate, azureVoicePreset.Volume, request.Source, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (azureVoicePreset.Style ?? string.Empty),
+                    handle.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
+            }
+            catch (Exception e)
+            {
+                DetailedLog.Error(e, "Failed to synthesize Azure audio.");
+            }
+            finally
+            {
+                handle.Dispose();
+            }
+        });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         if (this.uiModel.Azure == null)
         {
             DetailedLog.Warn("Azure client has not yet been initialized");
@@ -60,6 +82,7 @@ public class AzureBackend : VoiceBackend
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         if (this.uiModel.Azure == null)
         {
             DetailedLog.Warn("Azure client has not yet been initialized");

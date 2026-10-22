@@ -34,14 +34,21 @@ public class FishAudioBackend : VoiceBackend
             throw new InvalidOperationException("Invalid voice preset provided.");
         }
 
+        var handle = BeginSynthesis(request.Source);
         _ = Task.Run(async () =>
         {
             try
             {
                 await this.uiModel.FishAudio.Say(fishAudioVoicePreset.VoiceId, fishAudioVoicePreset.PlaybackRate,
                     fishAudioVoicePreset.Volume, fishAudioVoicePreset.Temperature, fishAudioVoicePreset.TopP,
-                    fishAudioVoicePreset.ModelId, fishAudioVoicePreset.Latency, request.Source, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (fishAudioVoicePreset.Style ?? string.Empty));
+                    fishAudioVoicePreset.ModelId, fishAudioVoicePreset.Latency, request.Source, request.Text, !string.IsNullOrWhiteSpace(request.Style) ? request.Style : (fishAudioVoicePreset.Style ?? string.Empty),
+                    handle.Token);
+                if (handle.Token.IsCancellationRequested) return;
                 this.uiModel.UpdateApiCreditInfo();
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
             }
             catch (FishAudioUnauthorizedException e)
             {
@@ -61,16 +68,22 @@ public class FishAudioBackend : VoiceBackend
             {
                 DetailedLog.Warn(e.Message);
             }
+            finally
+            {
+                handle.Dispose();
+            }
         });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         this.uiModel.SoundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         this.uiModel.SoundQueue.CancelFromSource(source);
     }
 

@@ -55,12 +55,17 @@ public class UberduckBackend : VoiceBackend
             return;
         }
 
+        var handle = BeginSynthesis(request.Source);
         _ = Task.Run(async () =>
         {
             try
             {
                 await this.uberduck.Say(uberduckVoicePreset.VoiceName, uberduckVoicePreset.PlaybackRate,
-                    uberduckVoicePreset.Volume, request.Source, request.Text);
+                    uberduckVoicePreset.Volume, request.Source, request.Text, handle.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // 用户取消或切场景，属于正常路径。
             }
             catch (UberduckFailedException e)
             {
@@ -74,16 +79,22 @@ public class UberduckBackend : VoiceBackend
             {
                 DetailedLog.Error(e, "Uberduck API keys are incorrect or invalid.");
             }
+            finally
+            {
+                handle.Dispose();
+            }
         });
     }
 
     public override void CancelAllSpeech()
     {
+        CancelPendingSynthesis();
         this.soundQueue.CancelAllSounds();
     }
 
     public override void CancelSay(TextSource source)
     {
+        CancelPendingSynthesis(source);
         this.soundQueue.CancelFromSource(source);
     }
 
