@@ -11,7 +11,7 @@
       * 幂等：重复执行不会重复写入。
 #>
 param(
-    [string]$Root = 'E:\DeepSeek Harness\TextToTalkCN'
+    [string]$Root = (Split-Path -Parent $PSScriptRoot)
 )
 
 $ErrorActionPreference = 'Stop'

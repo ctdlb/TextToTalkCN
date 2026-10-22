@@ -1,19 +1,21 @@
-<#
+﻿<#
     一键构建 TextToTalkCN（国服 Dalamud 版）。
 
     用法：
         pwsh -NoProfile -File scripts\build.ps1                 # Debug 构建
         pwsh -NoProfile -File scripts\build.ps1 -Configuration Release
         pwsh -NoProfile -File scripts\build.ps1 -Install        # 构建后复制到 devPlugins
+        pwsh -NoProfile -File scripts\build.ps1 -DotnetPath D:\dotnet\dotnet.exe
 
     依赖：
-        .NET 10 SDK（dotnet 在 PATH 上，或放在 E:\FF14Dev\dotnet\dotnet.exe）
+        .NET 10 SDK（dotnet 在 PATH 上，或用 -DotnetPath / DOTNET_ROOT 指定）
         Dalamud dev 目录（默认自动探测 %APPDATA%\XIVLauncherCN\addon\Hooks\dev）
 #>
 param(
     [ValidateSet('Debug', 'Release')]
     [string]$Configuration = 'Debug',
-    [switch]$Install
+    [switch]$Install,
+    [string]$DotnetPath
 )
 
 $ErrorActionPreference = 'Stop'
@@ -22,9 +24,12 @@ $root = Split-Path -Parent $PSScriptRoot
 
 function Resolve-Dotnet {
     $candidates = @(
+        $DotnetPath,
         (Get-Command dotnet -ErrorAction SilentlyContinue | Select-Object -First 1 -ExpandProperty Source),
-        'E:\FF14Dev\dotnet\dotnet.exe',
-        "$env:ProgramFiles\dotnet\dotnet.exe"
+        (Join-Path $env:DOTNET_ROOT 'dotnet.exe' -ErrorAction SilentlyContinue),
+        (Join-Path $env:DOTNET_INSTALL_DIR 'dotnet.exe' -ErrorAction SilentlyContinue),
+        "$env:ProgramFiles\dotnet\dotnet.exe",
+        "${env:ProgramFiles(x86)}\dotnet\dotnet.exe"
     ) | Where-Object { $_ -and (Test-Path $_) }
 
     foreach ($candidate in $candidates) {

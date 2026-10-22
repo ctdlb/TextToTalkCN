@@ -7,7 +7,7 @@
     退出码：0 = 全部命中；1 = 有缺失键（会列出来）。
 #>
 param(
-    [string]$Root = 'E:\DeepSeek Harness\TextToTalkCN'
+    [string]$Root = (Split-Path -Parent $PSScriptRoot)
 )
 
 $ErrorActionPreference = 'Stop'
