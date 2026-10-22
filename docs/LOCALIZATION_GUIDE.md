@@ -64,7 +64,7 @@ ImGui.TextColored(ImColor.Red, string.Format(Strings.PollyLoginFailedFormat, log
 
 ## 交付物：JSON 片段
 
-写到 `E:\DeepSeek Harness\TextToTalkCN\loc\<你的单元名>.json`，UTF-8，格式：
+写到仓库根目录下的 `loc\<你的单元名>.json`，UTF-8，格式：
 
 ```json
 {
