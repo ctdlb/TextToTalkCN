@@ -2,6 +2,12 @@
 
 版本号四段（`x.y.z.0`），Release tag 形如 `v1.43.13-cn`。更早的记录见 `git log --grep=发布`。
 
+## 1.43.15.0 — 2026-10-22
+
+### 修复
+
+- 设置界面里三个选项的悬停提示不再固定显示英文：改用本地化文本（使用分性别语音预设、每位玩家角色语速上限、Kokoro 美式发音）。
+
 ## 1.43.14.0 — 2026-10-22
 
 ### 新增
@@ -17,6 +23,7 @@
 
 - 移除 4 个 net10 已内置的包引用（Microsoft.Win32.Registry、System.Diagnostics.DiagnosticSource、System.Memory、System.Runtime.CompilerServices.Unsafe），消掉 16 条 NU1510 警告。
 - 清理若干空引用与未使用字段警告。
+
 ## 1.43.13.0 — 2026-10-22
 
 ### 修复
