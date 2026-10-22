@@ -1,4 +1,4 @@
-﻿using Dalamud.Game.ClientState.Objects.SubKinds;
+using Dalamud.Game.ClientState.Objects.SubKinds;
 using Dalamud.Game.Text;
 using Dalamud.Game.Text.SeStringHandling;
 using Dalamud.Interface.Windowing;
@@ -143,6 +143,7 @@ private readonly IDalamudPluginInterface pluginInterface;
 
             this.windows = new WindowSystem("TextToTalk");
 
+            MigrateLegacyConfiguration();
             this.config = (PluginConfiguration?)this.pluginInterface.GetPluginConfig() ?? new PluginConfiguration();
             this.config.Initialize(this.pluginInterface, playerCollection, npcCollection);
 
@@ -227,6 +228,48 @@ private readonly IDalamudPluginInterface pluginInterface;
         private void CreateDatabasePath()
         {
             Directory.CreateDirectory(this.pluginInterface.GetPluginConfigDirectory());
+        }
+
+        /// <summary>
+        /// Copies the configuration of the upstream TextToTalk plugin on first run, so users switching to the
+        /// localized build do not have to reconfigure voices and triggers from scratch. Only acts when this plugin
+        /// has no configuration of its own yet.
+        /// </summary>
+        private void MigrateLegacyConfiguration()
+        {
+            try
+            {
+                var configDirectory = this.pluginInterface.GetPluginConfigDirectory();
+                var configRoot = new DirectoryInfo(configDirectory).Parent?.FullName;
+                if (configRoot is null) return;
+
+                var legacyPath = Path.Combine(configRoot, "TextToTalk.json");
+                var targetPath = Path.Combine(configRoot, "TextToTalkCN.json");
+
+                // The voice presets live in a second file next to the configuration, so presets referenced by the
+                // copied configuration would be missing without it.
+                var legacyPresets = Path.Combine(configRoot, "TextToTalk", "VoicePresets.json");
+                var targetPresets = Path.Combine(configDirectory, "VoicePresets.json");
+
+                if (!File.Exists(targetPath) && File.Exists(legacyPath))
+                {
+                    File.Copy(legacyPath, targetPath);
+                    DetailedLog.Info("Copied legacy configuration from {LegacyPath} to {TargetPath}", legacyPath,
+                        targetPath);
+                }
+
+                if (!File.Exists(targetPresets) && File.Exists(legacyPresets))
+                {
+                    Directory.CreateDirectory(configDirectory);
+                    File.Copy(legacyPresets, targetPresets);
+                    DetailedLog.Info("Copied legacy voice presets from {LegacyPath} to {TargetPath}", legacyPresets,
+                        targetPresets);
+                }
+            }
+            catch (Exception e)
+            {
+                DetailedLog.Error(e, "Failed to copy the legacy configuration file");
+            }
         }
 
         private string GetDatabasePath(string fileName)

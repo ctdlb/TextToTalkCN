@@ -53,7 +53,7 @@
 `1.41.0` 之前内部名还是 `TextToTalk`，与官方插件同名，会被官方库的更新覆盖；从那时起改成了 `TextToTalkCN`，配置文件名也随之变化。
 
 1. 先在 `/xlplugins` 里**卸载**旧版（内部名 `TextToTalk` 的那个），再装 CN 版。
-2. 想保留原来的朗读配置：卸载前备份 `%APPDATA%\XIVLauncherCN\pluginConfigs\TextToTalk.json`，装好 CN 版后把它复制成 `TextToTalkCN.json`。
+2. **配置会自动继承**：CN 版首次启动时，若本插件还没有自己的配置，会把 `pluginConfigs\TextToTalk.json` 复制成 `TextToTalkCN.json`，并把旧配置目录里的 `VoicePresets.json` 一并带过来。想放弃旧配置，删掉 `TextToTalkCN.json` 后重新启动即可。
 3. 旧版与 CN 版不要同时启用：8 个命令同名，只有先加载的一方生效。
 
 ### 方式一：使用已发布的压缩包
