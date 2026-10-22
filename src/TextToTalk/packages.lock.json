@@ -55,15 +55,6 @@
         "resolved": "1.41.1",
         "contentHash": "0572dYGk4eR2tFQly5t1wGCHzpqX6t6mHozVUPSjoEauI5HC0bT5bYfE+foCpIX4/bZlycMyLfqnsQ2TTuIfuw=="
       },
-      "Microsoft.Win32.Registry": {
-        "type": "Direct",
-        "requested": "[4.3.0, )",
-        "resolved": "4.3.0",
-        "contentHash": "Lw1/VwLH1yxz6SfFEjVRCN0pnflLEsWgnV4qsdJ512/HhTwnKXUG+zDQ4yTO3K/EJQemGoNaBHX5InISNKTzUQ==",
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "1.1.0"
-        }
-      },
       "NAudio": {
         "type": "Direct",
         "requested": "[2.2.1, )",
@@ -95,12 +86,6 @@
         "resolved": "4.0.5",
         "contentHash": "2QC9zDPFT/SOnP7iFdK3AwakEcJ7D3zDoU7IwIAOyEhY4WQ2GQBvLqZ29/R1BSujPNtGHMITmVW1d+VjvLg6lg=="
       },
-      "System.Diagnostics.DiagnosticSource": {
-        "type": "Direct",
-        "requested": "[4.3.0, )",
-        "resolved": "4.3.0",
-        "contentHash": "tD6kosZnTAGdrEa0tZSuFyunMbt/5KYDnHdndJYGqZoNy00XVXyACd5d6KnE1YgYv3ne2CjtAfNXo/fwEhnKUA=="
-      },
       "System.Drawing.Common": {
         "type": "Direct",
         "requested": "[10.0.0, )",
@@ -109,18 +94,6 @@
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "10.0.0"
         }
-      },
-      "System.Memory": {
-        "type": "Direct",
-        "requested": "[4.5.5, )",
-        "resolved": "4.5.5",
-        "contentHash": "XIWiDvKPXaTveaB7HVganDlOCRoj03l+jrwNvcge/t8vhGYKvqV+dMv6G4SAX2NoNmN0wZfVPTAlFwZcZvVOUw=="
-      },
-      "System.Runtime.CompilerServices.Unsafe": {
-        "type": "Direct",
-        "requested": "[6.0.0, )",
-        "resolved": "6.0.0",
-        "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
       },
       "System.Speech": {
         "type": "Direct",
@@ -281,11 +254,6 @@
         "dependencies": {
           "System.Numerics.Tensors": "9.0.0"
         }
-      },
-      "Microsoft.NETCore.Platforms": {
-        "type": "Transitive",
-        "resolved": "1.1.0",
-        "contentHash": "kz0PEW2lhqygehI/d6XsPCQzD7ff7gUJaVGPVETX611eadGsA3A877GdSlU0LRVMCTH/+P3o2iDTak+S08V2+A=="
       },
       "Microsoft.Win32.SystemEvents": {
         "type": "Transitive",

@@ -452,7 +452,28 @@
         "resolved": "15.3.0",
         "contentHash": "F93japYa9YrJ59AZGhgdaUGHN7ITJ55FBBg/D/8C0BDgahv/rQD6MOSwHxOJJpon1kYyslVbeBrQ2wcJhox01w=="
       },
-      "texttotalk": {
+      "texttotalk.data": {
+        "type": "Project",
+        "dependencies": {
+          "LiteDB": "[5.0.20, )"
+        }
+      },
+      "texttotalk.lexicons": {
+        "type": "Project"
+      },
+      "texttotalk.lexicons.updater": {
+        "type": "Project",
+        "dependencies": {
+          "YamlDotNet": "[15.3.0, )"
+        }
+      },
+      "texttotalk.ui.core": {
+        "type": "Project"
+      },
+      "texttotalk.ungenderedoverrides": {
+        "type": "Project"
+      },
+      "TextToTalkCN": {
         "type": "Project",
         "dependencies": {
           "AWSSDK.Polly": "[3.7.401.37, )",
@@ -474,27 +495,6 @@
           "VoiceUnlocker": "[1.0.0, )",
           "websocket-sharp": "[1.0.0, )"
         }
-      },
-      "texttotalk.data": {
-        "type": "Project",
-        "dependencies": {
-          "LiteDB": "[5.0.20, )"
-        }
-      },
-      "texttotalk.lexicons": {
-        "type": "Project"
-      },
-      "texttotalk.lexicons.updater": {
-        "type": "Project",
-        "dependencies": {
-          "YamlDotNet": "[15.3.0, )"
-        }
-      },
-      "texttotalk.ui.core": {
-        "type": "Project"
-      },
-      "texttotalk.ungenderedoverrides": {
-        "type": "Project"
       },
       "voiceunlocker": {
         "type": "Project"
