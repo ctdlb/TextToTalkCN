@@ -1,9 +1,9 @@
-﻿namespace TextToTalk.Backends.System
+namespace TextToTalk.Backends.System
 {
     public class SystemSoundQueueItem : SoundQueueItem
     {
-        public VoicePreset Preset { get; set; }
+        public required VoicePreset Preset { get; set; }
 
-        public string Text { get; set; }
+        public required string Text { get; set; }
     }
 }

@@ -35,7 +35,7 @@ public class MegaphoneBackend : VoiceBackend
         {
             this.wsServer = new WSServer(new MegaphoneConfigProvider(config));
         }
-        catch (Exception e)
+        catch (Exception)
         {
             notificationService.NotifyError(
                 string.Format(Strings.Get("MegaphoneBindFailedFormat"), config.MegaphonePort),

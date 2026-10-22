@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Dalamud.Game.Text;
 using Dalamud.Plugin.Services;
@@ -35,24 +36,31 @@ public class DebugCommandModule : CommandModule
 
         _ = Task.Run(async () =>
         {
-            await this.framework.RunOnFrameworkThread(() =>
+            try
             {
-                this.chat.Print(new XivChatEntry
+                await this.framework.RunOnFrameworkThread(() =>
                 {
-                    Name = name,
-                    Message = message,
-                    Type = XivChatType.NPCDialogueAnnouncements,
+                    this.chat.Print(new XivChatEntry
+                    {
+                        Name = name,
+                        Message = message,
+                        Type = XivChatType.NPCDialogueAnnouncements,
+                    });
                 });
-            });
-            await Task.Delay(1000);
-            await this.framework.RunOnFrameworkThread(() =>
-            {
-                unsafe
+                await Task.Delay(1000);
+                await this.framework.RunOnFrameworkThread(() =>
                 {
-                    var ui = (UIModule*)this.gui.GetUIModule().Address;
-                    ui->ShowBattleTalk(name, message, 60f, 0);
-                }
-            });
+                    unsafe
+                    {
+                        var ui = (UIModule*)this.gui.GetUIModule().Address;
+                        ui->ShowBattleTalk(name, message, 60f, 0);
+                    }
+                });
+            }
+            catch (Exception e)
+            {
+                DetailedLog.Error(e, "Failed to run the battle talk debug command.");
+            }
         });
     }
 }

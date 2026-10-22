@@ -1,10 +1,10 @@
-﻿using System.IO;
+using System.IO;
 
 namespace TextToTalk.Backends
 {
     public class StreamSoundQueueItem : SoundQueueItem
     {
-        public MemoryStream Data { get; init; }
+        public required MemoryStream Data { get; init; }
 
         public float Volume { get; init; }
 
